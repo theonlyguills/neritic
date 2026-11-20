@@ -1,0 +1,259 @@
+{
+  "retrieved": "2026-11-03",
+  "assets": [
+    {
+      "file": "assets/earth.jpg",
+      "source": "https://naturalearth.s3.amazonaws.com/50m_raster/NE2_50M_SR_W.zip",
+      "license": "Public domain",
+      "processing": "Natural Earth II raster resized to 4096x2048 JPEG; shaded relief, not elevation terrain",
+      "sha256": "8a04eced8ed3a621f04a105518118dda733f7d29561c4ba7da8f842826bb1326"
+    },
+    {
+      "file": "assets/fishing-boat.glb",
+      "source": "https://renderlyst.site/library/models/fishing-boat.glb",
+      "original": "https://sketchfab.com/3d-models/385b039e95754dca8d8c045ed0c515cf",
+      "creator": "Batuhan13",
+      "license": "CC BY 4.0",
+      "processing": "Renderlyst re-encoded textures; runtime scale and placement adjusted",
+      "sha256": "ee721e96a7b5a42ceaaa5f3d62918376c609d9c1fcb6231339c3b1b223bc21b0",
+      "status": "Retained previous asset; no longer used by the vessel scene"
+    },
+    {
+      "file": "assets/waternormals.jpg",
+      "source": "https://github.com/mrdoob/three.js/blob/dev/examples/textures/waternormals.jpg",
+      "license": "MIT / Three.js",
+      "sha256": "add9912b158a4fe9c12421745babe68c44c8af75631ac4837236cb2a03bc373f"
+    },
+    {
+      "file": "data/atlantic.geojson",
+      "source": "https://www.nafo.int/Portals/0/GIS/Divisions.zip",
+      "license": "Source attribution: NAFO, see source terms; official 2021 reference geometry",
+      "processing": "poly_not_clipped shapefile converted from source CRS to EPSG:4326, 5 decimal places. Not for navigation or legal interpretation.",
+      "sha256": "8f7e5c845b91f2c3d5191567cbd3849c42a32169bd3088c72c8c59ae13a587fb"
+    },
+    {
+      "file": "data/pacific.geojson",
+      "source": "https://egisp.dfo-mpo.gc.ca/arcgis/rest/services/open_data_donnees_ouvertes/pacific_commercial_salmon_in_season_catch_estimates_en/MapServer/3",
+      "license": "Open Government Licence – Canada",
+      "processing": "All 48 PFMA polygons; outSR=4326, maxAllowableOffset=0.003 degrees. Original STATAREA identifiers retained; label/id added.",
+      "sha256": "2ad1bd5de7d271075a1a8d52163099df39cf36639aa39559002c22c8d5fe8b91"
+    },
+    {
+      "file": "assets/stern-trawler-40m.glb",
+      "source": "https://sketchfab.com/3d-models/fishing-trawler-40m-3e4161cfeaea45149ae1c0714bcaa912",
+      "title": "Fishing Trawler 40m",
+      "creator": "agt14032013 (Sketchfab)",
+      "license": "CC-BY-4.0",
+      "processing": "Downloaded as GLB via the Sketchfab download API. scripts/blender/prepare-trawler.py (Blender 5.2): long edges split to <=0.8 m, Cycles ambient occlusion baked to COLOR_0. gltf-transform 4 optimize: meshopt, WebP textures <=1024 px. Source frame kept (metres, bow +Z); runtime rotates to bow -Z with the waterline 6.8 m above the lowest point, and adds procedural weathering, crew and loose deck gear.",
+      "retrieved": "2026-11-20",
+      "sha256": "89270aff4c5cebd4c0b1f10bdb283f97c52d6d07357a138308d0731fd50fb674"
+    },
+    {
+      "source": "https://sketchfab.com/3d-models/fishing-trawler-40m-3e4161cfeaea45149ae1c0714bcaa912",
+      "title": "Fishing Trawler 40m",
+      "creator": "agt14032013 (Sketchfab)",
+      "license": "CC-BY-4.0",
+      "retrieved": "2026-11-20",
+      "file": "assets/stern-trawler-40m-far.glb",
+      "processing": "Low-detail copy for vessels on the horizon: scripts/blender/decimate-far.py (ratio 0.04, ~24k triangles) on the AO-baked model, then gltf-transform optimize with meshopt and 128 px WebP textures. Optional at runtime.",
+      "sha256": "f4a5b4e30ed91a38a7ef8ab913e7c6416443f348a30c1d58c3febfebdec8b25d"
+    },
+    {
+      "file": "assets/commercial-trawler.glb",
+      "source": "https://www.innerscene.com/tools/library/3d-parts/fishing-trawler-dc4c76eb",
+      "creator": "Innerscene",
+      "license": "CC0-1.0",
+      "processing": "Previous vessel asset, no longer loaded. 49.5 m stern trawler; rotated to bow -Z, waterline 4.5 m above keel.",
+      "retrieved": "2026-11-20",
+      "sha256": "b893c8203a9050a866855e0ed5777fe41563690fca4952aedd80842be3620a09"
+    },
+    {
+      "file": "assets/deck-crew.glb",
+      "source": "https://www.innerscene.com/tools/library/3d-parts/taylor-3d-person-worker-with-clipboard-4590fe0f",
+      "creator": "Innerscene, adapted from MakeHuman/MPFB",
+      "license": "CC0-1.0",
+      "processing": "Three instances; clothing recoloured, rubber work boots added; props hidden on two crew members. Posed figures, not skeletal work animations.",
+      "retrieved": "2026-11-20",
+      "sha256": "fca5bca88bf559bd74eb184bd47fb80aa6943328eef6e4471d06cabd9015d705"
+    },
+    {
+      "file": "assets/table-mountain-sky.hdr",
+      "source": "https://polyhaven.com/a/table_mountain_2_puresky",
+      "title": "Table Mountain 2 (Pure Sky)",
+      "creator": "Poly Haven",
+      "license": "CC0-1.0",
+      "processing": "Original 4k HDR, MD5-verified against the Poly Haven files API. Sun disk measured at u=0.6383, elevation 7.26° (brightest-pixel centroid); the renderer rotates the panorama so the sun sits at world azimuth -109° and aligns the directional light, water glitter and lens flare to it. Illustrative sky, not a weather observation.",
+      "retrieved": "2026-11-20",
+      "sha256": "9235687cc48cc7e466189e118d27e138e0c54427e2cf72e36a3c91af97644f35"
+    },
+    {
+      "file": "assets/north-atlantic-sky.hdr",
+      "source": "https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky",
+      "creator": "Poly Haven",
+      "license": "CC0-1.0",
+      "processing": "Previous sky, no longer loaded. Original 4k HDR pure-sky panorama, photographed at Kloofendal; illustrative sky, not a North Atlantic weather observation. Slow background/environment rotation supplies cloud drift.",
+      "retrieved": "2026-11-20",
+      "sha256": "3061c00a16ecae748e84fd6c44c04804f539c118bb66325db858bad87b11bf88"
+    },
+    {
+      "file": "audio/gull-01.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:Gull_1.ogg",
+      "title": "Herring gull call series",
+      "creator": "avphillips (pdsounds.org)",
+      "license": "Public domain",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "da41fb2aa8369a87c39785f1283397ed927fa3e8f2fc074bbe92e5198c788144"
+    },
+    {
+      "file": "audio/gull-02.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:Gull_1.ogg",
+      "title": "Herring gull squawk",
+      "creator": "avphillips (pdsounds.org)",
+      "license": "Public domain",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "752b30075546a2b16163b82ade8902e0da9f2ff912e80426fd29b19eb69c92f2"
+    },
+    {
+      "file": "audio/gull-03.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:Gull_1.ogg",
+      "title": "Herring gull squawk",
+      "creator": "avphillips (pdsounds.org)",
+      "license": "Public domain",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "9b1d6b07d64d5a1d2dc4f966f7dac219f85713c2eb2e9cd85c67a2c360dd921f"
+    },
+    {
+      "file": "audio/gull-04.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:XC707075_-_European_Herring_Gull_-_Larus_argentatus.mp3",
+      "title": "Herring gull flight calls",
+      "creator": "Sonothèque ADVL (xeno-canto XC707075)",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "997d585efe7e1d0122cb46212cd99249b01ae03aedfc263ae7fc66abb158b949"
+    },
+    {
+      "file": "audio/gull-05.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:XC707075_-_European_Herring_Gull_-_Larus_argentatus.mp3",
+      "title": "Herring gull flight call",
+      "creator": "Sonothèque ADVL (xeno-canto XC707075)",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "c174a8597b1bbec774abca4360255c7007afd185c69eb2b7089d5288cc88de55"
+    },
+    {
+      "file": "audio/gull-06.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:BioAcoustica_Lyme_Gulls.flac",
+      "title": "Herring gull calls",
+      "creator": "Edward Baker (BioAcoustica)",
+      "license": "CC-BY-3.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "822a13ed493e9ca2cc3fd0cfc9c0ba0d2b25226ca618627748011ba39ad47ca7"
+    },
+    {
+      "file": "audio/gull-08.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:Gull_2.ogg",
+      "title": "Herring gull calls",
+      "creator": "avphillips (pdsounds.org)",
+      "license": "Public domain",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "488a581b0c57690e5c51ae44061d3ec2a354ebac2fd4d5bbae2a4743f0e84409"
+    },
+    {
+      "file": "audio/deck-chain-01.mp3",
+      "source": "https://opengameart.org/content/chain-winch-sounds",
+      "title": "Chain through winch",
+      "creator": "bart",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "d8d83a5cee10905d98b88be940c2e73c3fda3b9e75673d6f48f57542967253ae"
+    },
+    {
+      "file": "audio/deck-chain-02.mp3",
+      "source": "https://opengameart.org/content/chain-winch-sounds",
+      "title": "Chain through winch",
+      "creator": "bart",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "79c2840dd90d0bd6d99b53d8a406462d59e56afed4a50ec9c92604f119fa6f30"
+    },
+    {
+      "file": "audio/deck-chain-03.mp3",
+      "source": "https://opengameart.org/content/chain-winch-sounds",
+      "title": "Chain through winch",
+      "creator": "bart",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "2c705345b75ffdc79d56aa9a3e05e385576a818b835a5e153b90a967fe5d30b9"
+    },
+    {
+      "file": "audio/deck-clank-01.mp3",
+      "source": "https://opengameart.org/content/metal-interactions",
+      "title": "Heavy metal clank",
+      "creator": "qubodup",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "2bb4e63b4ad2cc47a20d9ad3c9864d3ddccd4a893695ae4490e0669536ad34cf"
+    },
+    {
+      "file": "audio/deck-clank-02.mp3",
+      "source": "https://opengameart.org/content/metal-clang-sounds",
+      "title": "Low steel clang",
+      "creator": "bart",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "eaa55b09b95c426eac44cf6f8ccc416cec0b8b12a20b84d705caa83aaf762b76"
+    },
+    {
+      "file": "audio/deck-door-01.mp3",
+      "source": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "title": "Metal slam (hatch stand-in)",
+      "creator": "rubberduck",
+      "license": "CC0-1.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "7d6628609e45eee612762509b471cc394c0a7058a7bf8ee3116a0e6da4777c8a"
+    },
+    {
+      "file": "audio/deck-door-02.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:Metal_cabinet_door_jarring.ogg",
+      "title": "Steel door rattle (hatch stand-in)",
+      "creator": "stephan (pdsounds.org)",
+      "license": "Public domain",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "d1f9afa459e671a3ba0cd146ebd5ff985a6391f7480e61216ae8144b207e61c8"
+    },
+    {
+      "file": "audio/deck-creak-01.mp3",
+      "source": "https://commons.wikimedia.org/wiki/File:Open_metallic_door.ogg",
+      "title": "Metal hinge creak (block stand-in)",
+      "creator": "hc (pdsounds.org)",
+      "license": "Public domain",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "a3b440742668450db8044c3dcc895756844577624b6b654e1315095bfd8cf736"
+    },
+    {
+      "file": "audio/sea-bed.mp3",
+      "source": "https://archive.org/details/aporee_48964_55753",
+      "title": "Lapping water, harbour shoreline (not recorded on a boat); 40 s loop",
+      "creator": "Benjamin Burns (radio aporee)",
+      "license": "CC-BY-3.0",
+      "processing": "Trimmed, high-passed, mono 44.1 kHz, peak-normalised to about -3 dBFS, MP3 128 kbps. Cut points and rebuild script kept with the source downloads (not bundled).",
+      "retrieved": "2026-11-20",
+      "sha256": "0360df139905d5299bf6ba79486d042567dd3ec354f34ef9a66a78b4f3a0384e"
+    }
+  ]
+}

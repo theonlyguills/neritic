@@ -1,0 +1,372 @@
+import * as T from 'three'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import type { Water } from 'three/addons/objects/Water.js'
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
+import { seaAt } from './sea'
+import { createBowSurge, createOcean } from './ocean'
+import { weatherMaterial } from './weathering'
+import { createGulls } from './seabirds'
+import { createLensflare, skyRotationFor, skySunDirection } from './sun'
+import { Soundscape, type SoundSamples } from './soundscape'
+
+/** Recorded one-shots; missing files are skipped (the procedural layers still play). */
+const clip = (name: string) => `/audio/${name}.mp3`
+const SOUND_SAMPLES: SoundSamples = {
+  // Herring gull calls (Atlantic); provenance in public/data/manifest.json.
+  gulls: ['gull-01', 'gull-02', 'gull-03', 'gull-04', 'gull-05', 'gull-06', 'gull-08'].map(clip),
+  deck: [
+    'deck-chain-01',
+    'deck-chain-02',
+    'deck-chain-03',
+    'deck-clank-01',
+    'deck-clank-02',
+    'deck-door-01',
+    'deck-door-02',
+    'deck-creak-01',
+  ].map(clip),
+  sea: clip('sea-bed'),
+}
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
+import { outfitWorkingDeck } from './working-deck'
+import type { Snapshot, ViewId, SceneDefinition } from '../domain/world'
+import type { SceneAdapter } from './types'
+export class LocalRenderer implements SceneAdapter {
+  renderer: T.WebGLRenderer
+  scene = new T.Scene()
+  camera = new T.PerspectiveCamera(43, 1, 0.5, 20000)
+  controls: OrbitControls
+  boat = new T.Group()
+  water: Water
+  skyTexture?: T.DataTexture
+  sunlight: T.DirectionalLight
+  frame = 0
+  running = false
+  reduced = false
+  time = 0
+  lastFrame = 0
+  disposed = false
+  /** Low-passed heave, pitch and roll: a 47 m hull does not follow every crest. */
+  motion = { heave: 0, pitch: 0, roll: 0 }
+  boatInverse = { value: new T.Matrix4() }
+  /** World direction towards the photographed sun; shared with the water shader. */
+  sunDirection = new T.Vector3()
+  skyRotation = 0
+  flare = createLensflare()
+  /** Created on first visible activation (audio needs a user gesture), not during warm-up. */
+  sound?: Soundscape
+  soundEnabled = true
+  gulls = createGulls(18, new T.Vector2(0, 30))
+  bowSurge: ReturnType<typeof createBowSurge>
+  /** Other vessels working the same ground, hull-down towards the horizon. */
+  distant: { ship: T.Object3D; x: number; z: number; phase: number }[] = []
+  environment?: T.WebGLRenderTarget
+  constructor(
+    private element: HTMLElement,
+    private definition: SceneDefinition,
+  ) {
+    if (!definition.local) throw new Error('Local scene configuration is missing')
+    this.renderer = new T.WebGLRenderer({ antialias: true })
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5))
+    this.renderer.toneMapping = T.ACESFilmicToneMapping
+    this.renderer.toneMappingExposure = 0.85
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMap.type = T.PCFSoftShadowMap
+    this.renderer.outputColorSpace = T.SRGBColorSpace
+    element.appendChild(this.renderer.domElement)
+    this.camera.position.set(...definition.local.cameras.elevated)
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    this.controls.target.set(0, 5, 0)
+    this.controls.enableDamping = true
+    this.controls.minDistance = 8
+    this.controls.maxDistance = 130
+    this.controls.maxPolarAngle = Math.PI / 2 - 0.035
+    this.controls.enablePan = false
+    this.scene.add(new T.HemisphereLight(0xc1d4df, 0x223138, 0.35))
+    // Low sun: warm, raking light aligned with the sun disk in the HDR sky.
+    const sky = definition.local.sky
+    this.skyRotation = skyRotationFor(sky.sun, T.MathUtils.degToRad(sky.sunAzimuth))
+    skySunDirection(sky.sun, this.skyRotation, this.sunDirection)
+    this.sunlight = new T.DirectionalLight(0xffdcae, 2.2)
+    this.sunlight.position.copy(this.sunDirection).multiplyScalar(150)
+    this.sunlight.castShadow = true
+    this.sunlight.shadow.mapSize.set(2048, 2048)
+    Object.assign(this.sunlight.shadow.camera, {
+      left: -40,
+      right: 40,
+      top: 40,
+      bottom: -40,
+      near: 1,
+      far: 400,
+    })
+    this.sunlight.shadow.bias = -0.0003
+    this.sunlight.shadow.normalBias = 0.08
+    this.scene.add(this.sunlight)
+    this.flare.position.copy(this.sunDirection).multiplyScalar(6000)
+    this.scene.add(this.flare)
+    this.scene.background = new T.Color('#97b2c3')
+    // Marine haze: distant hulls and the horizon soften into the sky.
+    this.scene.fog = new T.FogExp2('#b3b8b9', 0.0003)
+    const normals = new T.TextureLoader().load('/assets/waternormals.jpg', (t) => {
+      t.wrapS = t.wrapT = T.RepeatWrapping
+    })
+    this.water = createOcean(normals, this.sunDirection, {
+      halfLength: definition.local.lengthMetres * 0.45,
+      halfBeam: definition.local.beamMetres / 2,
+      speed: 0,
+    })
+    this.water.receiveShadow = true
+    this.scene.add(this.water)
+    this.scene.add(this.boat)
+    this.scene.add(this.gulls.mesh)
+    this.bowSurge = createBowSurge(
+      this.water,
+      new T.Vector3(0, 0, -definition.local.lengthMetres * 0.45),
+    )
+    this.resize()
+  }
+  async initialize() {
+    // Load independently, but settle all requests before cleanup on a partial failure.
+    const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder)
+    const loaded = await Promise.allSettled([
+      loader.loadAsync(this.definition.local!.modelUrl),
+      loader.loadAsync(this.definition.local!.crewUrl),
+      new RGBELoader().loadAsync(this.definition.local!.sky.url),
+    ])
+    if (this.disposed || loaded.some((result) => result.status === 'rejected')) {
+      for (const result of loaded)
+        if (result.status === 'fulfilled') {
+          if ('scene' in result.value) this.release(result.value.scene)
+          else result.value.dispose()
+        }
+      if (!this.disposed)
+        throw new Error('The trawler, crew or sky asset could not be loaded. Please retry.')
+      return
+    }
+    const [boatResult, crewResult, skyResult] = loaded
+    if (
+      boatResult!.status !== 'fulfilled' ||
+      crewResult!.status !== 'fulfilled' ||
+      skyResult!.status !== 'fulfilled'
+    )
+      return
+    const model = boatResult.value.scene
+    this.skyTexture = skyResult.value
+    this.skyTexture.mapping = T.EquirectangularReflectionMapping
+    this.scene.background = this.skyTexture
+    this.scene.backgroundIntensity = 0.62
+    this.scene.backgroundRotation.y = this.skyRotation
+    this.scene.environmentRotation.y = this.skyRotation
+    const pmrem = new T.PMREMGenerator(this.renderer)
+    this.environment = pmrem.fromEquirectangular(this.skyTexture)
+    this.scene.environment = this.environment.texture
+    this.scene.environmentIntensity = 0.65
+    pmrem.dispose()
+    // Procedural wear on the vessel's own paint (not the crew); AO is baked into COLOR_0.
+    model.traverse((object) => {
+      const mesh = object as T.Mesh
+      if (!mesh.isMesh) return
+      for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material])
+        weatherMaterial(material, this.boatInverse)
+    })
+    outfitWorkingDeck(model, crewResult.value.scene)
+    // Asset coordinates are metres, bow +Z. Rotate to bow -Z / wake +Z.
+    model.rotation.y = Math.PI
+    const box = new T.Box3().setFromObject(model)
+    const size = box.getSize(new T.Vector3())
+    model.scale.setScalar(this.definition.local!.lengthMetres / Math.max(size.x, size.z))
+    const scaled = new T.Box3().setFromObject(model)
+    const center = scaled.getCenter(new T.Vector3())
+    model.position.set(-center.x, -scaled.min.y - this.definition.local!.waterlineOffset, -center.z)
+    model.traverse((object) => {
+      const mesh = object as T.Mesh
+      if (mesh.isMesh) {
+        mesh.castShadow = true
+        mesh.receiveShadow = true
+      }
+    })
+    this.boat.add(model)
+    // Horizon vessels load after the scene is shown; they are optional dressing.
+    const farUrl = this.definition.local!.farModelUrl
+    if (farUrl) void this.loadDistant(loader, farUrl, model)
+    // Geometry/textures are shared by the crew clones; dispose unused original materials only.
+    const used = new Set<T.Material>()
+    model.traverse((object) => {
+      const m = (object as T.Mesh).material
+      if (m) for (const mat of Array.isArray(m) ? m : [m]) used.add(mat)
+    })
+    crewResult.value.scene.traverse((object) => {
+      const m = (object as T.Mesh).material
+      if (m) for (const mat of Array.isArray(m) ? m : [m]) if (!used.has(mat)) mat.dispose()
+    })
+  }
+
+  /** Other vessels on the same ground: a low-detail copy of the hull (~24k triangles). */
+  async loadDistant(loader: GLTFLoader, url: string, reference: T.Object3D) {
+    const far = await loader.loadAsync(url).catch(() => undefined)
+    if (!far) return
+    if (this.disposed) return this.release(far.scene)
+    // Same source frame as the detailed hull: reuse its rotation, scale and waterline offset.
+    far.scene.rotation.copy(reference.rotation)
+    far.scene.scale.copy(reference.scale)
+    far.scene.position.copy(reference.position)
+    for (const [x, z, heading, phase] of [
+      [-1150, -1650, 0.9, 0],
+      [-3400, -700, -0.4, 2.1],
+      [500, -3900, 2.6, 4.2],
+    ]) {
+      const ship = new T.Group()
+      ship.add(far.scene.clone(true))
+      ship.position.set(x!, 0, z!)
+      ship.rotation.y = heading!
+      this.scene.add(ship)
+      this.distant.push({ ship, x: x!, z: z!, phase: phase! })
+    }
+  }
+  /**
+   * Prepare GPU state while hidden: compile every material's program and upload geometry
+   * and textures with one off-screen frame, so the first visible frame does not stall.
+   */
+  async warmUp() {
+    if (this.disposed || this.running) return
+    this.resize()
+    this.boat.updateMatrixWorld()
+    this.boatInverse.value.copy(this.boat.matrixWorld).invert()
+    await this.renderer.compileAsync(this.scene, this.camera)
+    if (this.disposed || this.running) return
+    this.renderer.render(this.scene, this.camera)
+  }
+  async activate(_view: ViewId, reduced: boolean) {
+    this.reduced = reduced
+    const local = this.definition.local!
+    this.sound ??= new Soundscape(
+      this.camera,
+      this.boat,
+      this.scene,
+      { length: local.lengthMetres, deckY: local.deckHeight },
+      SOUND_SAMPLES,
+    )
+    this.sound.setEnabled(this.soundEnabled)
+    this.sound.setActive(true)
+    this.running = true
+    this.lastFrame = performance.now()
+    this.tick()
+  }
+  tick = () => {
+    if (!this.running) return
+    this.frame = requestAnimationFrame(this.tick)
+    if (!this.reduced) {
+      const now = performance.now()
+      const dt = Math.min((now - this.lastFrame) / 1000, 0.1)
+      this.time += dt
+      this.lastFrame = now
+      this.water.material.uniforms.time!.value = this.time
+      // Sample the swell across the waterplane; low-pass so the hull responds like a mass.
+      const L = this.definition.local!.lengthMetres * 0.38
+      const B = this.definition.local!.beamMetres * 0.4
+      const t = this.time
+      const bow = seaAt(0, -L, t).height,
+        stern = seaAt(0, L, t).height,
+        port = seaAt(-B, 0, t).height,
+        starboard = seaAt(B, 0, t).height,
+        mid = seaAt(0, 0, t).height
+      const target = {
+        heave: (bow + stern + port + starboard + 2 * mid) / 6,
+        pitch: Math.atan2(bow - stern, 2 * L),
+        roll: Math.atan2(starboard - port, 2 * B) * 0.85,
+      }
+      const k = 1 - Math.exp(-dt / 0.7)
+      for (const key of ['heave', 'pitch', 'roll'] as const)
+        this.motion[key] += (target[key] - this.motion[key]) * k
+      this.boat.position.y = this.motion.heave
+      this.boat.rotation.x = this.motion.pitch
+      this.boat.rotation.z = this.motion.roll
+      this.boat.updateMatrixWorld()
+      const surge = this.bowSurge(this.boat, t, dt)
+      this.sound?.update(dt, t, surge, this.gulls.count, this.gulls.positionOf)
+      this.gulls.update(t)
+      // Beyond the displaced-swell radius the sea is flat geometry; rock gently in place.
+      for (const { ship, phase } of this.distant) {
+        ship.position.y = Math.sin(t * 0.7 + phase) * 0.4
+        ship.rotation.x = Math.sin(t * 0.55 + phase) * 0.02
+        ship.rotation.z = Math.sin(t * 0.8 + phase * 1.7) * 0.035
+      }
+      // Slow photographic sky drift; the lighting environment rotates with the visible sky.
+      // The sun, its light, glitter and flare move with the sky.
+      const rotation = this.skyRotation + this.time * 0.0007
+      this.scene.backgroundRotation.y = rotation
+      this.scene.environmentRotation.y = rotation
+      skySunDirection(this.definition.local!.sky.sun, rotation, this.sunDirection)
+      this.sunlight.position.copy(this.sunDirection).multiplyScalar(150)
+      this.flare.position.copy(this.sunDirection).multiplyScalar(6000)
+    }
+    this.controls.update()
+    this.boat.updateMatrixWorld()
+    this.boatInverse.value.copy(this.boat.matrixWorld).invert()
+    this.renderer.render(this.scene, this.camera)
+  }
+  preset(name: 'elevated' | 'water' | 'deck') {
+    this.camera.position.set(...this.definition.local!.cameras[name])
+    this.controls.target.set(...this.definition.local!.targets[name])
+    this.controls.minDistance = name === 'deck' ? 4 : 20
+    this.controls.update()
+  }
+  reset() {
+    this.preset('elevated')
+  }
+  setSound(enabled: boolean) {
+    this.soundEnabled = enabled
+    this.sound?.setEnabled(enabled)
+  }
+  /** Retry starting audio from a user gesture (browser autoplay policy). */
+  resumeAudio() {
+    this.sound?.resume()
+  }
+  suspend() {
+    this.sound?.setActive(false)
+    this.running = false
+    cancelAnimationFrame(this.frame)
+  }
+  update(snapshot: Snapshot) {
+    // Wake length and foam flow follow the vessel's reported speed (knots → m/s).
+    // Environmental animation uses its own monotonic clock, paused while suspended.
+    const vessel = snapshot.vessels.find((v) => v.localScene === this.definition.id)
+    if (vessel) this.water.material.uniforms.hullSpeed!.value = vessel.speed * 0.5144
+  }
+  quality(value: 'high' | 'low') {
+    this.renderer.setPixelRatio(value === 'high' ? Math.min(devicePixelRatio, 1.5) : 0.65)
+    this.renderer.shadowMap.enabled = value === 'high'
+  }
+  resize() {
+    const { clientWidth: w, clientHeight: h } = this.element
+    if (!w || !h) return
+    this.camera.aspect = w / h
+    this.camera.updateProjectionMatrix()
+    this.renderer.setSize(w, h)
+  }
+  release(root: T.Object3D) {
+    root.traverse((object) => {
+      const mesh = object as T.Mesh
+      if (mesh.geometry) mesh.geometry.dispose()
+      if (mesh.material)
+        for (const m of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
+          for (const value of Object.values(m)) if (value instanceof T.Texture) value.dispose()
+          m.dispose()
+        }
+    })
+  }
+  dispose() {
+    this.disposed = true
+    this.suspend()
+    this.controls.dispose()
+    this.release(this.scene)
+    this.water.material.uniforms.normalSampler?.value?.dispose()
+    this.flare.dispose()
+    this.sound?.dispose()
+    this.environment?.dispose()
+    this.skyTexture?.dispose()
+    this.renderer.dispose()
+    this.renderer.forceContextLoss()
+    this.renderer.domElement.remove()
+  }
+}

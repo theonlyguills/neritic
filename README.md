@@ -1,0 +1,77 @@
+# Pelagic — marine operations working model
+
+Reusable local Nuxt/Vue application with Cesium geographic exploration and a Three.js offshore vessel scene. All activity is synthetic. No accounts or production credentials required.
+
+## Run
+
+Node 24 LTS and npm are used by the lockfile.
+
+```bash
+npm ci
+npm run dev
+# http://127.0.0.1:3070
+```
+
+Production:
+
+```bash
+npm run build
+PORT=3070 HOST=127.0.0.1 node .output/server/index.mjs
+```
+
+Open Overview → Atlantic → Northern Light → Explore vessel. Return restores the map camera. Pacific has a separate boundary layer and three demonstration vessels. Select boundaries to frame them. Browser back/forward, direct `?view=atlantic|pacific|vessel` links, reset, reduced graphics, reduced motion, camera presets, and keyboard-accessible HTML controls are supported.
+
+## Structure and extension points
+
+- `app/domain/world.ts`: renderer-independent geographic entities, scene registry, deterministic snapshot generator, data-provider contract and bounded local coordinate helper.
+- `app/renderers/`: Cesium and Three.js adapters with activate/suspend/resize/update/quality/reset/dispose lifecycles. The inactive renderer remains allocated to preserve camera state but stops its render loop. Both are destroyed when the owning component unmounts.
+- `app/components/WorldCanvas.vue`: lazy loading, transitions, error/retry UX, resize observation, and provider subscription ownership.
+- `app/stores/world.ts`: application selection and simulation state. Do not put GPU objects in Pinia.
+- `app/pages/index.vue`: navigation and operational UI, independent of renderer details.
+- `public/data/manifest.json`: sources, licence notes, checksums and geographic preprocessing. Runtime assets are local except optional NASA imagery.
+
+### Add a view
+
+1. Add the view ID and a `SceneDefinition` to the registry; provide its anchor, height and renderer. For a regional view, bundle a GeoJSON file named after its ID and give the relevant fixture vessels its coast/category (expand the Coast type).
+2. For additional local scenes, provide its `local` definition with vessel, crew and HDR sky URLs, length in metres, waterline offset, camera positions and targets; the renderer consumes this configuration. Use an east/up/north local frame anchored to the scene's geographic position; `toLocal` is a bounded small-distance approximation, not a global projection.
+3. Add a navigation entry and, where appropriate, a vessel `localScene` link. Extend the scene-switch and return destination handling for that new ID.
+4. Add a navigation/return regression to the browser check. Share domain entities and data-provider subscriptions rather than creating scene-specific feeds.
+
+This is a modular single application, not a generic scene-editor framework. The initial three-level experience is implemented; future scene types require small explicit registry and UI additions.
+
+### Connect live data later
+
+Implement `DataProvider.snapshot(time)` and `subscribe(listener)` with normalized entities. Replace `createDemoProvider()` at the ownership boundary in `WorldCanvas`. Subscription cleanup must close its EventSource/WebSocket and abort requests. Keep renderer code unaware of authentication or transport. Coordinate timestamps and identifiers must remain stable across snapshots. No Spring backend is needed for this demonstration.
+
+## Geography and visual limits
+
+The globe uses ellipsoid terrain with shaded-relief imagery, not an elevation mesh. NASA GIBS Web Mercator Blue Marble imagery is optional; errors disable that layer and reveal the bundled 4096×2048 Natural Earth raster. The fallback is intentionally less sharp at close zoom. Public services may be unavailable or rate limited. Clouds, sea state, vessel names and positions are illustrative. The commercial trawler is a generic 49.5 m design. Three posed crew figures, netting, fish boxes and rope coils are fitted to its working deck. Use the Working deck camera for a closer view.
+
+The 38 NAFO polygons are from the official 2021 download (unclipped administrative extents); boundaries may extend over land. The 48 Pacific polygons are the official PFMA layer published with DFO's open salmon estimates service, generalized to 0.003 degrees. Neither dataset is a navigational or current closure authority.
+
+NAFO conversion: download and extract https://www.nafo.int/Portals/0/GIS/Divisions.zip, then run `node scripts/prepare-nafo.mjs /path/to/NAFO_Divisions_2021_poly_not_clipped` (without extension). Pacific data comes from the manifest's service `/query` endpoint with `where=1=1`, `outFields=*`, `outSR=4326`, `f=geojson`, `maxAllowableOffset=0.003`; preserve STATAREA and add stable `pfma-<STATAREA>` IDs and `PFMA <STATAREA>` labels.
+
+## Credits
+
+Retained previous asset (unused): “Fisher boat” by Batuhan13: https://sketchfab.com/3d-models/385b039e95754dca8d8c045ed0c515cf — CC BY 4.0. Downloaded via Renderlyst/Objaverse; their copy re-encodes textures. Runtime scaling and placement modified. Natural Earth raster: public domain. NASA GIBS imagery: NASA / Blue Marble. Water normals: Three.js examples, MIT. DFO Pacific data: Open Government Licence – Canada. NAFO geometry: Northwest Atlantic Fisheries Organization, official 2021 download; preserve source attribution and consult source terms before republishing externally.
+
+## Checks
+
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run build
+# With a local production server on port 3070:
+node scripts/browser-check.mjs
+```
+
+Browser checks require Playwright Chromium. They produce ignored screenshots in `artifacts/`. Software WebGL can verify rendering and behavior but is not representative of a hardware-accelerated work laptop. Large lazy renderer chunks are expected (Cesium roughly 1.1 MB compressed); the shell and Three.js are separate chunks. Initial asset download is not equivalent to steady-state frame rate.
+
+## Marine visual references and assets (2026-11-20)
+
+The vessel scene uses the [Three.js HDR environment workflow](https://threejs.org/examples/webgl_materials_envmaps_hdr.html) and the [ocean example](https://threejs.org/examples/webgl_shaders_ocean.html) as implementation references. The same photographed HDR panorama provides the visible sky and the filtered lighting environment. Background and environment rotate slowly together for cloud drift, and both freeze with Reduce motion. These are distant photographic clouds, not volumetric weather. The water uses a 0.025 normal-incidence reflection coefficient, animated multi-directional swell and fine normal-map ripples. Planar reflections remain an approximation on a displaced surface.
+
+Active assets: [Poly Haven Kloofendal pure sky](https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky), [Innerscene commercial stern trawler](https://www.innerscene.com/tools/library/3d-parts/fishing-trawler-dc4c76eb), and [Innerscene / MakeHuman crew base](https://www.innerscene.com/tools/library/3d-parts/taylor-3d-person-worker-with-clipboard-4590fe0f), all CC0. Asset provenance, modifications and checksums are in the manifest. Crew are posed worker figures adapted for the deck, not custom scanned fishermen. Net drums, winches and gantry belong to the vessel model; `working-deck.ts` adds the three crew, folded net, floats, rope coils, fish boxes, rails, ladders, lifebuoys and rigging in the asset's metre-based coordinate frame. The added outfitting is specific to this model and must be positioned again for another hull.
+
+`node scripts/weather-check.mjs` checks shader compilation, motion freeze/resume, and captures water-level, elevated and working-deck views. The new local scene adds approximately 46 MB of bundled HDR/model assets. Hardware-accelerated GPU performance still needs target-device verification.
