@@ -1,33 +1,46 @@
 import * as C from 'cesium'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
-import { scenes, type Snapshot, type ViewId } from '../domain/world'
+import { scenes, type Coast, type Snapshot, type ViewId } from '../domain/world'
 import type { RenderContext, SceneAdapter } from './types'
+import { FleetLayer, heightForZoom, type FleetPick } from './fleet-layer'
+import { BoundaryLayer } from './boundaries'
 /** Altitude of the cut between globe and vessel scene, metres. */
 const DIVE_HEIGHT = 1200
+/** Zoom gestures: below this share of the overview height, open the coast under the camera. */
+const ZOOM_IN_SHARE = 0.42
+/** Regional views: above this multiple of the view's own height, return to the overview. */
+const ZOOM_OUT_FACTOR = 2.1
+interface CameraPose {
+  destination: C.Cartesian3
+  orientation: { direction: C.Cartesian3; up: C.Cartesian3 }
+}
+const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 export class GeographicRenderer implements SceneAdapter {
   viewer: C.Viewer
   view: ViewId = 'canada'
-  layers = new Map<string, C.GeoJsonDataSource>()
-  cameras = new Map<
-    string,
-    { destination: C.Cartesian3; orientation: { heading: number; pitch: number; roll: number } }
-  >()
+  layers = new Map<string, BoundaryLayer>()
+  cameras = new Map<string, CameraPose>()
   disposed = false
   generation = 0
   reducedMotion = false
-  pendingLayers = new Map<string, Promise<C.GeoJsonDataSource>>()
-  /** Radial zoom blur used by the dive transition; disabled (free) at rest. */
+  pendingLayers = new Map<string, Promise<BoundaryLayer>>()
+  /** Radial zoom blur used by transitions; disabled (free) at rest. */
   blur: C.PostProcessStage
   blurStrength = 0
+  blurFade = 1
   /** True between activate and suspend; only an active globe records its camera. */
   active = false
-  /** Incremented to cancel an in-flight dive or rise. */
+  /** Incremented to cancel an in-flight dive, rise or swoop. */
   motion = 0
+  /** A scripted camera move is running: zoom gestures are not interpreted meanwhile. */
+  moving = false
   /** Camera to restore for a view after a dive, instead of the dived-in position. */
-  restoreCamera?: {
-    destination: C.Cartesian3
-    orientation: { heading: number; pitch: number; roll: number }
-  }
+  restoreCamera?: CameraPose
+  fleet: FleetLayer
+  hotspots = new C.CustomDataSource('coasts')
+  lastHail = ''
+  private introduced = false
+  polarCap?: C.Entity
   constructor(
     element: HTMLElement,
     private context: RenderContext,
@@ -45,26 +58,35 @@ export class GeographicRenderer implements SceneAdapter {
       fullscreenButton: false,
       infoBox: false,
       selectionIndicator: false,
-      requestRenderMode: true,
+      // Live layer: arcs, pulses and moving vessels animate continuously.
+      requestRenderMode: false,
       // Render at device pixels. The default (CSS pixels) is upscaled by the browser on
       // scaled displays (e.g. 125% on Windows laptops), which stair-steps every line.
       useBrowserRecommendedResolution: false,
-      maximumRenderTimeChange: Infinity,
     })
-    this.viewer.scene.skyBox!.show = false
-    this.viewer.scene.backgroundColor = C.Color.fromCssColorString('#07141e')
-    this.viewer.scene.globe.baseColor = C.Color.fromCssColorString('#163648')
-    this.viewer.scene.globe.showGroundAtmosphere = true
-    this.viewer.scene.screenSpaceCameraController.minimumZoomDistance = 25000
-    this.viewer.scene.screenSpaceCameraController.maximumZoomDistance = 14000000
-    this.viewer.scene.globe.depthTestAgainstTerrain = false
+    const scene = this.viewer.scene
+    scene.backgroundColor = C.Color.fromCssColorString('#030a10')
+    scene.globe.baseColor = C.Color.fromCssColorString('#163648')
+    scene.globe.showGroundAtmosphere = true
+    scene.skyAtmosphere!.show = true
+    scene.skyAtmosphere!.atmosphereLightIntensity = 14
+    scene.skyBox!.show = true
+    scene.sun!.show = false
+    scene.moon!.show = false
+    scene.fog.enabled = true
+    scene.screenSpaceCameraController.minimumZoomDistance = 25000
+    scene.screenSpaceCameraController.maximumZoomDistance = 16000000
+    scene.globe.depthTestAgainstTerrain = false
     // Multisample anti-aliasing (WebGL2): smooth boundary lines, coastlines and markers.
-    this.viewer.scene.msaaSamples = 4
+    scene.msaaSamples = 4
+    // Slight bloom-free "grade": a touch more contrast and saturation on the imagery.
+    scene.globe.atmosphereBrightnessShift = -0.05
     this.blur = new C.PostProcessStage({
       name: 'zoom_blur',
       fragmentShader: /* glsl */ `
         uniform sampler2D colorTexture;
         uniform float strength;
+        uniform float fade;
         in vec2 v_textureCoordinates;
         void main() {
           vec2 uv = v_textureCoordinates;
@@ -76,36 +98,57 @@ export class GeographicRenderer implements SceneAdapter {
           }
           // Fade toward deep water at the peak so the cut matches the vessel scene's sea.
           vec3 colour = sum.rgb / 20.0 * (1.0 + strength * 0.12);
-          colour = mix(colour, vec3(0.03, 0.08, 0.1), smoothstep(0.55, 1.0, strength) * 0.85);
+          colour = mix(colour, vec3(0.03, 0.08, 0.1), smoothstep(0.55, 1.0, strength) * 0.85 * fade);
           out_FragColor = vec4(colour, 1.0);
         }`,
-      uniforms: { strength: () => this.blurStrength },
+      uniforms: { strength: () => this.blurStrength, fade: () => this.blurFade },
     })
-    this.viewer.scene.postProcessStages.add(this.blur)
-    // Compile the dive blur on the first rendered frame (at zero strength) rather than at
-    // the start of the first dive, where the shader build would stall the animation.
-    const removeWarmUp = this.viewer.scene.postRender.addEventListener(() => {
+    scene.postProcessStages.add(this.blur)
+    // Compile the blur on the first rendered frame (at zero strength) rather than at the
+    // start of the first transition, where the shader build would stall the animation.
+    const removeWarmUp = scene.postRender.addEventListener(() => {
       removeWarmUp()
       this.blur.enabled = false
     })
+    this.fleet = new FleetLayer(this.viewer)
+    void this.viewer.dataSources.add(this.hotspots)
+    scene.postRender.addEventListener(() => this.watchZoom())
+    scene.preUpdate.addEventListener(() => (this.frameTime = performance.now()))
     const handler = this.viewer.screenSpaceEventHandler
     handler.setInputAction((event: { position: C.Cartesian2 }) => {
-      const p = this.viewer.scene.pick(event.position)
-      if (p?.id instanceof C.Entity) {
-        const id = String(p.id.id)
-        if (id.startsWith('v-')) context.selectVessel(id.slice(2))
-        else if (id.startsWith('summary-')) context.navigate(id.slice(8) as ViewId)
-        else if (p.id.properties) {
-          context.selectRegion(
-            String(p.id.properties.getValue(C.JulianDate.now()).label || p.id.name || id),
-          )
-          void this.viewer.flyTo(p.id, {
-            duration: this.reducedMotion ? 0 : 1.2,
-            offset: new C.HeadingPitchRange(0, -Math.PI / 2, 0),
-          })
-        }
+      if (this.moving) return
+      const p = scene.pick(event.position)
+      const pick = p?.id as FleetPick | C.Entity | string | undefined
+      if (!pick) return
+      if (typeof pick === 'string') {
+        const area = this.layers.get(this.view)?.areaOf(pick)
+        if (area) context.selectRegion(area)
+        return
       }
+      if (!(pick instanceof C.Entity)) {
+        if (pick.kind === 'vessel') context.selectVessel(pick.id)
+        else if (pick.kind === 'cluster') this.zoomToCluster(pick)
+        return
+      }
+      const id = String(pick.id)
+      if (id.startsWith('coast-')) context.navigate(id.slice(6) as ViewId)
     }, C.ScreenSpaceEventType.LEFT_CLICK)
+    handler.setInputAction((event: { position: C.Cartesian2 }) => {
+      if (this.moving) return
+      const p = scene.pick(event.position)
+      const pick = p?.id as FleetPick | string | undefined
+      if (pick && typeof pick === 'object' && !(pick instanceof C.Entity) && pick.kind === 'vessel')
+        context.exploreVessel(pick.id)
+    }, C.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
+    element.addEventListener('wheel', () => (this.lastWheel = performance.now()), {
+      capture: true,
+      passive: true,
+    })
+    // Pointer feedback: a hand over anything clickable.
+    handler.setInputAction((event: { endPosition: C.Cartesian2 }) => {
+      const p = scene.pick(event.endPosition)
+      element.style.cursor = p?.id ? 'pointer' : ''
+    }, C.ScreenSpaceEventType.MOUSE_MOVE)
   }
   async initialize() {
     const fallback = await C.SingleTileImageryProvider.fromUrl('/assets/earth.jpg')
@@ -118,117 +161,389 @@ export class GeographicRenderer implements SceneAdapter {
       credit: 'NASA GIBS · Blue Marble',
     })
     const layer = this.viewer.imageryLayers.addImageryProvider(imagery)
+    layer.contrast = 1.12
+    layer.saturation = 1.1
+    layer.brightness = 0.95
     let failed = false
     imagery.errorEvent.addEventListener(() => {
       if (!failed && !this.disposed) {
         failed = true
         layer.show = false
+        if (this.polarCap) this.polarCap.show = false
         this.context.status('Online imagery unavailable. Showing bundled Natural Earth imagery.')
-        this.viewer.scene.requestRender()
       }
     })
+    // Web Mercator imagery stops at ±85°: cap the pole in the Arctic Ocean's colour rather
+    // than showing the paler fallback image as a hard-edged disc.
+    this.polarCap = this.viewer.entities.add({
+      rectangle: {
+        coordinates: C.Rectangle.fromDegrees(-180, 84.9, 180, 90),
+        material: C.Color.fromCssColorString('#0f2a52'),
+        height: 0,
+      },
+    })
+    this.addHotspots()
+    await this.warmShaders()
+  }
+  /**
+   * Cesium builds globe shader variants per camera range (ground atmosphere per vertex or
+   * per fragment, log-depth and depth-only passes near the surface). Compiled on demand they
+   * stalled the first dive by seconds on a laptop GPU, so draw a few hidden frames at the
+   * dive and regional altitudes while the page is still loading.
+   */
+  private async warmShaders() {
+    const canvas = this.viewer.scene.canvas
+    canvas.style.visibility = 'hidden'
+    const frames = (n: number) =>
+      new Promise<void>((resolve) => {
+        let left = n
+        const remove = this.viewer.scene.postRender.addEventListener(() => {
+          if (--left > 0) return
+          remove()
+          resolve()
+        })
+        setTimeout(() => {
+          remove()
+          resolve()
+        }, 2500)
+      })
+    try {
+      for (const height of [DIVE_HEIGHT, 30000, 2.4e6]) {
+        this.viewer.camera.setView({
+          destination: C.Cartesian3.fromDegrees(-50, 46, height),
+          orientation: { heading: 0, pitch: height < 50000 ? -C.Math.PI_OVER_TWO : -1.2, roll: 0 },
+        })
+        await frames(6)
+        if (this.disposed) return
+      }
+    } finally {
+      canvas.style.visibility = ''
+    }
+  }
+  /** Overview call-outs over each coast: a pulsing ring and a live count; click to zoom in. */
+  private addHotspots() {
+    const ping = document.createElement('canvas')
+    ping.width = ping.height = 256
+    const g = ping.getContext('2d')!
+    g.strokeStyle = '#7fe3c9'
+    g.lineWidth = 6
+    g.shadowColor = '#7fe3c9'
+    g.shadowBlur = 14
+    g.beginPath()
+    g.arc(128, 128, 110, 0, Math.PI * 2)
+    g.stroke()
+    const spots: Record<Coast, [number, number]> = {
+      atlantic: [-57, 52.5],
+      pacific: [-131, 52],
+    }
+    for (const [coast, [lon, lat]] of Object.entries(spots) as [Coast, [number, number]][]) {
+      const born = coast === 'atlantic' ? 0 : 900
+      // Radar-style pings: billboards scaled per frame (cheap), not ellipses whose
+      // geometry Cesium would rebuild every frame.
+      for (const delay of [0, 1300])
+        this.hotspots.entities.add({
+          id: `coast-${coast}-ring-${delay}`,
+          position: C.Cartesian3.fromDegrees(lon, lat),
+          billboard: {
+            image: ping,
+            scale: new C.CallbackProperty(() => this.pulse(born + delay).scale, false),
+            color: new C.CallbackProperty(
+              () => C.Color.WHITE.withAlpha(this.pulse(born + delay).alpha),
+              false,
+            ),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY,
+          },
+        })
+      this.hotspots.entities.add({
+        id: `coast-${coast}`,
+        position: C.Cartesian3.fromDegrees(lon, lat, 60000),
+        label: {
+          text: coast.toUpperCase(),
+          font: '600 15px "Segoe UI", sans-serif',
+          fillColor: C.Color.WHITE,
+          outlineColor: C.Color.fromCssColorString('#04161e'),
+          outlineWidth: 4,
+          style: C.LabelStyle.FILL_AND_OUTLINE,
+          pixelOffset: new C.Cartesian2(0, -64),
+          disableDepthTestDistance: Number.POSITIVE_INFINITY,
+          showBackground: true,
+          backgroundColor: C.Color.fromCssColorString('#0a2a34').withAlpha(0.78),
+          backgroundPadding: new C.Cartesian2(12, 7),
+        },
+      })
+    }
+  }
+  /** One timestamp per frame: both ellipse axes must read the same radius. */
+  private frameTime = 0
+  private pulse(offset: number) {
+    const t = ((this.frameTime + offset) % 2600) / 2600
+    return { scale: 0.15 + t * 0.85, alpha: 0.75 * (1 - t) ** 1.6 }
+  }
+  /** Camera pose for a view: looking at its anchor from `height` metres, tilted by `pitch`. */
+  defaultCamera(view: ViewId): CameraPose {
+    const def = scenes[view]
+    const camera = this.viewer.camera
+    const saved = {
+      position: camera.position.clone(),
+      direction: camera.direction.clone(),
+      up: camera.up.clone(),
+      transform: camera.transform.clone(),
+    }
+    const target = C.Cartesian3.fromDegrees(def.anchor.longitude, def.anchor.latitude)
+    camera.lookAt(
+      target,
+      new C.HeadingPitchRange(0, C.Math.toRadians(def.pitch ?? -90), def.height),
+    )
+    const pose: CameraPose = {
+      destination: camera.positionWC.clone(),
+      orientation: { direction: camera.directionWC.clone(), up: camera.upWC.clone() },
+    }
+    camera.lookAtTransform(saved.transform)
+    camera.position = saved.position
+    camera.direction = saved.direction
+    camera.up = saved.up
+    return pose
   }
   /** Camera a view returns to: the one the viewer left it with, else its default. */
   viewCamera(view: ViewId) {
-    const def = scenes[view]
-    return (
-      this.cameras.get(view) || {
-        destination: C.Cartesian3.fromDegrees(
-          def.anchor.longitude,
-          def.anchor.latitude,
-          def.height,
-        ),
-        orientation: { heading: 0, pitch: -Math.PI / 2, roll: 0 },
-      }
-    )
+    return this.cameras.get(view) || this.defaultCamera(view)
   }
-  /** `keepCamera`: a rise transition is already driving the camera. */
+  private currentPose(): CameraPose {
+    const c = this.viewer.camera
+    return {
+      destination: c.positionWC.clone(),
+      orientation: { direction: c.directionWC.clone(), up: c.upWC.clone() },
+    }
+  }
+  /** `keepCamera`: a transition is already driving the camera. */
   async activate(view: ViewId, reduced: boolean, keepCamera = false) {
     this.reducedMotion = reduced
     const epoch = ++this.generation
     this.active = true
     this.viewer.useDefaultRenderLoop = true
     this.view = view
-    for (const [key, layer] of this.layers) layer.show = key === view
+    this.hotspots.show = view === 'canada'
+    this.fleet.setCoast(view === 'canada' || view === 'vessel' ? undefined : view)
+    this.fleet.setVisible(true)
     if (!keepCamera) {
+      // The flight passes through zoom thresholds: gestures are not read until it lands.
+      this.moving = true
+      const done = () => {
+        if (epoch === this.generation) this.moving = false
+      }
       this.viewer.camera.cancelFlight()
-      this.viewer.camera.flyTo({ ...this.viewCamera(view), duration: reduced ? 0 : 1.5 })
-    }
-    if (view !== 'canada' && !this.layers.has(view)) {
-      let pending = this.pendingLayers.get(view)
-      if (!pending) {
-        pending = C.GeoJsonDataSource.load(`/data/${view}.geojson`, {
-          stroke: C.Color.fromCssColorString('#9ac5c1').withAlpha(0.8),
-          fill: C.Color.fromCssColorString('#7bbfb5').withAlpha(0.09),
-          strokeWidth: 1.5,
+      // First arrival: start out in space and push in to the view, a slow establishing shot.
+      const intro = !this.introduced && !reduced
+      this.introduced = true
+      if (intro) {
+        const anchor = scenes[view].anchor
+        this.viewer.camera.setView({
+          destination: C.Cartesian3.fromDegrees(anchor.longitude - 25, anchor.latitude - 20, 3.2e7),
         })
-        this.pendingLayers.set(view, pending)
       }
-      let ds: C.GeoJsonDataSource
-      try {
-        ds = await pending
-      } catch (error) {
-        this.pendingLayers.delete(view)
-        throw error
-      }
-      if (this.disposed) return
-      const labelled = new Map<string, { entity: C.Entity; radius: number }>()
-      for (const entity of ds.entities.values) {
-        const properties = entity.properties?.getValue(C.JulianDate.now())
-        if (entity.polygon) {
-          const hierarchy = entity.polygon.hierarchy?.getValue(C.JulianDate.now())
-          if (hierarchy?.positions?.length) {
-            // Boundary as a real polyline: polygon outlines are 1 px GL lines (width is
-            // ignored on Windows/ANGLE) and stair-step badly. MSAA is not honoured on every
-            // GPU/browser (it was not on Chrome/Intel), so the line anti-aliases itself:
-            // Cesium's outline material smooths its edges in the shader, and a transparent
-            // 1 px "outline" turns that into a soft edge. Rhumb lines follow NAFO's lat/long.
-            const stroke = C.Color.fromCssColorString('#9ac5c1')
-            entity.polygon.outline = new C.ConstantProperty(false)
-            entity.polyline = new C.PolylineGraphics({
-              positions: [...hierarchy.positions, hierarchy.positions[0]],
-              width: 3,
-              arcType: C.ArcType.RHUMB,
-              material: new C.PolylineOutlineMaterialProperty({
-                color: stroke.withAlpha(0.85),
-                outlineColor: stroke.withAlpha(0),
-                outlineWidth: 1,
-              }),
-            })
-            const bounds = C.BoundingSphere.fromPoints(hierarchy.positions)
-            const center = bounds.center
-            const key = String(properties?.label || entity.id)
-            const existing = labelled.get(key)
-            if (existing && existing.radius >= bounds.radius) continue
-            if (existing) existing.entity.label = undefined
-            labelled.set(key, { entity, radius: bounds.radius })
-            entity.position = new C.ConstantPositionProperty(
-              C.Ellipsoid.WGS84.scaleToGeodeticSurface(center),
-            )
-            entity.label = new C.LabelGraphics({
-              text: properties?.label || '',
-              font: '14px sans-serif',
-              fillColor: C.Color.WHITE,
-              outlineColor: C.Color.fromCssColorString('#183542'),
-              outlineWidth: 3,
-              style: C.LabelStyle.FILL_AND_OUTLINE,
-              disableDepthTestDistance: Infinity,
-              distanceDisplayCondition: new C.DistanceDisplayCondition(
-                0,
-                Math.min(3500000, Math.max(180000, bounds.radius * 18)),
-              ),
-            })
-          }
-        }
-      }
-      if (epoch === this.generation) ds.show = this.view === view
-      if (!this.layers.has(view)) {
-        ds.show = this.view === view
-        this.layers.set(view, ds)
-        await this.viewer.dataSources.add(ds)
-      }
+      this.viewer.camera.flyTo({
+        ...this.viewCamera(view),
+        duration: reduced ? 0 : intro ? 3.6 : 1.5,
+        easingFunction: intro ? C.EasingFunction.QUINTIC_IN_OUT : undefined,
+        complete: done,
+        cancel: done,
+      })
     }
-    this.viewer.scene.requestRender()
+    await this.attachLayers(view)
+    void epoch
+  }
+  /**
+   * Boundary layer for a coast: fetched and built once. Its geometry is created in web
+   * workers even while hidden, so preloading it keeps the overview → coast zoom smooth.
+   */
+  loadLayer(view: ViewId) {
+    let pending = this.pendingLayers.get(view)
+    if (!pending) {
+      pending = fetch(`/data/${view}.geojson`)
+        .then((r) => {
+          if (!r.ok) throw new Error(`Boundaries: HTTP ${r.status}`)
+          return r.json()
+        })
+        .then((data) => {
+          const layer = new BoundaryLayer(this.viewer.scene, data)
+          if (this.disposed) layer.destroy()
+          this.layers.set(view, layer)
+          layer.setShown(this.view === view && this.active)
+          return layer
+        })
+      pending.catch(() => this.pendingLayers.delete(view))
+      this.pendingLayers.set(view, pending)
+    }
+    return pending
+  }
+  private async attachLayers(view: ViewId) {
+    for (const [key, layer] of this.layers) layer.setShown(key === view)
+    if (view === 'canada' || view === 'vessel') return
+    const layer = await this.loadLayer(view)
+    if (this.disposed) return
+    layer.setShown(this.view === view && this.active)
+  }
+  preloadLayers() {
+    for (const view of ['atlantic', 'pacific'] as const)
+      void this.loadLayer(view).catch(() => undefined)
+  }
+  /** Shade each management area by the vessels working it now; label it with the count. */
+  private shadeAreas(snapshot: Snapshot) {
+    if (this.view !== 'atlantic' && this.view !== 'pacific') return
+    const counts = new Map<string, number>()
+    for (const v of snapshot.vessels)
+      if (v.coast === this.view && v.status === 'fishing')
+        counts.set(v.area, (counts.get(v.area) ?? 0) + 1)
+    this.layers.get(this.view)?.shade(counts)
+  }
+  /** Zoom gestures drive navigation: in over a coast from the overview, out from a coast. */
+  private watchZoom() {
+    if (!this.active || this.moving || this.view === 'vessel') return
+    const height = this.viewer.camera.positionCartographic.height
+    if (this.view === 'canada') {
+      if (height > this.defaultHeight('canada') * ZOOM_IN_SHARE) return
+      const ground = this.centreGround()
+      if (!ground) return
+      this.context.navigate(ground.longitude < -100 ? 'pacific' : 'atlantic')
+      this.moving = true // until the swoop takes over
+    } else if (height > this.defaultHeight(this.view) * ZOOM_OUT_FACTOR) {
+      this.context.navigate('canada')
+      this.moving = true
+    }
+  }
+  private heights = new Map<ViewId, number>()
+  private defaultHeight(view: ViewId) {
+    let h = this.heights.get(view)
+    if (h === undefined) {
+      h = C.Cartographic.fromCartesian(this.defaultCamera(view).destination).height
+      this.heights.set(view, h)
+    }
+    return h
+  }
+  private centreGround() {
+    const canvas = this.viewer.scene.canvas
+    const centre = new C.Cartesian2(canvas.clientWidth / 2, canvas.clientHeight / 2)
+    const hit = this.viewer.camera.pickEllipsoid(centre)
+    if (!hit) return undefined
+    const c = C.Cartographic.fromCartesian(hit)
+    return { longitude: C.Math.toDegrees(c.longitude), latitude: C.Math.toDegrees(c.latitude) }
+  }
+  private zoomToCluster(pick: Extract<FleetPick, { kind: 'cluster' }>) {
+    // On the overview a bubble opens its coast (the same zoom as scrolling in).
+    if (this.view === 'canada') {
+      this.context.navigate(pick.lon < -100 ? 'pacific' : 'atlantic')
+      return
+    }
+    const camera = this.viewer.camera
+    const range = heightForZoom(Math.min(pick.zoom + 0.6, 10))
+    camera.flyToBoundingSphere(
+      new C.BoundingSphere(C.Cartesian3.fromDegrees(pick.lon, pick.lat), 1),
+      {
+        offset: new C.HeadingPitchRange(camera.heading, Math.max(camera.pitch, -1.2), range),
+        duration: this.reducedMotion ? 0 : 1.1,
+      },
+    )
+  }
+  /** Bring a vessel to the centre (from the panel). */
+  focusVessel(id: string) {
+    const v = this.fleet.vessels.get(id)
+    if (!v) return
+    const camera = this.viewer.camera
+    const height = Math.min(camera.positionCartographic.height, 420000)
+    camera.flyToBoundingSphere(
+      new C.BoundingSphere(C.Cartesian3.fromDegrees(v.longitude, v.latitude), 1),
+      {
+        offset: new C.HeadingPitchRange(camera.heading, Math.max(camera.pitch, -1.15), height),
+        duration: this.reducedMotion ? 0 : 1.2,
+      },
+    )
+  }
+  /** Scripted camera move between two poses with a zoom blur that peaks mid-way. */
+  private animatePose(
+    from: CameraPose,
+    to: CameraPose,
+    duration: number,
+    shape: { ease: (t: number) => number; blur: (t: number) => number; fade: number },
+  ) {
+    const camera = this.viewer.camera
+    camera.cancelFlight()
+    const a = C.Cartographic.fromCartesian(from.destination)
+    const b = C.Cartographic.fromCartesian(to.destination)
+    const token = ++this.motion
+    this.moving = true
+    this.blur.enabled = true
+    this.blurFade = shape.fade
+    const controller = this.viewer.scene.screenSpaceCameraController
+    controller.enableInputs = false
+    this.fleet.frozen = true
+    const direction = new C.Cartesian3()
+    const up = new C.Cartesian3()
+    const right = new C.Cartesian3()
+    return new Promise<void>((resolve) => {
+      const begin = performance.now()
+      const step = () => {
+        if (this.disposed || token !== this.motion) {
+          controller.enableInputs = true
+          this.fleet.frozen = false
+          return resolve()
+        }
+        const t = Math.min(1, (performance.now() - begin) / (duration * 1000))
+        const e = shape.ease(t)
+        const lon = a.longitude + (b.longitude - a.longitude) * e
+        const lat = a.latitude + (b.latitude - a.latitude) * e
+        const height = a.height * Math.pow(b.height / a.height, e)
+        C.Cartesian3.lerp(from.orientation.direction, to.orientation.direction, e, direction)
+        C.Cartesian3.normalize(direction, direction)
+        C.Cartesian3.lerp(from.orientation.up, to.orientation.up, e, up)
+        C.Cartesian3.cross(direction, up, right)
+        C.Cartesian3.normalize(C.Cartesian3.cross(right, direction, up), up)
+        camera.setView({
+          destination: C.Cartesian3.fromRadians(lon, lat, height),
+          orientation: { direction, up },
+        })
+        this.blurStrength = shape.blur(t)
+        if (t < 1) return requestAnimationFrame(step)
+        this.blur.enabled = false
+        this.blurStrength = 0
+        controller.enableInputs = true
+        this.fleet.frozen = false
+        this.fleet.select(this.fleet.selected) // re-cluster for where the camera landed
+        this.moving = false
+        this.settleInput()
+        resolve()
+      }
+      step()
+    })
+  }
+  /**
+   * After a scripted move, ignore the tail of the scroll gesture that triggered it (wheel
+   * ticks still arriving, and zoom inertia) so the view lands where the move put it.
+   */
+  private settleInput() {
+    const controller = this.viewer.scene.screenSpaceCameraController
+    controller.enableZoom = false
+    controller.inertiaZoom = 0
+    clearInterval(this.settleTimer)
+    this.settleTimer = setInterval(() => {
+      // Wait for the wheel to go quiet, so a long scroll cannot carry on past the move.
+      if (performance.now() - this.lastWheel < 450) return
+      clearInterval(this.settleTimer)
+      controller.enableZoom = true
+      controller.inertiaZoom = 0.8
+    }, 100)
+  }
+  private settleTimer?: ReturnType<typeof setInterval>
+  private lastWheel = 0
+  /** Map ⇄ map zoom (overview ⇄ coast): a fast, blurred push in or pull out. */
+  swoop(view: ViewId, duration = 1.25) {
+    this.cameras.delete(view)
+    const goal = this.defaultCamera(view)
+    const zoomingIn = view !== 'canada'
+    return this.animatePose(this.currentPose(), goal, duration, {
+      ease,
+      blur: (t) => (zoomingIn ? 0.85 : 0.6) * Math.sin(Math.PI * t) ** 1.5,
+      fade: 0,
+    })
   }
   /**
    * Zoom transition: dive straight down onto a position, accelerating, with a radial blur
@@ -237,48 +552,24 @@ export class GeographicRenderer implements SceneAdapter {
    * one continuous rush.
    */
   dive(target: { longitude: number; latitude: number }, duration = 1.0) {
-    const camera = this.viewer.camera
-    camera.cancelFlight()
-    this.restoreCamera = {
-      destination: camera.position.clone(),
-      orientation: { heading: camera.heading, pitch: camera.pitch, roll: camera.roll },
-    }
-    const start = camera.positionCartographic.clone()
-    const startPitch = camera.pitch
-    const endHeight = DIVE_HEIGHT
-    const token = ++this.motion
-    this.blur.enabled = true
-    return new Promise<void>((resolve) => {
-      const begin = performance.now()
-      const step = () => {
-        if (this.disposed || token !== this.motion) return resolve()
-        const t = Math.min(1, (performance.now() - begin) / (duration * 1000))
-        const e = t * t * (2.2 - 1.2 * t) // accelerating, still moving at the cut
-        const lon = C.Math.lerp(
-          C.Math.toDegrees(start.longitude),
-          target.longitude,
-          Math.min(1, e * 1.6),
-        )
-        const lat = C.Math.lerp(
-          C.Math.toDegrees(start.latitude),
-          target.latitude,
-          Math.min(1, e * 1.6),
-        )
-        const height = start.height * Math.pow(endHeight / start.height, e)
-        camera.setView({
-          destination: C.Cartesian3.fromDegrees(lon, lat, height),
-          orientation: {
-            heading: 0,
-            pitch: C.Math.lerp(startPitch, -C.Math.PI_OVER_TWO, e),
-            roll: 0,
-          },
-        })
-        this.blurStrength = Math.pow(t, 2.5)
-        this.viewer.scene.requestRender()
-        if (t < 1) requestAnimationFrame(step)
-        else resolve()
-      }
-      requestAnimationFrame(step)
+    this.restoreCamera = this.currentPose()
+    const surface = C.Cartesian3.fromDegrees(target.longitude, target.latitude, DIVE_HEIGHT)
+    const down = C.Cartesian3.negate(
+      C.Ellipsoid.WGS84.geodeticSurfaceNormal(surface, new C.Cartesian3()),
+      new C.Cartesian3(),
+    )
+    // North-up at the bottom of the dive, like the vessel scene's overhead camera.
+    const enu = C.Transforms.eastNorthUpToFixedFrame(surface)
+    const north = C.Matrix4.multiplyByPointAsVector(enu, C.Cartesian3.UNIT_Y, new C.Cartesian3())
+    return this.animatePose(
+      this.currentPose(),
+      { destination: surface, orientation: { direction: down, up: north } },
+      duration,
+      { ease: (t) => t * t * (2.2 - 1.2 * t), blur: (t) => Math.pow(t, 2.5), fade: 1 },
+    ).then(() => {
+      // Hold at peak blur for the cut.
+      this.blur.enabled = true
+      this.blurStrength = 1
     })
   }
   /**
@@ -287,132 +578,81 @@ export class GeographicRenderer implements SceneAdapter {
    * `activate(view, reduced, true)`.
    */
   rise(from: { longitude: number; latitude: number }, view: ViewId, duration = 1.3) {
-    const camera = this.viewer.camera
-    camera.cancelFlight()
     const goal = this.viewCamera(view)
     // If interrupted, the view keeps its intended camera rather than a mid-rise one.
     this.restoreCamera = goal
-    const end = C.Cartographic.fromCartesian(goal.destination)
-    const token = ++this.motion
-    this.blur.enabled = true
-    this.blurStrength = 1
-    return new Promise<void>((resolve) => {
-      const begin = performance.now()
-      const step = () => {
-        if (this.disposed || token !== this.motion) return resolve()
-        const t = Math.min(1, (performance.now() - begin) / (duration * 1000))
-        const e = 1 - Math.pow(1 - t, 3) // fast out of the water, settling at altitude
-        const across = Math.max(0, (e - 0.35) / 0.65) // climb first, then slide over
-        camera.setView({
-          destination: C.Cartesian3.fromDegrees(
-            C.Math.lerp(from.longitude, C.Math.toDegrees(end.longitude), across),
-            C.Math.lerp(from.latitude, C.Math.toDegrees(end.latitude), across),
-            DIVE_HEIGHT * Math.pow(end.height / DIVE_HEIGHT, e),
-          ),
-          orientation: {
-            heading: C.Math.lerp(0, goal.orientation.heading, e),
-            pitch: C.Math.lerp(-C.Math.PI_OVER_TWO, goal.orientation.pitch, e),
-            roll: 0,
-          },
-        })
-        this.blurStrength = 1 - C.Math.clamp(t / 0.55, 0, 1) ** 0.8
-        this.viewer.scene.requestRender()
-        if (t < 1) return requestAnimationFrame(step)
-        this.blur.enabled = false
-        this.blurStrength = 0
-        this.restoreCamera = undefined
-        resolve()
-      }
-      step()
+    const surface = C.Cartesian3.fromDegrees(from.longitude, from.latitude, DIVE_HEIGHT)
+    const enu = C.Transforms.eastNorthUpToFixedFrame(surface)
+    const start: CameraPose = {
+      destination: surface,
+      orientation: {
+        direction: C.Matrix4.multiplyByPointAsVector(
+          enu,
+          new C.Cartesian3(0, 0, -1),
+          new C.Cartesian3(),
+        ),
+        up: C.Matrix4.multiplyByPointAsVector(enu, C.Cartesian3.UNIT_Y, new C.Cartesian3()),
+      },
+    }
+    return this.animatePose(start, goal, duration, {
+      ease: (t) => 1 - Math.pow(1 - t, 3),
+      blur: (t) => 1 - C.Math.clamp(t / 0.55, 0, 1) ** 0.8,
+      fade: 1,
+    }).then(() => {
+      this.restoreCamera = undefined
     })
   }
   reset() {
     this.cameras.delete(this.view)
-    void this.activate(this.view, true)
+    void this.activate(this.view, this.reducedMotion)
   }
   suspend() {
     this.generation++
     this.motion++
+    this.fleet.frozen = false
+    this.moving = false
+    this.viewer.scene.screenSpaceCameraController.enableInputs = true
     this.viewer.camera.cancelFlight()
     // Only an active globe records its camera: a second suspend must not overwrite it.
     if (!this.active) return
     this.active = false
-    const c = this.viewer.camera
-    this.cameras.set(this.view, {
-      destination: c.position.clone(),
-      orientation: { heading: c.heading, pitch: c.pitch, roll: c.roll },
-    })
-    if (this.restoreCamera) this.cameras.set(this.view, this.restoreCamera)
+    this.cameras.set(this.view, this.restoreCamera ?? this.currentPose())
     this.restoreCamera = undefined
     this.blur.enabled = false
     this.blurStrength = 0
     this.viewer.useDefaultRenderLoop = false
   }
+  /** Leaving one map view for another: keep nothing of the old camera (zoom thresholds). */
+  release() {
+    this.motion++
+    this.cameras.delete(this.view)
+  }
   update(snapshot: Snapshot) {
-    const active = new Set<string>()
-    if (this.view === 'canada') {
-      for (const coast of ['atlantic', 'pacific'] as const) {
-        const d = scenes[coast],
-          id = `summary-${coast}`
-        active.add(id)
-        if (!this.viewer.entities.getById(id))
-          this.viewer.entities.add({
-            id,
-            position: C.Cartesian3.fromDegrees(d.anchor.longitude, d.anchor.latitude),
-            point: {
-              pixelSize: 10,
-              color: C.Color.fromCssColorString('#aee5d5'),
-              outlineColor: C.Color.BLACK,
-              outlineWidth: 2,
-            },
-            label: {
-              text: `${coast.toUpperCase()}  /  ${snapshot.vessels.filter((v) => v.coast === coast).length} vessels`,
-              font: '13px sans-serif',
-              pixelOffset: new C.Cartesian2(0, 25),
-              fillColor: C.Color.WHITE,
-              showBackground: true,
-              backgroundColor: C.Color.fromCssColorString('#102b36').withAlpha(0.8),
-              disableDepthTestDistance: Infinity,
-            },
-          })
-      }
-    } else
-      for (const vessel of snapshot.vessels.filter((v) => v.coast === this.view)) {
-        const id = `v-${vessel.id}`
-        active.add(id)
-        let entity = this.viewer.entities.getById(id)
-        if (!entity)
-          entity = this.viewer.entities.add({
-            id,
-            point: {
-              pixelSize: vessel.localScene ? 11 : 7,
-              color: C.Color.fromCssColorString(vessel.localScene ? '#eac58a' : '#abe0d1'),
-              outlineColor: C.Color.fromCssColorString('#102b36'),
-              outlineWidth: 2,
-              disableDepthTestDistance: Infinity,
-            },
-            label: {
-              text: vessel.name,
-              font: '12px sans-serif',
-              pixelOffset: new C.Cartesian2(15, 0),
-              horizontalOrigin: C.HorizontalOrigin.LEFT,
-              fillColor: C.Color.WHITE,
-              showBackground: true,
-              backgroundColor: C.Color.fromCssColorString('#102b36').withAlpha(0.8),
-              disableDepthTestDistance: Infinity,
-            },
-          })
-        entity.position = new C.ConstantPositionProperty(
-          C.Cartesian3.fromDegrees(vessel.position.longitude, vessel.position.latitude),
+    this.fleet.setVessels(snapshot.vessels)
+    this.fleet.setHarbours(snapshot.harbours, snapshot.vessels)
+    // New hails since the last update draw their arcs (newest first in the feed).
+    const fresh = []
+    for (const e of snapshot.feed) {
+      if (e.key === this.lastHail) break
+      fresh.push(e)
+    }
+    if (this.lastHail) for (const e of fresh.slice(0, 8).reverse()) this.fleet.addHail(e)
+    this.lastHail = snapshot.feed[0]?.key ?? this.lastHail
+    this.shadeAreas(snapshot)
+    for (const coast of ['atlantic', 'pacific'] as const) {
+      const label = this.hotspots.entities.getById(`coast-${coast}`)?.label
+      const s = snapshot.stats[coast]
+      if (label)
+        (label.text as C.ConstantProperty).setValue(
+          `${coast.toUpperCase()}\n${s.atSea.toLocaleString('en-CA')} at sea · ${s.inPort.toLocaleString('en-CA')} in port`,
         )
-      }
-    for (const entity of [...this.viewer.entities.values])
-      if (!active.has(entity.id)) this.viewer.entities.remove(entity)
-    this.viewer.scene.requestRender()
+    }
+  }
+  select(id: string) {
+    this.fleet.select(id)
   }
   quality(value: 'high' | 'low') {
     this.viewer.resolutionScale = value === 'high' ? 1 : 0.7
-    this.viewer.scene.requestRender()
   }
   resize() {
     this.viewer.resize()
@@ -420,6 +660,8 @@ export class GeographicRenderer implements SceneAdapter {
   dispose() {
     this.disposed = true
     this.generation++
+    this.fleet.dispose()
+    for (const layer of this.layers.values()) layer.destroy()
     this.viewer.destroy()
   }
 }

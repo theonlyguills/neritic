@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createDemoProvider, scenes } from '../domain/world'
+import { loadDemoProvider, scenes, type ViewId } from '../domain/world'
 import type { GeographicRenderer } from '../renderers/geographic'
 import type { LocalRenderer } from '../renderers/local'
 const world = useWorld()
@@ -17,13 +17,16 @@ let ready: Promise<void> | undefined
 let localReady: Promise<void> | undefined
 let localLoaded = false
 let globeLoaded = false
+/** Resolves with the first fleet snapshot (a vessel's scene depends on its status). */
+let fleetReady: () => void
+const firstSnapshot = new Promise<void>((resolve) => (fleetReady = resolve))
 /** Create and load the vessel scene once; shared by navigation and background preload. */
 function ensureLocal() {
   if (!localReady)
     localReady = (async () => {
       const { LocalRenderer } = await import('../renderers/local')
       if (disposed) return
-      detailed = new LocalRenderer(local.value!, scenes.vessel)
+      detailed = new LocalRenderer(local.value!)
       await detailed.initialize()
       localLoaded = true
     })()
@@ -41,6 +44,8 @@ function preloadLocal() {
     if (disposed || localReady) return
     ensureLocal()
       .then(() => (world.view === 'vessel' ? undefined : detailed?.warmUp()))
+      // Then the coast boundary layers, one background job at a time.
+      .then(() => geographic?.preloadLayers())
       .catch(() => {
         // Leave the error for an explicit visit; discard the partial renderer.
         detailed?.dispose()
@@ -48,8 +53,10 @@ function preloadLocal() {
         localReady = undefined
       })
   }
-  if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 3000 })
-  else setTimeout(start, 1500)
+  // After the opening flight has landed: loading shaders and textures during it stutters.
+  const idle = () =>
+    'requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 2000 }) : start()
+  setTimeout(idle, 4200)
 }
 /**
  * Map → vessel zoom: the globe dives onto the vessel with a building radial blur, the
@@ -58,10 +65,14 @@ function preloadLocal() {
  * The dive also covers any remaining load time of the vessel scene.
  */
 async function diveToVessel(epoch: number) {
-  const target = world.snapshot.vessels.find((v) => v.localScene === world.view)
-  const anchor = target?.position ?? scenes[world.view].anchor
+  const target = world.vessel
+  const anchor = target ?? scenes[world.view].anchor
   world.transition = 'dive'
+  const vessel = world.vessel
+  // Load and compile the vessel's scene while the dive plays (it is hidden until the cut).
   const loading = ensureLocal()
+    .then(() => detailed!.prepare(vessel))
+    .then(() => detailed!.warmUp())
   await geographic!.dive(anchor)
   if (epoch !== generation || disposed) return
   if (!localLoaded) world.loading = true // hold at peak blur until the scene is ready
@@ -76,7 +87,8 @@ async function diveToVessel(epoch: number) {
   await detailed!.activate(world.view, world.reducedMotion)
   detailed!.resize()
   detailed!.quality(world.quality)
-  await arrival
+  // Panels return once the blur has cleared; the cinematic flight carries on behind them.
+  await Promise.race([arrival, new Promise((r) => setTimeout(r, 1900))])
 }
 /**
  * Vessel → map zoom, the dive in reverse: the vessel camera lifts to high overhead as the
@@ -84,8 +96,8 @@ async function diveToVessel(epoch: number) {
  * map view had before the dive while the blur clears.
  */
 async function riseToMap(epoch: number) {
-  const vessel = world.snapshot.vessels.find((v) => v.localScene === world.displayView)
-  const anchor = vessel?.position ?? scenes[world.displayView].anchor
+  const vessel = world.vessel
+  const anchor = vessel ?? scenes[world.displayView].anchor
   world.transition = 'depart'
   await detailed!.depart()
   if (epoch !== generation || disposed) return
@@ -99,6 +111,21 @@ async function riseToMap(epoch: number) {
   geographic!.resize()
   geographic!.quality(world.quality)
   await rising
+}
+/** Overview ⇄ coast: one continuous blurred camera move on the globe; panels swap mid-way. */
+async function swoopTo(epoch: number) {
+  world.transition = 'swoop'
+  geographic!.release()
+  const moving = geographic!.swoop(world.view)
+  const view = world.view
+  setTimeout(() => {
+    if (epoch === generation) world.displayView = view
+  }, 450)
+  await geographic!.activate(view, world.reducedMotion, true)
+  if (epoch !== generation) return
+  geographic!.update(world.snapshot)
+  await moving
+  world.displayView = view
 }
 async function switchView() {
   const epoch = ++generation
@@ -115,13 +142,25 @@ async function switchView() {
       await riseToMap(epoch)
       return
     }
+    if (
+      !three &&
+      fromMap &&
+      globeLoaded &&
+      !world.reducedMotion &&
+      world.displayView !== world.view
+    ) {
+      await swoopTo(epoch)
+      return
+    }
     // No spinner when the target scene is already built: the switch is immediate.
     world.loading = three ? !localLoaded : !globeLoaded
     world.displayView = world.view
     geographic?.suspend()
     detailed?.suspend()
     if (three) {
-      await ensureLocal()
+      await Promise.all([ensureLocal(), firstSnapshot])
+      if (epoch !== generation || disposed) return
+      await detailed!.prepare(world.vessel)
       if (epoch !== generation || disposed) return
       detailed!.setSound(world.sound)
       await detailed!.activate(world.view, world.reducedMotion)
@@ -133,10 +172,14 @@ async function switchView() {
           const { GeographicRenderer } = await import('../renderers/geographic')
           if (disposed) return
           geographic = new GeographicRenderer(globe.value!, {
-            navigate: (view) => {
+            navigate: (view: ViewId) => {
               void router.push({ query: { view } })
             },
             selectVessel: (id) => world.selectVessel(id),
+            exploreVessel: (id) => {
+              world.selectVessel(id)
+              void router.push({ query: { view: 'vessel', vessel: id } })
+            },
             selectRegion: (id) => {
               world.selectedRegion = id
             },
@@ -146,11 +189,14 @@ async function switchView() {
           })
           await geographic.initialize()
           globeLoaded = true
+          if (import.meta.dev || location.search.includes('debug'))
+            Object.assign(window, { __geographic: geographic })
         })()
       await ready
       if (epoch !== generation || disposed) return
       await geographic!.activate(world.view, world.reducedMotion)
       if (epoch !== generation) return
+      geographic!.select(world.selectedVessel)
       geographic!.update(world.snapshot)
       geographic!.resize()
       geographic!.quality(world.quality)
@@ -187,6 +233,9 @@ function resumeAudio() {
   detailed?.resumeAudio()
 }
 onMounted(() => {
+  // Diagnostics only (dev server, or ?debug): renderer handles for profiling.
+  if (import.meta.dev || location.search.includes('debug'))
+    Object.assign(window, { __local: () => detailed })
   world.reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
   try {
     world.sound = localStorage.getItem('pelagic.sound') !== 'off'
@@ -195,11 +244,19 @@ onMounted(() => {
   }
   window.addEventListener('pointerdown', resumeAudio)
   window.addEventListener('keydown', resumeAudio)
-  stop = createDemoProvider().subscribe((snapshot) => {
-    world.accept(snapshot)
-    if (world.view === 'vessel') detailed?.update(snapshot)
-    else geographic?.update(snapshot)
-  })
+  void loadDemoProvider()
+    .then((provider) => {
+      if (disposed) return
+      stop = provider.subscribe((snapshot) => {
+        world.accept(snapshot)
+        fleetReady()
+        if (world.displayView === 'vessel') detailed?.update(snapshot)
+        else geographic?.update(snapshot)
+      })
+    })
+    .catch((error) => {
+      world.error = `Fleet data could not load: ${error instanceof Error ? error.message : String(error)}`
+    })
   observer = new ResizeObserver(() => {
     geographic?.resize()
     detailed?.resize()
@@ -211,6 +268,24 @@ onMounted(() => {
 watch(
   () => world.view,
   () => void switchView(),
+)
+watch(
+  () => world.focus.n,
+  () => geographic?.focusVessel(world.focus.id),
+)
+watch(
+  () => world.selectedVessel,
+  (id) => {
+    geographic?.select(id)
+    // Fetch the selected vessel's close-up scene now, so boarding it is instant.
+    // Loaded and compiled in the hidden scene, so the dive cuts straight to a ready frame.
+    if (localLoaded && world.view !== 'vessel' && world.vessel && !world.transition)
+      void detailed
+        ?.prepare(world.vessel)
+        .then(() => (world.view === 'vessel' ? undefined : detailed?.warmUp()))
+        .catch(() => undefined)
+  },
+  { immediate: true },
 )
 watch(
   () => world.quality,
@@ -273,14 +348,11 @@ onBeforeUnmount(() => {
       <button @click="retry">Try again</button>
     </div>
     <div v-if="note && world.displayView !== 'vessel'" class="source-note">{{ note }}</div>
-    <div class="camera-tools">
-      <button @click="world.displayView === 'vessel' ? detailed?.reset() : geographic?.reset()">
-        Reset camera</button
-      ><template v-if="world.displayView === 'vessel'"
-        ><button @click="preset('elevated')">Elevated view</button
-        ><button @click="preset('water')">Water level</button
-        ><button @click="preset('deck')">Working deck</button></template
-      >
+    <div v-if="world.displayView === 'vessel'" class="camera-tools">
+      <button @click="detailed?.reset()">Reset camera</button
+      ><button @click="preset('elevated')">Elevated view</button
+      ><button @click="preset('water')">Water level</button
+      ><button @click="preset('deck')">Working deck</button>
     </div>
   </div>
 </template>

@@ -1,0 +1,6158 @@
+{
+  "source": "https://egisp.dfo-mpo.gc.ca/arcgis/rest/services/open_data_donnees_ouvertes/small_craft_harbours_en/MapServer",
+  "license": "Open Government Licence – Canada",
+  "harbours": [
+    {
+      "number": 1,
+      "name": "Abrahams Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.9151,
+      "lat": 48.5196
+    },
+    {
+      "number": 3,
+      "name": "Admirals Beach",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6438,
+      "lat": 47.0061
+    },
+    {
+      "number": 6,
+      "name": "Anchor Point",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.8,
+      "lat": 51.2333
+    },
+    {
+      "number": 9,
+      "name": "Aquaforte",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9569,
+      "lat": 47.0067
+    },
+    {
+      "number": 11,
+      "name": "Arnold's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9902,
+      "lat": 47.7584
+    },
+    {
+      "number": 12,
+      "name": "Aspen Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.1073,
+      "lat": 49.4625
+    },
+    {
+      "number": 14,
+      "name": "Baine Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8962,
+      "lat": 47.36048
+    },
+    {
+      "number": 15,
+      "name": "Bakers Brook",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.9606,
+      "lat": 49.65165
+    },
+    {
+      "number": 16,
+      "name": "Bank Head Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.6786,
+      "lat": 48.3709
+    },
+    {
+      "number": 19,
+      "name": "Barr'D Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.0636,
+      "lat": 50.8168
+    },
+    {
+      "number": 20,
+      "name": "Barr'D Islands",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.1873,
+      "lat": 49.72465
+    },
+    {
+      "number": 21,
+      "name": "Bartletts Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.99149,
+      "lat": 50.94221
+    },
+    {
+      "number": 24,
+      "name": "Bauline",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8341,
+      "lat": 47.72317
+    },
+    {
+      "number": 25,
+      "name": "Bauline South",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8439,
+      "lat": 47.1801
+    },
+    {
+      "number": 26,
+      "name": "Bay Bulls",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8122,
+      "lat": 47.3152
+    },
+    {
+      "number": 28,
+      "name": "Bay de Verde",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8979,
+      "lat": 48.0842
+    },
+    {
+      "number": 30,
+      "name": "Bay l'Argent",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.8792,
+      "lat": 47.5483
+    },
+    {
+      "number": 31,
+      "name": "Bay Roberts",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.2667,
+      "lat": 47.5899
+    },
+    {
+      "number": 34,
+      "name": "Beaumont",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.6788,
+      "lat": 49.61462
+    },
+    {
+      "number": 40,
+      "name": "Big Brook",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.1475,
+      "lat": 51.5215
+    },
+    {
+      "number": 43,
+      "name": "Bird Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.9346,
+      "lat": 51.0526
+    },
+    {
+      "number": 45,
+      "name": "Black Duck Brook",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.9033,
+      "lat": 48.70151
+    },
+    {
+      "number": 46,
+      "name": "Black Duck Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.7991,
+      "lat": 51.1973
+    },
+    {
+      "number": 51,
+      "name": "Blue Beach",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.787,
+      "lat": 48.7665
+    },
+    {
+      "number": 52,
+      "name": "Blue Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.8724,
+      "lat": 51.0961
+    },
+    {
+      "number": 54,
+      "name": "Bonavista",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.1167,
+      "lat": 48.65
+    },
+    {
+      "number": 55,
+      "name": "Boxey",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.558,
+      "lat": 47.4514
+    },
+    {
+      "number": 58,
+      "name": "Branch",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9513,
+      "lat": 46.88231
+    },
+    {
+      "number": 59,
+      "name": "Bridgeport",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8732,
+      "lat": 49.5503
+    },
+    {
+      "number": 60,
+      "name": "Brig Bay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.9095,
+      "lat": 51.0642
+    },
+    {
+      "number": 62,
+      "name": "Brigus",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.2068,
+      "lat": 47.53869
+    },
+    {
+      "number": 63,
+      "name": "Brigus South",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8835,
+      "lat": 47.1131
+    },
+    {
+      "number": 73,
+      "name": "Burgeo",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.6077,
+      "lat": 47.6131
+    },
+    {
+      "number": 75,
+      "name": "Burin",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.1633,
+      "lat": 47.04059
+    },
+    {
+      "number": 80,
+      "name": "Burnt Islands",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.888,
+      "lat": 47.59621
+    },
+    {
+      "number": 85,
+      "name": "Calvert",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9103,
+      "lat": 47.0576
+    },
+    {
+      "number": 86,
+      "name": "Campbells Creek",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.8736,
+      "lat": 48.5212
+    },
+    {
+      "number": 88,
+      "name": "Cannings Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.845,
+      "lat": 48.44484
+    },
+    {
+      "number": 89,
+      "name": "Cape Broyle",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9456,
+      "lat": 47.0951
+    },
+    {
+      "number": 90,
+      "name": "Cape Freels North",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.495,
+      "lat": 49.2594
+    },
+    {
+      "number": 95,
+      "name": "Cape St. George",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.2009,
+      "lat": 48.4768
+    },
+    {
+      "number": 97,
+      "name": "Capstan Island",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.7307,
+      "lat": 51.5686
+    },
+    {
+      "number": 98,
+      "name": "Carbonear",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.2238,
+      "lat": 47.7379
+    },
+    {
+      "number": 101,
+      "name": "Catalina",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.0749,
+      "lat": 48.516
+    },
+    {
+      "number": 103,
+      "name": "Centreville",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.8783,
+      "lat": 49.0183
+    },
+    {
+      "number": 106,
+      "name": "Champney's West",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3,
+      "lat": 48.3833
+    },
+    {
+      "number": 107,
+      "name": "Chance Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.827,
+      "lat": 47.681
+    },
+    {
+      "number": 108,
+      "name": "Change Islands",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.4007,
+      "lat": 49.67488
+    },
+    {
+      "number": 109,
+      "name": "Channel-Port aux Basques",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.139449,
+      "lat": 47.574585
+    },
+    {
+      "number": 117,
+      "name": "Coachman's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.1101,
+      "lat": 50.05
+    },
+    {
+      "number": 118,
+      "name": "Codroy",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.3972,
+      "lat": 47.8804
+    },
+    {
+      "number": 122,
+      "name": "Comfort Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8554,
+      "lat": 49.4051
+    },
+    {
+      "number": 123,
+      "name": "Conception Harbour",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.209,
+      "lat": 47.44061
+    },
+    {
+      "number": 124,
+      "name": "Conche",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8951,
+      "lat": 50.8862
+    },
+    {
+      "number": 125,
+      "name": "Miawpukek",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.772,
+      "lat": 47.8619
+    },
+    {
+      "number": 126,
+      "name": "Cook's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8622,
+      "lat": 51.6068
+    },
+    {
+      "number": 129,
+      "name": "Cottlesville",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.86761,
+      "lat": 49.51208
+    },
+    {
+      "number": 131,
+      "name": "Cow Head",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.805,
+      "lat": 49.9226
+    },
+    {
+      "number": 133,
+      "name": "Cox's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.0776,
+      "lat": 49.1259
+    },
+    {
+      "number": 135,
+      "name": "Crow Head",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.807,
+      "lat": 49.6743
+    },
+    {
+      "number": 136,
+      "name": "Cupids",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.2337,
+      "lat": 47.5467
+    },
+    {
+      "number": 139,
+      "name": "Daniel's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.5899,
+      "lat": 50.24095
+    },
+    {
+      "number": 143,
+      "name": "Davis Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.3404,
+      "lat": 47.63589
+    },
+    {
+      "number": 145,
+      "name": "Deep Bay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -124.727971,
+      "lat": 49.46473611
+    },
+    {
+      "number": 149,
+      "name": "Dildo",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5616,
+      "lat": 47.569
+    },
+    {
+      "number": 150,
+      "name": "South Dildo",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5509,
+      "lat": 47.5326
+    },
+    {
+      "number": 152,
+      "name": "Dover",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9715,
+      "lat": 48.86357
+    },
+    {
+      "number": 155,
+      "name": "Duntara",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3713,
+      "lat": 48.5993
+    },
+    {
+      "number": 157,
+      "name": "Eddies Cove East",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.457,
+      "lat": 51.4163
+    },
+    {
+      "number": 158,
+      "name": "Eddies Cove West",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.1732,
+      "lat": 50.7515
+    },
+    {
+      "number": 168,
+      "name": "Fair Haven",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.89883,
+      "lat": 47.53245
+    },
+    {
+      "number": 169,
+      "name": "Fermeuse",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9534,
+      "lat": 46.9756
+    },
+    {
+      "number": 170,
+      "name": "Ferryland",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -52.883,
+      "lat": 47.0239
+    },
+    {
+      "number": 171,
+      "name": "Fischells",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.708,
+      "lat": 48.3198
+    },
+    {
+      "number": 173,
+      "name": "Flat Islands (Port Elizabeth)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.9206,
+      "lat": 47.2721
+    },
+    {
+      "number": 175,
+      "name": "Flatrock",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.70796,
+      "lat": 47.70155
+    },
+    {
+      "number": 176,
+      "name": "Fleur de Lys",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.1317,
+      "lat": 50.12016
+    },
+    {
+      "number": 177,
+      "name": "Flower's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.7358,
+      "lat": 51.2997
+    },
+    {
+      "number": 178,
+      "name": "Fogo",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.2753,
+      "lat": 49.7159
+    },
+    {
+      "number": 180,
+      "name": "Forresters Point",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.8118,
+      "lat": 51.18132
+    },
+    {
+      "number": 181,
+      "name": "Forteau",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.9536,
+      "lat": 51.4697
+    },
+    {
+      "number": 182,
+      "name": "Fortune",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8309,
+      "lat": 47.0723
+    },
+    {
+      "number": 186,
+      "name": "Fox Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9112,
+      "lat": 47.31852
+    },
+    {
+      "number": 187,
+      "name": "Fox Island River",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.677,
+      "lat": 48.6948
+    },
+    {
+      "number": 188,
+      "name": "Fox Roost",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.0428,
+      "lat": 47.573
+    },
+    {
+      "number": 189,
+      "name": "Foxtrap",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9964,
+      "lat": 47.5138
+    },
+    {
+      "number": 190,
+      "name": "Francois",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.7436,
+      "lat": 47.5808
+    },
+    {
+      "number": 193,
+      "name": "Frenchman's Cove (Bay of Islands)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.1802,
+      "lat": 49.0585
+    },
+    {
+      "number": 197,
+      "name": "Garden Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.1586,
+      "lat": 47.8509
+    },
+    {
+      "number": 198,
+      "name": "Garnish",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.3585,
+      "lat": 47.2345
+    },
+    {
+      "number": 201,
+      "name": "Gaultois",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.903,
+      "lat": 47.6064
+    },
+    {
+      "number": 206,
+      "name": "Glovers Harbour",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.4902,
+      "lat": 49.45501
+    },
+    {
+      "number": 207,
+      "name": "Glovertown",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.0265,
+      "lat": 48.6741
+    },
+    {
+      "number": 208,
+      "name": "Goose Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.6287,
+      "lat": 51.3082
+    },
+    {
+      "number": 209,
+      "name": "Gooseberry Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6392,
+      "lat": 48.03105
+    },
+    {
+      "number": 210,
+      "name": "Grand Bank",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7486,
+      "lat": 47.1025
+    },
+    {
+      "number": 213,
+      "name": "Grand Bruit",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.2251,
+      "lat": 47.67242
+    },
+    {
+      "number": 214,
+      "name": "Grand Le Pierre",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.7873,
+      "lat": 47.67398
+    },
+    {
+      "number": 215,
+      "name": "Grates Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.938,
+      "lat": 48.16498
+    },
+    {
+      "number": 216,
+      "name": "The Gravels (Port Au Port)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.7117,
+      "lat": 48.5541
+    },
+    {
+      "number": 220,
+      "name": "Green Island Brook",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.526,
+      "lat": 51.4004
+    },
+    {
+      "number": 221,
+      "name": "Green Island Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.5797,
+      "lat": 51.3841
+    },
+    {
+      "number": 223,
+      "name": "Green's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5057,
+      "lat": 47.6435
+    },
+    {
+      "number": 225,
+      "name": "Greenspond",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5763,
+      "lat": 49.06783
+    },
+    {
+      "number": 226,
+      "name": "Griquet",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.4651,
+      "lat": 51.5124
+    },
+    {
+      "number": 229,
+      "name": "Hant's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.261,
+      "lat": 48.0199
+    },
+    {
+      "number": 230,
+      "name": "Happy Adventure",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.75537,
+      "lat": 48.63471
+    },
+    {
+      "number": 231,
+      "name": "Harbour Breton",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8118,
+      "lat": 47.4784
+    },
+    {
+      "number": 232,
+      "name": "Harbour Grace",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.2181,
+      "lat": 47.69063
+    },
+    {
+      "number": 233,
+      "name": "Harbour le Cou",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.6821,
+      "lat": 47.6245
+    },
+    {
+      "number": 234,
+      "name": "Harbour Main",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.159,
+      "lat": 47.43549
+    },
+    {
+      "number": 235,
+      "name": "Harbour Mille",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8848,
+      "lat": 47.58154
+    },
+    {
+      "number": 236,
+      "name": "Harbour Round",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7334,
+      "lat": 49.9213
+    },
+    {
+      "number": 240,
+      "name": "Heart's Content",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3709,
+      "lat": 47.87928
+    },
+    {
+      "number": 241,
+      "name": "Heart's Delight",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.4673,
+      "lat": 47.7715
+    },
+    {
+      "number": 242,
+      "name": "Heart's Desire",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.4438,
+      "lat": 47.81173
+    },
+    {
+      "number": 243,
+      "name": "Hermitage",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.9252,
+      "lat": 47.5565
+    },
+    {
+      "number": 244,
+      "name": "Herring Neck",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.6158,
+      "lat": 49.63969
+    },
+    {
+      "number": 245,
+      "name": "Hibbs Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.1838,
+      "lat": 47.60178
+    },
+    {
+      "number": 246,
+      "name": "Hickman's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.73451,
+      "lat": 48.10368
+    },
+    {
+      "number": 247,
+      "name": "Eel Hole (Highlands)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.9299,
+      "lat": 48.1777
+    },
+    {
+      "number": 248,
+      "name": "Hillgrade",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.7041,
+      "lat": 49.57356
+    },
+    {
+      "number": 250,
+      "name": "Holyrood",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.1262,
+      "lat": 47.3884
+    },
+    {
+      "number": 251,
+      "name": "Hopeall",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5115,
+      "lat": 47.61675
+    },
+    {
+      "number": 259,
+      "name": "Isle Valen",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.3939,
+      "lat": 47.47688
+    },
+    {
+      "number": 260,
+      "name": "Isle aux Morts",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.9798,
+      "lat": 47.5887
+    },
+    {
+      "number": 261,
+      "name": "Islington",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.48,
+      "lat": 47.76252
+    },
+    {
+      "number": 263,
+      "name": "Jackson's Arm",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -56.7815,
+      "lat": 49.8665
+    },
+    {
+      "number": 264,
+      "name": "Jackson's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.0042,
+      "lat": 49.6883
+    },
+    {
+      "number": 266,
+      "name": "Jerseyside",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9613,
+      "lat": 47.2533
+    },
+    {
+      "number": 267,
+      "name": "Job's Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.016,
+      "lat": 47.97
+    },
+    {
+      "number": 268,
+      "name": "Joe Batt's Arm",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.169,
+      "lat": 49.7258
+    },
+    {
+      "number": 269,
+      "name": "Keels",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.4073,
+      "lat": 48.60789
+    },
+    {
+      "number": 271,
+      "name": "King's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3329,
+      "lat": 48.568
+    },
+    {
+      "number": 275,
+      "name": "L'Anse-au-Clair",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.0665,
+      "lat": 51.4235
+    },
+    {
+      "number": 276,
+      "name": "L'Anse-au-Loup",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.8301,
+      "lat": 51.5176
+    },
+    {
+      "number": 277,
+      "name": "La Scie",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.60025,
+      "lat": 49.9611
+    },
+    {
+      "number": 278,
+      "name": "Ladle Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.0584,
+      "lat": 49.474
+    },
+    {
+      "number": 281,
+      "name": "Lamaline",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7961,
+      "lat": 46.8665
+    },
+    {
+      "number": 283,
+      "name": "Lark Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.3638,
+      "lat": 49.1014
+    },
+    {
+      "number": 284,
+      "name": "Lawn",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.5414,
+      "lat": 46.9439
+    },
+    {
+      "number": 287,
+      "name": "Leading Tickles West",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.4552,
+      "lat": 49.5038
+    },
+    {
+      "number": 289,
+      "name": "Little Bay (La Poile)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.396,
+      "lat": 47.6822
+    },
+    {
+      "number": 290,
+      "name": "Little Bay (Marystown)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.148,
+      "lat": 47.1655
+    },
+    {
+      "number": 291,
+      "name": "Little Burnt Bay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.0794,
+      "lat": 49.3566
+    },
+    {
+      "number": 294,
+      "name": "Little Harbour East",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8586,
+      "lat": 47.59237
+    },
+    {
+      "number": 296,
+      "name": "Little Heart's Ease",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6895,
+      "lat": 48.0149
+    },
+    {
+      "number": 298,
+      "name": "Little Paradise",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.5807,
+      "lat": 47.36076
+    },
+    {
+      "number": 299,
+      "name": "Little Port",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.4222,
+      "lat": 49.1069
+    },
+    {
+      "number": 300,
+      "name": "Little St. Lawrence",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.3629,
+      "lat": 46.92775
+    },
+    {
+      "number": 303,
+      "name": "Long Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6667,
+      "lat": 47.5667
+    },
+    {
+      "number": 306,
+      "name": "Lord's Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.669,
+      "lat": 46.8785
+    },
+    {
+      "number": 310,
+      "name": "Lower Island Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -52.9778,
+      "lat": 47.99943
+    },
+    {
+      "number": 311,
+      "name": "Lower Lance Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6968,
+      "lat": 48.1469
+    },
+    {
+      "number": 312,
+      "name": "Lumsden",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5895,
+      "lat": 49.3006
+    },
+    {
+      "number": 314,
+      "name": "Lushes Bight",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7165,
+      "lat": 49.5931
+    },
+    {
+      "number": 315,
+      "name": "Mainland",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -59.1011,
+      "lat": 48.6241
+    },
+    {
+      "number": 317,
+      "name": "Mall Bay",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.5854,
+      "lat": 46.9789
+    },
+    {
+      "number": 319,
+      "name": "Margaree",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.0584,
+      "lat": 47.5729
+    },
+    {
+      "number": 321,
+      "name": "Mary's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8363,
+      "lat": 52.3096
+    },
+    {
+      "number": 323,
+      "name": "Mccallum",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.227,
+      "lat": 47.63093
+    },
+    {
+      "number": 326,
+      "name": "Middle Arm",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.0936,
+      "lat": 49.7036
+    },
+    {
+      "number": 328,
+      "name": "Miles Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7799,
+      "lat": 49.5405
+    },
+    {
+      "number": 331,
+      "name": "Ming's Bight",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.0417,
+      "lat": 49.9767
+    },
+    {
+      "number": 333,
+      "name": "Moreton's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8636,
+      "lat": 49.57068
+    },
+    {
+      "number": 337,
+      "name": "Long Harbour (Mount Arlington Heights)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.8623,
+      "lat": 47.42758
+    },
+    {
+      "number": 343,
+      "name": "New Bonaventure",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.4458,
+      "lat": 48.2851
+    },
+    {
+      "number": 345,
+      "name": "New Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.543,
+      "lat": 47.5884
+    },
+    {
+      "number": 348,
+      "name": "Newmans Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.1937,
+      "lat": 48.5861
+    },
+    {
+      "number": 350,
+      "name": "Newtown",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5147,
+      "lat": 49.20255
+    },
+    {
+      "number": 351,
+      "name": "Nippers Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8598,
+      "lat": 49.79359
+    },
+    {
+      "number": 355,
+      "name": "Norris Point",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.8798,
+      "lat": 49.52587
+    },
+    {
+      "number": 356,
+      "name": "North Harbour (Placentia Bay)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.0964,
+      "lat": 47.84573
+    },
+    {
+      "number": 359,
+      "name": "O'Donnells",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5715,
+      "lat": 47.0678
+    },
+    {
+      "number": 360,
+      "name": "Ochre Pit Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.06,
+      "lat": 47.91195
+    },
+    {
+      "number": 361,
+      "name": "Oderin",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.8023,
+      "lat": 47.29322
+    },
+    {
+      "number": 363,
+      "name": "Old Bonaventure",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.4282,
+      "lat": 48.28533
+    },
+    {
+      "number": 364,
+      "name": "Old Perlican",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.0083,
+      "lat": 48.0887
+    },
+    {
+      "number": 366,
+      "name": "Open Hall",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.486,
+      "lat": 48.5468
+    },
+    {
+      "number": 369,
+      "name": "Pacquet",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8746,
+      "lat": 49.9906
+    },
+    {
+      "number": 370,
+      "name": "Parkers Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.8534,
+      "lat": 47.3946
+    },
+    {
+      "number": 372,
+      "name": "Parson's Pond",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.7121,
+      "lat": 50.03036
+    },
+    {
+      "number": 374,
+      "name": "Peter's River",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.6117,
+      "lat": 46.75556
+    },
+    {
+      "number": 375,
+      "name": "Petites",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.6348,
+      "lat": 47.61704
+    },
+    {
+      "number": 377,
+      "name": "Petty Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.706,
+      "lat": 47.46351
+    },
+    {
+      "number": 379,
+      "name": "Piccadilly",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.9025,
+      "lat": 48.5765
+    },
+    {
+      "number": 382,
+      "name": "Pinware",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -56.7041,
+      "lat": 51.6218
+    },
+    {
+      "number": 383,
+      "name": "Placentia",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9609,
+      "lat": 47.24905
+    },
+    {
+      "number": 385,
+      "name": "Plate Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5055,
+      "lat": 48.4999
+    },
+    {
+      "number": 386,
+      "name": "Pleasantview (Paradise)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.3211,
+      "lat": 49.3609
+    },
+    {
+      "number": 387,
+      "name": "Point Au Gaul",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.7486,
+      "lat": 46.859
+    },
+    {
+      "number": 396,
+      "name": "Pool's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.4298,
+      "lat": 47.6803
+    },
+    {
+      "number": 401,
+      "name": "Port au Choix",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.357,
+      "lat": 50.7075
+    },
+    {
+      "number": 403,
+      "name": "Port de Grave",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.210303,
+      "lat": 47.586391
+    },
+    {
+      "number": 404,
+      "name": "Port Harmon",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.538,
+      "lat": 48.5145
+    },
+    {
+      "number": 405,
+      "name": "Port Kirwan",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9122,
+      "lat": 46.9696
+    },
+    {
+      "number": 406,
+      "name": "Port Saunders",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.2744,
+      "lat": 50.647
+    },
+    {
+      "number": 409,
+      "name": "Portugal Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8568,
+      "lat": 47.62589
+    },
+    {
+      "number": 410,
+      "name": "Portugal Cove South",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.2606,
+      "lat": 46.7047
+    },
+    {
+      "number": 411,
+      "name": "Pouch Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.7649,
+      "lat": 47.76489
+    },
+    {
+      "number": 414,
+      "name": "Princeton",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5934,
+      "lat": 48.4194
+    },
+    {
+      "number": 416,
+      "name": "Quidi Vidi",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -52.6743,
+      "lat": 47.5805
+    },
+    {
+      "number": 417,
+      "name": "Quirpon",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.4438,
+      "lat": 51.58212
+    },
+    {
+      "number": 419,
+      "name": "Raleigh",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7308,
+      "lat": 51.5638
+    },
+    {
+      "number": 421,
+      "name": "Ramea",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.3876,
+      "lat": 47.5218
+    },
+    {
+      "number": 424,
+      "name": "Red Cliff",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.4918,
+      "lat": 48.5596
+    },
+    {
+      "number": 426,
+      "name": "Red Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.9943,
+      "lat": 47.2918
+    },
+    {
+      "number": 430,
+      "name": "Reef's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.0091,
+      "lat": 51.0116
+    },
+    {
+      "number": 432,
+      "name": "Rencontre East",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.2114,
+      "lat": 47.63643
+    },
+    {
+      "number": 433,
+      "name": "Renews",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.9335,
+      "lat": 46.9228
+    },
+    {
+      "number": 434,
+      "name": "River of Ponds",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.3966,
+      "lat": 50.5285
+    },
+    {
+      "number": 435,
+      "name": "Riverhead",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5228,
+      "lat": 46.96287
+    },
+    {
+      "number": 436,
+      "name": "Robert's Arm",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.8074,
+      "lat": 49.48856
+    },
+    {
+      "number": 438,
+      "name": "Rocky Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.9379,
+      "lat": 49.5893
+    },
+    {
+      "number": 439,
+      "name": "Rose Blanche",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.6901,
+      "lat": 47.6092
+    },
+    {
+      "number": 441,
+      "name": "Round Harbour",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.6568,
+      "lat": 49.85312
+    },
+    {
+      "number": 442,
+      "name": "Rushoon",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.9166,
+      "lat": 47.34872
+    },
+    {
+      "number": 444,
+      "name": "Sally's Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.93538,
+      "lat": 49.73154
+    },
+    {
+      "number": 446,
+      "name": "Salvage",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6432,
+      "lat": 48.6884
+    },
+    {
+      "number": 449,
+      "name": "Sandy Cove (Strait of Belle Isle)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.6775,
+      "lat": 51.3432
+    },
+    {
+      "number": 451,
+      "name": "Dawson's Cove (Hermitage-Sandyville)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.9371,
+      "lat": 47.5305
+    },
+    {
+      "number": 452,
+      "name": "Savage Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.7,
+      "lat": 51.3333
+    },
+    {
+      "number": 453,
+      "name": "Seal Cove (Connaigre Bay)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.0487,
+      "lat": 47.4878
+    },
+    {
+      "number": 454,
+      "name": "Seal Cove (White Bay)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.3938,
+      "lat": 49.9358
+    },
+    {
+      "number": 457,
+      "name": "Seldom Come By",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.187,
+      "lat": 49.6103
+    },
+    {
+      "number": 458,
+      "name": "Sheaves Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.0529,
+      "lat": 48.51791
+    },
+    {
+      "number": 459,
+      "name": "Ship Cove (Conception Bay)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.2008,
+      "lat": 47.5907
+    },
+    {
+      "number": 460,
+      "name": "Ship Cove (St.George's Bay)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.95524,
+      "lat": 48.5144
+    },
+    {
+      "number": 461,
+      "name": "Ship Cove (Cape Onion)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.6424,
+      "lat": 51.5972
+    },
+    {
+      "number": 462,
+      "name": "Ship Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9001,
+      "lat": 47.3598
+    },
+    {
+      "number": 464,
+      "name": "Shoal Cove West",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.0091,
+      "lat": 51.0117
+    },
+    {
+      "number": 467,
+      "name": "Shoe Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.5592,
+      "lat": 49.9142
+    },
+    {
+      "number": 468,
+      "name": "Sibleys Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.1045,
+      "lat": 48.04329
+    },
+    {
+      "number": 469,
+      "name": "Smith's Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.9692,
+      "lat": 49.74
+    },
+    {
+      "number": 470,
+      "name": "Snooks Arm",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.7114,
+      "lat": 49.85493
+    },
+    {
+      "number": 471,
+      "name": "Sop's Arm",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -56.8739,
+      "lat": 49.7725
+    },
+    {
+      "number": 473,
+      "name": "South East Bight",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.5766,
+      "lat": 47.39477
+    },
+    {
+      "number": 475,
+      "name": "Southern Harbour",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.9663,
+      "lat": 47.71522
+    },
+    {
+      "number": 476,
+      "name": "Southport",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6436,
+      "lat": 48.0445
+    },
+    {
+      "number": 480,
+      "name": "Spirity Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.3675,
+      "lat": 50.60341
+    },
+    {
+      "number": 482,
+      "name": "St. Anthony",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.5694,
+      "lat": 51.36067
+    },
+    {
+      "number": 483,
+      "name": "St. Anthony Bight",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.5452,
+      "lat": 51.37966
+    },
+    {
+      "number": 484,
+      "name": "St. Bernard's",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.9504,
+      "lat": 47.5278
+    },
+    {
+      "number": 486,
+      "name": "St. Brendan's",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6675,
+      "lat": 48.874
+    },
+    {
+      "number": 487,
+      "name": "St. Bride's",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.176321,
+      "lat": 46.917864
+    },
+    {
+      "number": 488,
+      "name": "St. Carols",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.5029,
+      "lat": 51.3761
+    },
+    {
+      "number": 490,
+      "name": "St. David's (Crabbe's River)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.863,
+      "lat": 48.2183
+    },
+    {
+      "number": 492,
+      "name": "St. Jacques",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.4209,
+      "lat": 47.4913
+    },
+    {
+      "number": 494,
+      "name": "St. John's (Prosser Rock)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.6901,
+      "lat": 47.5658
+    },
+    {
+      "number": 497,
+      "name": "St. Joseph's",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.801,
+      "lat": 48.029
+    },
+    {
+      "number": 499,
+      "name": "St. Lawrence",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.3905,
+      "lat": 46.9171
+    },
+    {
+      "number": 500,
+      "name": "St. Lunaire",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.4745,
+      "lat": 51.5002
+    },
+    {
+      "number": 501,
+      "name": "St. Mary's",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.5738,
+      "lat": 46.9163
+    },
+    {
+      "number": 503,
+      "name": "St. Philip's",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8855,
+      "lat": 47.5924
+    },
+    {
+      "number": 504,
+      "name": "St. Shotts",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.5924,
+      "lat": 46.6277
+    },
+    {
+      "number": 510,
+      "name": "Summerford",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.7969,
+      "lat": 49.4892
+    },
+    {
+      "number": 512,
+      "name": "Summerville",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5516,
+      "lat": 48.44
+    },
+    {
+      "number": 513,
+      "name": "Sunnyside",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.92859,
+      "lat": 47.85792
+    },
+    {
+      "number": 514,
+      "name": "Sweet Bay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6512,
+      "lat": 48.44606
+    },
+    {
+      "number": 516,
+      "name": "Tacks Beach",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.2145,
+      "lat": 47.5802
+    },
+    {
+      "number": 517,
+      "name": "Thornlea",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.7194,
+      "lat": 47.60645
+    },
+    {
+      "number": 518,
+      "name": "Three Rock Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -59.101,
+      "lat": 48.6241
+    },
+    {
+      "number": 519,
+      "name": "Tilting",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.0619,
+      "lat": 49.70589
+    },
+    {
+      "number": 520,
+      "name": "Tizzard's Harbour",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.8025,
+      "lat": 49.59456
+    },
+    {
+      "number": 521,
+      "name": "Torbay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.7264,
+      "lat": 47.66539
+    },
+    {
+      "number": 523,
+      "name": "Trepassey",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3715,
+      "lat": 46.7355
+    },
+    {
+      "number": 526,
+      "name": "Trinity East",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3451,
+      "lat": 48.3784
+    },
+    {
+      "number": 527,
+      "name": "Triton West",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.6183,
+      "lat": 49.52638
+    },
+    {
+      "number": 528,
+      "name": "Trout River",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.1326,
+      "lat": 49.4804
+    },
+    {
+      "number": 530,
+      "name": "Trouty",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.4062,
+      "lat": 48.3312
+    },
+    {
+      "number": 531,
+      "name": "Twillingate",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.7701,
+      "lat": 49.64654
+    },
+    {
+      "number": 536,
+      "name": "Upper Island Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -53.2029,
+      "lat": 47.64954
+    },
+    {
+      "number": 537,
+      "name": "Jenkins Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.7364,
+      "lat": 49.66354
+    },
+    {
+      "number": 538,
+      "name": "Valleyfield",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.6087,
+      "lat": 49.1219
+    },
+    {
+      "number": 544,
+      "name": "Westport",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.6438,
+      "lat": 49.78556
+    },
+    {
+      "number": 545,
+      "name": "Valley Pond",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8993,
+      "lat": 49.56849
+    },
+    {
+      "number": 546,
+      "name": "Whiteway",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.4819,
+      "lat": 47.697
+    },
+    {
+      "number": 547,
+      "name": "Beachside",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.8959,
+      "lat": 49.6431
+    },
+    {
+      "number": 548,
+      "name": "Wild Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.3421,
+      "lat": 49.99335
+    },
+    {
+      "number": 552,
+      "name": "Winterton",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.3343,
+      "lat": 47.9552
+    },
+    {
+      "number": 553,
+      "name": "Witless Bay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -52.8239,
+      "lat": 47.2786
+    },
+    {
+      "number": 558,
+      "name": "Woody Point",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.9131,
+      "lat": 49.5024
+    },
+    {
+      "number": 559,
+      "name": "Wreck Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.6079,
+      "lat": 47.4976
+    },
+    {
+      "number": 564,
+      "name": "Makkovik",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.171,
+      "lat": 55.084
+    },
+    {
+      "number": 566,
+      "name": "Smokey",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.2461,
+      "lat": 54.4668
+    },
+    {
+      "number": 570,
+      "name": "Merasheen",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -54.35,
+      "lat": 47.4167
+    },
+    {
+      "number": 572,
+      "name": "Brent's Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7112,
+      "lat": 49.93874
+    },
+    {
+      "number": 573,
+      "name": "Wesleyville",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.5605,
+      "lat": 49.14446
+    },
+    {
+      "number": 574,
+      "name": "Belleoram",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.4085,
+      "lat": 47.5266
+    },
+    {
+      "number": 579,
+      "name": "Englee",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.107,
+      "lat": 50.73246
+    },
+    {
+      "number": 585,
+      "name": "Nain",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -61.6868,
+      "lat": 56.5432
+    },
+    {
+      "number": 594,
+      "name": "Three Mile Rock",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.7389,
+      "lat": 50.0066
+    },
+    {
+      "number": 600,
+      "name": "Straitsview (Spillars Cove)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.493,
+      "lat": 51.5886
+    },
+    {
+      "number": 609,
+      "name": "Black Tickle",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.7646,
+      "lat": 53.4561
+    },
+    {
+      "number": 613,
+      "name": "Brookfield",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.579889,
+      "lat": 49.136866
+    },
+    {
+      "number": 621,
+      "name": "Carmanville",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.2826,
+      "lat": 49.4039
+    },
+    {
+      "number": 639,
+      "name": "St. Lewis",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.6792,
+      "lat": 52.36811
+    },
+    {
+      "number": 648,
+      "name": "Heatherton",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -58.7723,
+      "lat": 48.27703
+    },
+    {
+      "number": 656,
+      "name": "Lodge Bay",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -55.846886,
+      "lat": 52.233849
+    },
+    {
+      "number": 677,
+      "name": "Petite Forte",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.6681,
+      "lat": 47.39624
+    },
+    {
+      "number": 678,
+      "name": "Pinsent's Arm",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.1213,
+      "lat": 52.77382
+    },
+    {
+      "number": 691,
+      "name": "Tickle Cove",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -53.4833,
+      "lat": 48.5833
+    },
+    {
+      "number": 701,
+      "name": "West Bay Centre",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -58.9408,
+      "lat": 48.59978
+    },
+    {
+      "number": 719,
+      "name": "Josephine's Cove (Barr'D Harbour)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.0637,
+      "lat": 50.8168
+    },
+    {
+      "number": 725,
+      "name": "Old House Rock (St. Pauls)",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.7972,
+      "lat": 49.8567
+    },
+    {
+      "number": 727,
+      "name": "Portland Creek",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -57.6119,
+      "lat": 50.1685
+    },
+    {
+      "number": 737,
+      "name": "Monkstown",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.4293,
+      "lat": 47.579
+    },
+    {
+      "number": 738,
+      "name": "Georges Cove",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.7554,
+      "lat": 52.5821
+    },
+    {
+      "number": 739,
+      "name": "Cartwright",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -57.0263,
+      "lat": 53.70326
+    },
+    {
+      "number": 740,
+      "name": "Square Islands",
+      "province": "NL",
+      "type": "Non-Core Fishing",
+      "lon": -55.8313,
+      "lat": 52.73293
+    },
+    {
+      "number": 744,
+      "name": "Lourdes",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -59.0047,
+      "lat": 48.65242
+    },
+    {
+      "number": 751,
+      "name": "Castors River North",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.9601,
+      "lat": 50.93198
+    },
+    {
+      "number": 757,
+      "name": "English Harbour East",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -54.8855,
+      "lat": 47.6323
+    },
+    {
+      "number": 800,
+      "name": "Charlottetown (Labrador)",
+      "province": "NL",
+      "type": "Core Fishing",
+      "lon": -56.1213,
+      "lat": 52.77382
+    },
+    {
+      "number": 1001,
+      "name": "Abbotts Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.8237,
+      "lat": 43.6639
+    },
+    {
+      "number": 1002,
+      "name": "Advocate",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.7757,
+      "lat": 45.3324
+    },
+    {
+      "number": 1003,
+      "name": "Alder Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.2835,
+      "lat": 46.3087
+    },
+    {
+      "number": 1007,
+      "name": "Arisaig",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.172,
+      "lat": 45.761
+    },
+    {
+      "number": 1010,
+      "name": "Aulds Cove",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -61.4352,
+      "lat": 45.6482
+    },
+    {
+      "number": 1012,
+      "name": "Baileys Brook (Lismore)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.2703,
+      "lat": 45.706
+    },
+    {
+      "number": 1014,
+      "name": "Ballantynes Cove (Mcnair's Cove)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.9186,
+      "lat": 45.8587
+    },
+    {
+      "number": 1018,
+      "name": "Barrios Beach (Tracadie)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.6275,
+      "lat": 45.6411
+    },
+    {
+      "number": 1019,
+      "name": "Battery Point (Victoria Beach)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.7526,
+      "lat": 44.675
+    },
+    {
+      "number": 1020,
+      "name": "Bay St. Lawrence",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.4656,
+      "lat": 47.0006
+    },
+    {
+      "number": 1021,
+      "name": "Bayfield (Pomquet Point)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.7537,
+      "lat": 45.6453
+    },
+    {
+      "number": 1022,
+      "name": "Bayport",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.316,
+      "lat": 44.3293
+    },
+    {
+      "number": 1025,
+      "name": "Bear Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.6552,
+      "lat": 43.4867
+    },
+    {
+      "number": 1027,
+      "name": "Big Bras d'Or",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.4247,
+      "lat": 46.2815
+    },
+    {
+      "number": 1029,
+      "name": "Big Tancook Island",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.171,
+      "lat": 44.4648
+    },
+    {
+      "number": 1030,
+      "name": "Ingomar (Black Point)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.3622,
+      "lat": 43.56323
+    },
+    {
+      "number": 1031,
+      "name": "Blandford (Shoal Cove)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.1123,
+      "lat": 44.4948
+    },
+    {
+      "number": 1036,
+      "name": "Broad Cove",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -64.4782,
+      "lat": 44.1794
+    },
+    {
+      "number": 1038,
+      "name": "Brooklyn-Fishermen's Wharf / Skidway",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.6899,
+      "lat": 44.0485
+    },
+    {
+      "number": 1039,
+      "name": "Bush Island",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.3729,
+      "lat": 44.2335
+    },
+    {
+      "number": 1040,
+      "name": "Camp Cove (Lower Argyle)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.8404,
+      "lat": 43.7242
+    },
+    {
+      "number": 1042,
+      "name": "Canso",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.9978,
+      "lat": 45.339
+    },
+    {
+      "number": 1044,
+      "name": "Cape John",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.1239,
+      "lat": 45.798
+    },
+    {
+      "number": 1046,
+      "name": "Cape St.Marys",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.2067,
+      "lat": 44.085
+    },
+    {
+      "number": 1049,
+      "name": "Carters Point (Murphy Cove)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.7624,
+      "lat": 44.7853
+    },
+    {
+      "number": 1051,
+      "name": "Centreville (Trout Cove)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.0332,
+      "lat": 44.5511
+    },
+    {
+      "number": 1054,
+      "name": "Chebogue (Town Point Hill)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.0944,
+      "lat": 43.7759
+    },
+    {
+      "number": 1055,
+      "name": "Chegoggin (Pembroke Dyke Channel)",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -66.1508,
+      "lat": 43.8599
+    },
+    {
+      "number": 1056,
+      "name": "Chegoggin Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.162,
+      "lat": 43.853
+    },
+    {
+      "number": 1061,
+      "name": "Cheticamp - Town Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.0166,
+      "lat": 46.627
+    },
+    {
+      "number": 1064,
+      "name": "East Chezzetcook",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.2366,
+      "lat": 44.7111
+    },
+    {
+      "number": 1068,
+      "name": "Clark's Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.6351,
+      "lat": 43.444
+    },
+    {
+      "number": 1074,
+      "name": "Coopers Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.6754,
+      "lat": 44.7943
+    },
+    {
+      "number": 1078,
+      "name": "Cribbons Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.8966,
+      "lat": 45.7559
+    },
+    {
+      "number": 1079,
+      "name": "Cripple Creek",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.5598,
+      "lat": 43.489
+    },
+    {
+      "number": 1084,
+      "name": "Delaps Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.6355,
+      "lat": 44.7694
+    },
+    {
+      "number": 1085,
+      "name": "Dennis Point (Lower West Pubnico)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.7873,
+      "lat": 43.6181
+    },
+    {
+      "number": 1088,
+      "name": "Dingwall",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.4604,
+      "lat": 46.90326
+    },
+    {
+      "number": 1089,
+      "name": "Drum Head",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -61.6033,
+      "lat": 45.1466
+    },
+    {
+      "number": 1090,
+      "name": "Dublin Shore",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.3637,
+      "lat": 44.2674
+    },
+    {
+      "number": 1092,
+      "name": "East Dover",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.8445,
+      "lat": 44.4955
+    },
+    {
+      "number": 1093,
+      "name": "East Ferry",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -66.2034,
+      "lat": 44.3933
+    },
+    {
+      "number": 1095,
+      "name": "East Side Port l'Hebert",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.9334,
+      "lat": 43.8279
+    },
+    {
+      "number": 1098,
+      "name": "Eastern Passage",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.4969,
+      "lat": 44.611
+    },
+    {
+      "number": 1103,
+      "name": "Falls Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.7412,
+      "lat": 43.5301
+    },
+    {
+      "number": 1104,
+      "name": "Feltzen South",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.2798,
+      "lat": 44.3292
+    },
+    {
+      "number": 1105,
+      "name": "Finlay Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.4623,
+      "lat": 46.1341
+    },
+    {
+      "number": 1109,
+      "name": "Forbes Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.7455,
+      "lat": 43.5378
+    },
+    {
+      "number": 1111,
+      "name": "Fox Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.0577,
+      "lat": 44.614
+    },
+    {
+      "number": 1112,
+      "name": "Freeport-Fish Point Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.335,
+      "lat": 44.2742
+    },
+    {
+      "number": 1113,
+      "name": "Gabarus",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -60.1495,
+      "lat": 45.843
+    },
+    {
+      "number": 1114,
+      "name": "Glace Bay",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -59.9507,
+      "lat": 46.1956
+    },
+    {
+      "number": 1117,
+      "name": "Grand Etang",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.0448,
+      "lat": 46.5495
+    },
+    {
+      "number": 1119,
+      "name": "Gunning Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.3406,
+      "lat": 43.68065
+    },
+    {
+      "number": 1121,
+      "name": "Halls Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.6198,
+      "lat": 45.2008
+    },
+    {
+      "number": 1122,
+      "name": "Hampton",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.3508,
+      "lat": 44.9068
+    },
+    {
+      "number": 1124,
+      "name": "Havre Boucher",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.5277,
+      "lat": 45.6888
+    },
+    {
+      "number": 1127,
+      "name": "Hunts Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.7682,
+      "lat": 43.9515
+    },
+    {
+      "number": 1129,
+      "name": "Indian Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.3134,
+      "lat": 44.4593
+    },
+    {
+      "number": 1130,
+      "name": "Ingonish Ferry (South Ingonish)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.3893,
+      "lat": 46.6298
+    },
+    {
+      "number": 1131,
+      "name": "Inverness (Mcisaac Pond)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.3174,
+      "lat": 46.2302
+    },
+    {
+      "number": 1136,
+      "name": "Gammons Creek (John Voglers Shore)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.3498,
+      "lat": 44.9038
+    },
+    {
+      "number": 1138,
+      "name": "Jones Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.9747,
+      "lat": 43.7501
+    },
+    {
+      "number": 1139,
+      "name": "Judique (Baxters Cove)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.5035,
+      "lat": 45.858
+    },
+    {
+      "number": 1145,
+      "name": "Kraut Point (Riverport)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.3452,
+      "lat": 44.2898
+    },
+    {
+      "number": 1147,
+      "name": "Larrys River",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.3737,
+      "lat": 45.2179
+    },
+    {
+      "number": 1148,
+      "name": "Ledge Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.819,
+      "lat": 43.652
+    },
+    {
+      "number": 1151,
+      "name": "Little Anse",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -60.9292,
+      "lat": 45.4968
+    },
+    {
+      "number": 1154,
+      "name": "Dover (Little Dover)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.0487,
+      "lat": 45.2901
+    },
+    {
+      "number": 1155,
+      "name": "Little Harbour (Halifax County)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.8418,
+      "lat": 44.7093
+    },
+    {
+      "number": 1156,
+      "name": "Little Harbour (Cherry Hill)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.4824,
+      "lat": 44.1574
+    },
+    {
+      "number": 1158,
+      "name": "Little Harbour (L'Ardoise)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.7403,
+      "lat": 45.5827
+    },
+    {
+      "number": 1160,
+      "name": "Little Harbour (Shelburne County)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.03,
+      "lat": 43.7167
+    },
+    {
+      "number": 1162,
+      "name": "Little Judique Ponds",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.5275,
+      "lat": 45.9397
+    },
+    {
+      "number": 1163,
+      "name": "Little Liscomb",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.9718,
+      "lat": 45.0258
+    },
+    {
+      "number": 1165,
+      "name": "Little River (Victoria County)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.4591,
+      "lat": 46.4454
+    },
+    {
+      "number": 1166,
+      "name": "Little River (Digby County)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.1298,
+      "lat": 44.4442
+    },
+    {
+      "number": 1167,
+      "name": "Little River Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.0308,
+      "lat": 43.7117
+    },
+    {
+      "number": 1170,
+      "name": "Livingstone Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.9817,
+      "lat": 45.8682
+    },
+    {
+      "number": 1171,
+      "name": "Lockeport",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.1094,
+      "lat": 43.7013
+    },
+    {
+      "number": 1173,
+      "name": "Long Cove (Medway)",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -64.5457,
+      "lat": 44.0977
+    },
+    {
+      "number": 1175,
+      "name": "Louisbourg",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -59.9706,
+      "lat": 45.9178
+    },
+    {
+      "number": 1177,
+      "name": "Lower East Pubnico",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.777,
+      "lat": 43.6056
+    },
+    {
+      "number": 1179,
+      "name": "Lower Jordan Bay",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.2403,
+      "lat": 43.6816
+    },
+    {
+      "number": 1182,
+      "name": "Lower Prospect",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.7259,
+      "lat": 44.451
+    },
+    {
+      "number": 1183,
+      "name": "Lower Sandy Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.3022,
+      "lat": 43.68
+    },
+    {
+      "number": 1185,
+      "name": "Lower Wedgeport -Tuna Wharf",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -65.9844,
+      "lat": 43.7123
+    },
+    {
+      "number": 1186,
+      "name": "Lower Woods Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.7374,
+      "lat": 43.5219
+    },
+    {
+      "number": 1187,
+      "name": "Lunenburg - Railway Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.307,
+      "lat": 44.375
+    },
+    {
+      "number": 1189,
+      "name": "Mabou Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.4649,
+      "lat": 46.086
+    },
+    {
+      "number": 1192,
+      "name": "Main-À-Dieu",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -59.8412,
+      "lat": 46.0066
+    },
+    {
+      "number": 1193,
+      "name": "Malagash",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.2962,
+      "lat": 45.7748
+    },
+    {
+      "number": 1195,
+      "name": "Margaree Harbour (Belle Côte)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.1086,
+      "lat": 46.4436
+    },
+    {
+      "number": 1197,
+      "name": "Marie Joseph",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.079,
+      "lat": 44.9657
+    },
+    {
+      "number": 1205,
+      "name": "Meteghan",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.1666,
+      "lat": 44.1941
+    },
+    {
+      "number": 1208,
+      "name": "Middle Point Cove",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -63.939,
+      "lat": 44.5089
+    },
+    {
+      "number": 1209,
+      "name": "Mill Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.0541,
+      "lat": 44.5809
+    },
+    {
+      "number": 1211,
+      "name": "Moose Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.6645,
+      "lat": 44.0187
+    },
+    {
+      "number": 1212,
+      "name": "Morris Island",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.8873,
+      "lat": 43.7347
+    },
+    {
+      "number": 1215,
+      "name": "Musgrave Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -53.9605,
+      "lat": 49.4596
+    },
+    {
+      "number": 1216,
+      "name": "Neils Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.3206,
+      "lat": 46.807
+    },
+    {
+      "number": 1219,
+      "name": "New Harbour (Guysborough County)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.0912,
+      "lat": 44.4736
+    },
+    {
+      "number": 1220,
+      "name": "New Harbour (Lunenburg County)",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -64.0913,
+      "lat": 44.4736
+    },
+    {
+      "number": 1221,
+      "name": "New Haven",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.3198,
+      "lat": 46.8206
+    },
+    {
+      "number": 1222,
+      "name": "New Waterford",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.0837,
+      "lat": 46.2564
+    },
+    {
+      "number": 1223,
+      "name": "Newellton",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.6333,
+      "lat": 43.4721
+    },
+    {
+      "number": 1224,
+      "name": "Ingonish (Macleods Point)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.3591,
+      "lat": 46.6884
+    },
+    {
+      "number": 1226,
+      "name": "North Sydney-Ballast Grounds",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.2489,
+      "lat": 46.2064
+    },
+    {
+      "number": 1228,
+      "name": "Northwest Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.0236,
+      "lat": 44.5339
+    },
+    {
+      "number": 1232,
+      "name": "Owls Head",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.8313,
+      "lat": 44.7364
+    },
+    {
+      "number": 1234,
+      "name": "Parkers Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.5378,
+      "lat": 44.813
+    },
+    {
+      "number": 1235,
+      "name": "Peggys Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.9165,
+      "lat": 44.4934
+    },
+    {
+      "number": 1236,
+      "name": "Pereaux (Delhaven)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.3804,
+      "lat": 45.2024
+    },
+    {
+      "number": 1239,
+      "name": "Pictou Island",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.5857,
+      "lat": 45.8031
+    },
+    {
+      "number": 1240,
+      "name": "Pictou Landing",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.684,
+      "lat": 45.6759
+    },
+    {
+      "number": 1241,
+      "name": "Pinkneys Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.0542,
+      "lat": 43.704
+    },
+    {
+      "number": 1243,
+      "name": "Pleasant Bay",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.7978,
+      "lat": 46.8304
+    },
+    {
+      "number": 1244,
+      "name": "Point Aconi (Mccreadyville)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.2875,
+      "lat": 46.3071
+    },
+    {
+      "number": 1248,
+      "name": "Port Bickerton East",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.7227,
+      "lat": 45.1058
+    },
+    {
+      "number": 1249,
+      "name": "Port Bickerton West",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -61.727,
+      "lat": 45.0947
+    },
+    {
+      "number": 1256,
+      "name": "Port la Tour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.4709,
+      "lat": 43.4988
+    },
+    {
+      "number": 1258,
+      "name": "Port Maitland",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -79.5737,
+      "lat": 42.8645
+    },
+    {
+      "number": 1260,
+      "name": "Port Medway",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.5762,
+      "lat": 44.1322
+    },
+    {
+      "number": 1261,
+      "name": "Port Morien",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -59.8719,
+      "lat": 46.1316
+    },
+    {
+      "number": 1262,
+      "name": "Port Mouton",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -64.8471,
+      "lat": 43.9269
+    },
+    {
+      "number": 1267,
+      "name": "Portuguese Cove",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -63.5314,
+      "lat": 44.5204
+    },
+    {
+      "number": 1270,
+      "name": "Pugwash",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.6669,
+      "lat": 45.8477
+    },
+    {
+      "number": 1272,
+      "name": "Queensport",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.256,
+      "lat": 45.3448
+    },
+    {
+      "number": 1280,
+      "name": "Sambro",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.5994,
+      "lat": 44.4779
+    },
+    {
+      "number": 1282,
+      "name": "Sandford",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.1551,
+      "lat": 43.9194
+    },
+    {
+      "number": 1283,
+      "name": "Sandy Cove East",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.0853,
+      "lat": 44.4877
+    },
+    {
+      "number": 1284,
+      "name": "Sandy Cove West",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -66.0986,
+      "lat": 44.4987
+    },
+    {
+      "number": 1286,
+      "name": "Saulnierville",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -66.1369,
+      "lat": 44.2631
+    },
+    {
+      "number": 1289,
+      "name": "Seal Harbour",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -61.5807,
+      "lat": 45.1505
+    },
+    {
+      "number": 1291,
+      "name": "Shad Bay",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -63.7878,
+      "lat": 44.529
+    },
+    {
+      "number": 1292,
+      "name": "Shag Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.70656,
+      "lat": 43.49288
+    },
+    {
+      "number": 1293,
+      "name": "Shag Harbour (Prospect Point)",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -65.7187,
+      "lat": 43.4904
+    },
+    {
+      "number": 1295,
+      "name": "Skinners Cove",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.0446,
+      "lat": 45.7935
+    },
+    {
+      "number": 1296,
+      "name": "Sluice Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.9503,
+      "lat": 43.7728
+    },
+    {
+      "number": 1298,
+      "name": "Smithsville",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -65.4638,
+      "lat": 43.4859
+    },
+    {
+      "number": 1300,
+      "name": "Sonora",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.9045,
+      "lat": 45.0576
+    },
+    {
+      "number": 1301,
+      "name": "South Bar",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.2039,
+      "lat": 46.2004
+    },
+    {
+      "number": 1304,
+      "name": "South Side",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.5858,
+      "lat": 43.4477
+    },
+    {
+      "number": 1312,
+      "name": "Stoney Island",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.5663,
+      "lat": 43.468
+    },
+    {
+      "number": 1314,
+      "name": "Surettes Island (The Tittle)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.9054,
+      "lat": 43.72
+    },
+    {
+      "number": 1315,
+      "name": "Swims Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.6313,
+      "lat": 43.433
+    },
+    {
+      "number": 1318,
+      "name": "Terence Bay",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.7147,
+      "lat": 44.4678
+    },
+    {
+      "number": 1320,
+      "name": "Three Fathom Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.2768,
+      "lat": 44.6391
+    },
+    {
+      "number": 1323,
+      "name": "Tiverton -Fishermen's Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.2137,
+      "lat": 44.397
+    },
+    {
+      "number": 1325,
+      "name": "Toney River",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.8906,
+      "lat": 45.7716
+    },
+    {
+      "number": 1331,
+      "name": "Upper Port la Tour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.4695,
+      "lat": 43.5059
+    },
+    {
+      "number": 1335,
+      "name": "Voglers Cove West",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.545,
+      "lat": 44.1533
+    },
+    {
+      "number": 1337,
+      "name": "Wallace",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.4731,
+      "lat": 45.8148
+    },
+    {
+      "number": 1338,
+      "name": "Wedge Point (Wedgeport)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.9693,
+      "lat": 43.7131
+    },
+    {
+      "number": 1339,
+      "name": "West Arichat",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -61.0778,
+      "lat": 45.51172
+    },
+    {
+      "number": 1341,
+      "name": "West Berlin",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.5826,
+      "lat": 44.0689
+    },
+    {
+      "number": 1342,
+      "name": "West Dover",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -63.8684,
+      "lat": 44.4929
+    },
+    {
+      "number": 1343,
+      "name": "West Green Harbour",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.1678,
+      "lat": 43.7192
+    },
+    {
+      "number": 1345,
+      "name": "West Head",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -65.6519,
+      "lat": 43.4588
+    },
+    {
+      "number": 1350,
+      "name": "Westport -Ferry Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.3482,
+      "lat": 44.2657
+    },
+    {
+      "number": 1351,
+      "name": "Westport (Irishtown)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.3467,
+      "lat": 44.2584
+    },
+    {
+      "number": 1352,
+      "name": "Whale Cove",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -66.761,
+      "lat": 44.7733
+    },
+    {
+      "number": 1353,
+      "name": "White Point",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.3534,
+      "lat": 46.8754
+    },
+    {
+      "number": 1356,
+      "name": "Upper Whitehead",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.1895,
+      "lat": 45.2409
+    },
+    {
+      "number": 1361,
+      "name": "Yarmouth Bar",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.1505,
+      "lat": 43.8151
+    },
+    {
+      "number": 1364,
+      "name": "Caribou Ferry - Fishermen's Facilities",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -62.6875,
+      "lat": 45.739
+    },
+    {
+      "number": 1403,
+      "name": "Central Port Mouton - Fishermen's Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.8428,
+      "lat": 43.9203
+    },
+    {
+      "number": 1404,
+      "name": "Freeport (Northeast Cove)",
+      "province": "NS",
+      "type": "Non-Core Fishing",
+      "lon": -66.329,
+      "lat": 44.2694
+    },
+    {
+      "number": 1405,
+      "name": "Freeport (South Cove)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -66.3273,
+      "lat": 44.2661
+    },
+    {
+      "number": 1408,
+      "name": "Petit-de-Grat",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -60.9604,
+      "lat": 45.5058
+    },
+    {
+      "number": 1411,
+      "name": "Cheticamp (La Digue)",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -61.0101,
+      "lat": 46.6362
+    },
+    {
+      "number": 1412,
+      "name": "Lunenburg - Fishermen's Wharf",
+      "province": "NS",
+      "type": "Core Fishing",
+      "lon": -64.3145,
+      "lat": 44.3763
+    },
+    {
+      "number": 2001,
+      "name": "Alberton (Northport)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.0591,
+      "lat": 46.7953
+    },
+    {
+      "number": 2003,
+      "name": "Annandale",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.4238,
+      "lat": 46.2583
+    },
+    {
+      "number": 2006,
+      "name": "Bay Fortune",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.3502,
+      "lat": 46.3286
+    },
+    {
+      "number": 2007,
+      "name": "Beach Point",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.4866,
+      "lat": 46.0161
+    },
+    {
+      "number": 2011,
+      "name": "Borden - Fishermen's Wharf",
+      "province": "PE",
+      "type": "Non-Core Fishing",
+      "lon": -63.7013,
+      "lat": 46.25
+    },
+    {
+      "number": 2017,
+      "name": "Clifton",
+      "province": "PE",
+      "type": "Non-Core Fishing",
+      "lon": -63.5422,
+      "lat": 46.4618
+    },
+    {
+      "number": 2018,
+      "name": "Covehead",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.1462,
+      "lat": 46.4282
+    },
+    {
+      "number": 2021,
+      "name": "Abrams Village",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.1118,
+      "lat": 46.4401
+    },
+    {
+      "number": 2024,
+      "name": "Fishing Cove",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.1345,
+      "lat": 46.408
+    },
+    {
+      "number": 2025,
+      "name": "French River",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.5115,
+      "lat": 46.5174
+    },
+    {
+      "number": 2026,
+      "name": "French River -South Landing",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.5013,
+      "lat": 46.5089
+    },
+    {
+      "number": 2027,
+      "name": "Georgetown - Fishermen's Wharf",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.5307,
+      "lat": 46.179
+    },
+    {
+      "number": 2029,
+      "name": "Graham's Pond",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.4545,
+      "lat": 46.0962
+    },
+    {
+      "number": 2033,
+      "name": "Higgins Shore (Prince County)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.0885,
+      "lat": 46.5496
+    },
+    {
+      "number": 2034,
+      "name": "Howards Cove",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.3782,
+      "lat": 46.7402
+    },
+    {
+      "number": 2035,
+      "name": "Judes Point",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.0028,
+      "lat": 46.9522
+    },
+    {
+      "number": 2037,
+      "name": "Launching Pond",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.4117,
+      "lat": 46.2209
+    },
+    {
+      "number": 2040,
+      "name": "Lower Montague",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.5627,
+      "lat": 46.1702
+    },
+    {
+      "number": 2041,
+      "name": "Machons Point",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.5138,
+      "lat": 46.0139
+    },
+    {
+      "number": 2042,
+      "name": "Malpeque Cove (Malpeque)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.7031,
+      "lat": 46.5564
+    },
+    {
+      "number": 2043,
+      "name": "Mcauley's Shore (Pinette River)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.9273,
+      "lat": 46.0579
+    },
+    {
+      "number": 2046,
+      "name": "Milligan's Shore",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.9115,
+      "lat": 46.6555
+    },
+    {
+      "number": 2047,
+      "name": "Miminegash",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.2321,
+      "lat": 46.8793
+    },
+    {
+      "number": 2048,
+      "name": "Mink River",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.5294,
+      "lat": 46.0487
+    },
+    {
+      "number": 2049,
+      "name": "Montague",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.646,
+      "lat": 46.165
+    },
+    {
+      "number": 2051,
+      "name": "Naufrage",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.4177,
+      "lat": 46.4673
+    },
+    {
+      "number": 2052,
+      "name": "New London",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.5138,
+      "lat": 46.4692
+    },
+    {
+      "number": 2053,
+      "name": "Nine Mile Creek",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.2183,
+      "lat": 46.1482
+    },
+    {
+      "number": 2055,
+      "name": "North Lake",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.0695,
+      "lat": 46.4672
+    },
+    {
+      "number": 2056,
+      "name": "North Rustico",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.3103,
+      "lat": 46.45691
+    },
+    {
+      "number": 2058,
+      "name": "Pinette",
+      "province": "PE",
+      "type": "Non-Core Fishing",
+      "lon": -62.9106,
+      "lat": 46.0539
+    },
+    {
+      "number": 2063,
+      "name": "Red Head",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.7129,
+      "lat": 46.4322
+    },
+    {
+      "number": 2069,
+      "name": "Crowbush Cove Wharf (previously Savage Harbour)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.836,
+      "lat": 46.4322
+    },
+    {
+      "number": 2070,
+      "name": "Seacow Pond",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.9901,
+      "lat": 47.0293
+    },
+    {
+      "number": 2071,
+      "name": "Skinners Pond",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.1242,
+      "lat": 46.9646
+    },
+    {
+      "number": 2072,
+      "name": "South River (Murray Harbour)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.5223,
+      "lat": 46.0056
+    },
+    {
+      "number": 2075,
+      "name": "Stanley Bridge",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.4593,
+      "lat": 46.4632
+    },
+    {
+      "number": 2076,
+      "name": "Sturgeon",
+      "province": "PE",
+      "type": "Non-Core Fishing",
+      "lon": -62.5323,
+      "lat": 46.1234
+    },
+    {
+      "number": 2077,
+      "name": "Sturgeon (Bridge)",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.5402,
+      "lat": 46.1184
+    },
+    {
+      "number": 2078,
+      "name": "Tignish",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.9957,
+      "lat": 46.9514
+    },
+    {
+      "number": 2079,
+      "name": "Tracadie",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.0293,
+      "lat": 46.4032
+    },
+    {
+      "number": 2081,
+      "name": "Victoria",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -63.4896,
+      "lat": 46.2132
+    },
+    {
+      "number": 2082,
+      "name": "West Point",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -64.3721,
+      "lat": 46.6189
+    },
+    {
+      "number": 2083,
+      "name": "Wood Islands",
+      "province": "PE",
+      "type": "Core Fishing",
+      "lon": -62.7478,
+      "lat": 45.953
+    },
+    {
+      "number": 2501,
+      "name": "Alma",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.9458,
+      "lat": 45.6002
+    },
+    {
+      "number": 2502,
+      "name": "Anse-Bleue",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.0813,
+      "lat": 47.8306
+    },
+    {
+      "number": 2503,
+      "name": "Back Bay",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.8639,
+      "lat": 45.0559
+    },
+    {
+      "number": 2505,
+      "name": "Barre-de-Cocagne (Cormierville)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.6164,
+      "lat": 46.4079
+    },
+    {
+      "number": 2507,
+      "name": "Bay du Vin",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -65.147,
+      "lat": 47.039
+    },
+    {
+      "number": 2508,
+      "name": "Beaver Harbour",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.7397,
+      "lat": 45.0689
+    },
+    {
+      "number": 2510,
+      "name": "Lepreau (Belas Basin)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.4714,
+      "lat": 45.125
+    },
+    {
+      "number": 2513,
+      "name": "Black River",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.8096,
+      "lat": 45.2609
+    },
+    {
+      "number": 2514,
+      "name": "Blacks Harbour",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.7948,
+      "lat": 45.0556
+    },
+    {
+      "number": 2515,
+      "name": "Botsford (Murray Corner)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -63.9348,
+      "lat": 46.1688
+    },
+    {
+      "number": 2516,
+      "name": "Boynes Cove",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.4982,
+      "lat": 45.1311
+    },
+    {
+      "number": 2520,
+      "name": "Burnt Church",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -65.1359,
+      "lat": 47.1915
+    },
+    {
+      "number": 2523,
+      "name": "Cap-des-Caissie",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.5107,
+      "lat": 46.3134
+    },
+    {
+      "number": 2525,
+      "name": "Cap-Pelé",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -64.2622,
+      "lat": 46.2355
+    },
+    {
+      "number": 2527,
+      "name": "Cape Tormentine",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -63.7778,
+      "lat": 46.1344
+    },
+    {
+      "number": 2528,
+      "name": "Caraquet",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.9296,
+      "lat": 47.7966
+    },
+    {
+      "number": 2530,
+      "name": "Chance Harbour",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.3512,
+      "lat": 45.1223
+    },
+    {
+      "number": 2531,
+      "name": "Chockpish (Côte-Sainte-Anne)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.7216,
+      "lat": 46.5836
+    },
+    {
+      "number": 2532,
+      "name": "Chocolate Cove",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.9734,
+      "lat": 44.9468
+    },
+    {
+      "number": 2539,
+      "name": "Curry Cove",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.939,
+      "lat": 44.9281
+    },
+    {
+      "number": 2542,
+      "name": "Dipper Harbour",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.4177,
+      "lat": 45.0943
+    },
+    {
+      "number": 2545,
+      "name": "Les Aboiteaux (Dupuis Corner)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.2971,
+      "lat": 46.2304
+    },
+    {
+      "number": 2548,
+      "name": "Escuminac",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.8866,
+      "lat": 47.0814
+    },
+    {
+      "number": 2550,
+      "name": "Fairhaven",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -67.0081,
+      "lat": 44.964
+    },
+    {
+      "number": 2551,
+      "name": "Five Fathom Hole",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.2574,
+      "lat": 45.1866
+    },
+    {
+      "number": 2557,
+      "name": "Grande-Anse",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -65.1774,
+      "lat": 47.8186
+    },
+    {
+      "number": 2558,
+      "name": "Pointe-Verte",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -65.7622,
+      "lat": 47.8611
+    },
+    {
+      "number": 2559,
+      "name": "Gull Cove (Whitehead Island)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.6917,
+      "lat": 44.6305
+    },
+    {
+      "number": 2561,
+      "name": "Hardwicke (French River)",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -65.0183,
+      "lat": 47.0784
+    },
+    {
+      "number": 2563,
+      "name": "Head Harbour",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.9208,
+      "lat": 44.9441
+    },
+    {
+      "number": 2565,
+      "name": "Ingalls Head",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.7563,
+      "lat": 44.662
+    },
+    {
+      "number": 2568,
+      "name": "Loggiecroft (Kouchibouguac)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.9343,
+      "lat": 46.8317
+    },
+    {
+      "number": 2571,
+      "name": "Lamèque",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.6582,
+      "lat": 47.7914
+    },
+    {
+      "number": 2573,
+      "name": "Leonardville",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.9532,
+      "lat": 44.9718
+    },
+    {
+      "number": 2576,
+      "name": "Petit-Cap",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.1632,
+      "lat": 46.1994
+    },
+    {
+      "number": 2577,
+      "name": "Little Dipper Harbour",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.3611,
+      "lat": 45.1155
+    },
+    {
+      "number": 2580,
+      "name": "Petit Shippagan",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.5756,
+      "lat": 47.8826
+    },
+    {
+      "number": 2582,
+      "name": "Lords Cove",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.9474,
+      "lat": 45.0059
+    },
+    {
+      "number": 2583,
+      "name": "Lorneville",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.1483,
+      "lat": 45.1926
+    },
+    {
+      "number": 2584,
+      "name": "Bas-Caraquet",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -64.8571,
+      "lat": 47.8085
+    },
+    {
+      "number": 2587,
+      "name": "Cap-de-Saint-Louis",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.914,
+      "lat": 46.7597
+    },
+    {
+      "number": 2588,
+      "name": "Maces Bay",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.4785,
+      "lat": 45.1167
+    },
+    {
+      "number": 2591,
+      "name": "Malloch Beach (North Road)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.9419,
+      "lat": 44.9158
+    },
+    {
+      "number": 2595,
+      "name": "Mceacherns Point (Wishart Point)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.9687,
+      "lat": 47.3399
+    },
+    {
+      "number": 2597,
+      "name": "Miller Brook (Salmon Beach)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.5048,
+      "lat": 47.6689
+    },
+    {
+      "number": 2598,
+      "name": "Miscou",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.5782,
+      "lat": 47.8953
+    },
+    {
+      "number": 2600,
+      "name": "Neguac",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.074,
+      "lat": 47.241
+    },
+    {
+      "number": 2601,
+      "name": "New Mills",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.1885,
+      "lat": 47.9744
+    },
+    {
+      "number": 2603,
+      "name": "North Head -Fishermen's Wharf",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.7502,
+      "lat": 44.7628
+    },
+    {
+      "number": 2606,
+      "name": "Petit-Rocher",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.7081,
+      "lat": 47.7826
+    },
+    {
+      "number": 2608,
+      "name": "Pigeon Hill",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.506,
+      "lat": 47.8782
+    },
+    {
+      "number": 2609,
+      "name": "Pointe-Sapin",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.8314,
+      "lat": 46.9616
+    },
+    {
+      "number": 2616,
+      "name": "Richardson",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.9464,
+      "lat": 44.9952
+    },
+    {
+      "number": 2617,
+      "name": "Richibucto",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.8614,
+      "lat": 46.6809
+    },
+    {
+      "number": 2619,
+      "name": "Cap-Lumière (Richibucto Cape)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.712,
+      "lat": 46.6741
+    },
+    {
+      "number": 2623,
+      "name": "Saint-Edouard-de-Kent",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -64.6985,
+      "lat": 46.5413
+    },
+    {
+      "number": 2625,
+      "name": "Savoy Landing",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -64.691,
+      "lat": 47.7495
+    },
+    {
+      "number": 2626,
+      "name": "Seal Cove-Fishermen's Wharves",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.8399,
+      "lat": 44.6484
+    },
+    {
+      "number": 2627,
+      "name": "Seeleys Cove",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.6363,
+      "lat": 45.0938
+    },
+    {
+      "number": 2630,
+      "name": "Shippagan",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.7021,
+      "lat": 47.7467
+    },
+    {
+      "number": 2631,
+      "name": "Le Goulet",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.6693,
+      "lat": 47.7196
+    },
+    {
+      "number": 2635,
+      "name": "St. Martins",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.5327,
+      "lat": 45.3574
+    },
+    {
+      "number": 2639,
+      "name": "St. Thomas",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -64.6359,
+      "lat": 46.4471
+    },
+    {
+      "number": 2640,
+      "name": "Sainte-Marie-Sur-Mer",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.5648,
+      "lat": 47.7806
+    },
+    {
+      "number": 2641,
+      "name": "Stonehaven",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -65.3627,
+      "lat": 47.7549
+    },
+    {
+      "number": 2642,
+      "name": "Stuart Town",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.938,
+      "lat": 45.019
+    },
+    {
+      "number": 2649,
+      "name": "Val-Comeau",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -64.8838,
+      "lat": 47.465
+    },
+    {
+      "number": 2658,
+      "name": "Whale Cove",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.1751,
+      "lat": 44.4359
+    },
+    {
+      "number": 2659,
+      "name": "White Head",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.7249,
+      "lat": 44.6286
+    },
+    {
+      "number": 2663,
+      "name": "Wilsons Beach",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.9406,
+      "lat": 44.9323
+    },
+    {
+      "number": 2664,
+      "name": "Woodwards Cove",
+      "province": "NB",
+      "type": "Non-Core Fishing",
+      "lon": -66.7395,
+      "lat": 44.7021
+    },
+    {
+      "number": 2701,
+      "name": "The Whistle (Whistle Beach)",
+      "province": "NB",
+      "type": "Core Fishing",
+      "lon": -66.7875,
+      "lat": 44.7983
+    },
+    {
+      "number": 3502,
+      "name": "Aguanish Ouest",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -62.1069,
+      "lat": 50.226
+    },
+    {
+      "number": 3514,
+      "name": "Aylmer Sound (Port Harrington)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -59.4541,
+      "lat": 50.6045
+    },
+    {
+      "number": 3517,
+      "name": "Baie de Brador",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.2427,
+      "lat": 51.48269
+    },
+    {
+      "number": 3518,
+      "name": "Baie des Moutons",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -59.0304,
+      "lat": 50.77301
+    },
+    {
+      "number": 3531,
+      "name": "Blanc Sablon-Grand Quai des Pêcheurs",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.1465,
+      "lat": 51.4225
+    },
+    {
+      "number": 3533,
+      "name": "Bonaventure (Rivière)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -65.481,
+      "lat": 48.034
+    },
+    {
+      "number": 3544,
+      "name": "Carleton-Section des Pêcheurs",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -66.1272,
+      "lat": 48.10057
+    },
+    {
+      "number": 3553,
+      "name": "Chevery (Rivière Cross) - Rampe de Lancement",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -59.6515,
+      "lat": 50.46008
+    },
+    {
+      "number": 3558,
+      "name": "Cloridorme",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.8489,
+      "lat": 49.1861
+    },
+    {
+      "number": 3574,
+      "name": "Etang-du-Nord (L'Etang-du-Nord)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.9587,
+      "lat": 47.36995
+    },
+    {
+      "number": 3583,
+      "name": "Gascons (Ruisseau Chapados)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.8606,
+      "lat": 48.1899
+    },
+    {
+      "number": 3589,
+      "name": "Grande Entree",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.5582,
+      "lat": 47.557
+    },
+    {
+      "number": 3590,
+      "name": "Grande-Rivère - Havre",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.4929,
+      "lat": 48.3929
+    },
+    {
+      "number": 3598,
+      "name": "Grosse-Île (Cap du Dauphin)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.5143,
+      "lat": 47.6277
+    },
+    {
+      "number": 3600,
+      "name": "Havre-Aubert - Installation de Pêche Côtière",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.8293,
+      "lat": 47.2338
+    },
+    {
+      "number": 3602,
+      "name": "Havre-St-Pierre",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -63.6044,
+      "lat": 50.237
+    },
+    {
+      "number": 3608,
+      "name": "Île Brion (Brion'S Island)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -61.4698,
+      "lat": 47.7829
+    },
+    {
+      "number": 3609,
+      "name": "Île D'Entree (L'Île-d'Entree)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.72,
+      "lat": 47.278
+    },
+    {
+      "number": 3615,
+      "name": "Kegaska - Cale de Halage Est",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.264,
+      "lat": 50.1846
+    },
+    {
+      "number": 3618,
+      "name": "L'Anse-à-Beaufils",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.3095,
+      "lat": 48.4723
+    },
+    {
+      "number": 3619,
+      "name": "L'Anse-à-Brillant",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.2915,
+      "lat": 48.7206
+    },
+    {
+      "number": 3621,
+      "name": "L'Anse-à-Valleau",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -64.5448,
+      "lat": 49.08141
+    },
+    {
+      "number": 3631,
+      "name": "La Tabatiere-Section des Pêche",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -58.9729,
+      "lat": 50.83766
+    },
+    {
+      "number": 3660,
+      "name": "Les Mechins -Quai des Pêcheurs",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -66.9766,
+      "lat": 49.0051
+    },
+    {
+      "number": 3676,
+      "name": "Mal-Bay (St-Georges)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.1988,
+      "lat": 48.6207
+    },
+    {
+      "number": 3680,
+      "name": "Matane (Nouveau Havre)-Quai des Pêcheurs",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -67.5806,
+      "lat": 48.8434
+    },
+    {
+      "number": 3684,
+      "name": "Middle Bay",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.4859,
+      "lat": 51.4612
+    },
+    {
+      "number": 3686,
+      "name": "Millerand",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.9833,
+      "lat": 47.2167
+    },
+    {
+      "number": 3695,
+      "name": "Mont-Louis Ouest",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -65.7367,
+      "lat": 49.2348
+    },
+    {
+      "number": 3699,
+      "name": "Newport (Îlots)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -64.7555,
+      "lat": 48.25157
+    },
+    {
+      "number": 3700,
+      "name": "Newport (Pointe)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.7207,
+      "lat": 48.2863
+    },
+    {
+      "number": 3720,
+      "name": "Old-Harry",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -61.4671,
+      "lat": 47.5709
+    },
+    {
+      "number": 3725,
+      "name": "Paspébiac - Quai des Pêcheurs et Débarcadère",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -65.25,
+      "lat": 48.016
+    },
+    {
+      "number": 3731,
+      "name": "Petite-Vallée",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -65.0369,
+      "lat": 49.22137
+    },
+    {
+      "number": 3736,
+      "name": "Pointe-Aux-Loups",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.7156,
+      "lat": 47.5301
+    },
+    {
+      "number": 3737,
+      "name": "Pointe-Basse",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.7899,
+      "lat": 47.38982
+    },
+    {
+      "number": 3742,
+      "name": "Port-Cartier (Rivière des Rochers)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -66.8737,
+      "lat": 50.01807
+    },
+    {
+      "number": 3744,
+      "name": "Port-Daniel-Est (À Bona)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.96255,
+      "lat": 48.18359
+    },
+    {
+      "number": 3745,
+      "name": "Port-Daniel-Ouest (Marcil'S Landing)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -65.0246,
+      "lat": 48.1123
+    },
+    {
+      "number": 3760,
+      "name": "Rivère au Tonnerre (Rivère)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.78169,
+      "lat": 50.27373
+    },
+    {
+      "number": 3764,
+      "name": "Rivière Madeleine (Cap à l'Ours)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -65.2936,
+      "lat": 49.24056
+    },
+    {
+      "number": 3767,
+      "name": "Rivère St-Paul (Village)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.707,
+      "lat": 51.4707
+    },
+    {
+      "number": 3768,
+      "name": "Rivère-au-Renard",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.3881,
+      "lat": 48.9965
+    },
+    {
+      "number": 3774,
+      "name": "Salmon Bay",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -57.6148,
+      "lat": 51.4192
+    },
+    {
+      "number": 3783,
+      "name": "Shigawake",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -65.071,
+      "lat": 48.093
+    },
+    {
+      "number": 3814,
+      "name": "St-Godefroi",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -65.1142,
+      "lat": 48.0739
+    },
+    {
+      "number": 3848,
+      "name": "Ste-Félicité (Anse à la Croix)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -67.2925,
+      "lat": 48.9076
+    },
+    {
+      "number": 3849,
+      "name": "Ste-Félicité (Village)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -67.3448,
+      "lat": 48.90151
+    },
+    {
+      "number": 3856,
+      "name": "Ste-Thérèse-de-Gaspé (Petite Rivière Est)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.3943,
+      "lat": 48.4148
+    },
+    {
+      "number": 3862,
+      "name": "Tourelles (St-Joachim)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -66.41807,
+      "lat": 49.15824
+    },
+    {
+      "number": 3889,
+      "name": "Cap-Aux-Meules (Port Polyvalent)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.8555,
+      "lat": 47.37753
+    },
+    {
+      "number": 3893,
+      "name": "Old Fort Bay-Quai des Pêcheurs",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.8141,
+      "lat": 51.4223
+    },
+    {
+      "number": 3894,
+      "name": "Mingan",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -64.01987,
+      "lat": 50.28965
+    },
+    {
+      "number": 3895,
+      "name": "Harrington Harbour",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -59.4756,
+      "lat": 50.49635
+    },
+    {
+      "number": 3896,
+      "name": "Tête-à-La-Baleine (Fishermen'S Wharf)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -59.32381,
+      "lat": 50.69865
+    },
+    {
+      "number": 3911,
+      "name": "Baie Comeau (Havre Polyvalent)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -68.1335,
+      "lat": 49.2291
+    },
+    {
+      "number": 3979,
+      "name": "Baie-Trinité",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -67.2845,
+      "lat": 49.4205
+    },
+    {
+      "number": 3982,
+      "name": "Fatima (Anse de l'Hôpital)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -61.8962,
+      "lat": 47.42041
+    },
+    {
+      "number": 3984,
+      "name": "Blanc Sablon -Cale de Halage",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.1482,
+      "lat": 51.4223
+    },
+    {
+      "number": 3985,
+      "name": "Blanc Sablon-Petit Quai des Pêcheurs",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.1467,
+      "lat": 51.4224
+    },
+    {
+      "number": 3987,
+      "name": "Cap-Chat - Nouveau Havre",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -66.6881,
+      "lat": 49.0991
+    },
+    {
+      "number": 4035,
+      "name": "Les Escoumins (Basques)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -69.3894,
+      "lat": 48.3461
+    },
+    {
+      "number": 4048,
+      "name": "Rivière St-Paul (Île des Esquimaux)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -57.7067,
+      "lat": 51.4181
+    },
+    {
+      "number": 4065,
+      "name": "Ste-Anne-des-Monts - Havre Polyvalent",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -66.4886,
+      "lat": 49.13264
+    },
+    {
+      "number": 4068,
+      "name": "Kegaska - Quai Débarcadère",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.2639,
+      "lat": 50.1846
+    },
+    {
+      "number": 4077,
+      "name": "Rivière St-Paul (Baie Chevalier)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -57.6796,
+      "lat": 51.496
+    },
+    {
+      "number": 4078,
+      "name": "Sept-Îles (Parc Bunge)",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -66.38607,
+      "lat": 50.20281
+    },
+    {
+      "number": 4081,
+      "name": "Chevery (Rivère Cross)-Quai",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -59.6004,
+      "lat": 50.4808
+    },
+    {
+      "number": 4137,
+      "name": "Baie de Brador (Île Udell)",
+      "province": "QC",
+      "type": "Non-Core Fishing",
+      "lon": -57.2599,
+      "lat": 51.46419
+    },
+    {
+      "number": 4138,
+      "name": "Natashquan",
+      "province": "QC",
+      "type": "Core Fishing",
+      "lon": -61.82857,
+      "lat": 50.20161
+    },
+    {
+      "number": 5592,
+      "name": "Stevenson Island",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -94.659816,
+      "lat": 53.857425
+    },
+    {
+      "number": 5986,
+      "name": "Pangnirtung",
+      "province": "NU",
+      "type": "Core Fishing",
+      "lon": -65.70295,
+      "lat": 66.149267
+    },
+    {
+      "number": 5992,
+      "name": "Clyde River",
+      "province": "NU",
+      "type": "Core Fishing",
+      "lon": -68.597123,
+      "lat": 70.466932
+    },
+    {
+      "number": 6003,
+      "name": "Albion",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -122.557199,
+      "lat": 49.181362
+    },
+    {
+      "number": 6004,
+      "name": "Alert Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -126.93066,
+      "lat": 50.588375
+    },
+    {
+      "number": 6009,
+      "name": "Bamfield West",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -125.140411,
+      "lat": 48.828998
+    },
+    {
+      "number": 6013,
+      "name": "Bella Bella (Martins Cove)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -128.142375,
+      "lat": 52.171359
+    },
+    {
+      "number": 6014,
+      "name": "Bella Coola",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -126.793352,
+      "lat": 52.375134
+    },
+    {
+      "number": 6018,
+      "name": "Bull Harbour (Hope Island)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -127.930341,
+      "lat": 50.912355
+    },
+    {
+      "number": 6019,
+      "name": "Burgoyne Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.521491,
+      "lat": 48.792816
+    },
+    {
+      "number": 6021,
+      "name": "Campbell River",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.237686,
+      "lat": 50.022031
+    },
+    {
+      "number": 6024,
+      "name": "Cape Mudge",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.197536,
+      "lat": 50.023342
+    },
+    {
+      "number": 6028,
+      "name": "Comox",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.927025,
+      "lat": 49.669511
+    },
+    {
+      "number": 6029,
+      "name": "Cortes Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.933211,
+      "lat": 50.062314
+    },
+    {
+      "number": 6030,
+      "name": "Courtenay-Slough",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.992712,
+      "lat": 49.693216
+    },
+    {
+      "number": 6031,
+      "name": "Cowichan Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.61767,
+      "lat": 48.741123
+    },
+    {
+      "number": 6035,
+      "name": "Crofton",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.639027,
+      "lat": 48.865384
+    },
+    {
+      "number": 6037,
+      "name": "Deep Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -54.2809,
+      "lat": 49.6698
+    },
+    {
+      "number": 6038,
+      "name": "Degnen Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.713028,
+      "lat": 49.136847
+    },
+    {
+      "number": 6039,
+      "name": "Masset (Delkatla Slough)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -132.140376,
+      "lat": 54.009016
+    },
+    {
+      "number": 6042,
+      "name": "Egmont",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.929204,
+      "lat": 49.749905
+    },
+    {
+      "number": 6043,
+      "name": "Fanny Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.827761,
+      "lat": 49.507292
+    },
+    {
+      "number": 6045,
+      "name": "Ford Cove",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.67646,
+      "lat": 49.49721
+    },
+    {
+      "number": 6050,
+      "name": "French Creek",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.355638,
+      "lat": 49.349314
+    },
+    {
+      "number": 6051,
+      "name": "Fulford Harbour",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.45007,
+      "lat": 48.76884
+    },
+    {
+      "number": 6052,
+      "name": "Ganges (Inner Harbour)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.498477,
+      "lat": 48.854052
+    },
+    {
+      "number": 6053,
+      "name": "Gibsons",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.504495,
+      "lat": 49.400648
+    },
+    {
+      "number": 6055,
+      "name": "Gorge Harbour",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.020607,
+      "lat": 50.099538
+    },
+    {
+      "number": 6059,
+      "name": "Heriot Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.212884,
+      "lat": 50.102536
+    },
+    {
+      "number": 6062,
+      "name": "Hospital Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.031694,
+      "lat": 49.632031
+    },
+    {
+      "number": 6064,
+      "name": "Hunts Inlet (Porcher Island)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -130.444081,
+      "lat": 54.068028
+    },
+    {
+      "number": 6070,
+      "name": "Kanaka(Haney)-Landing",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -122.5776694,
+      "lat": 49.18963611
+    },
+    {
+      "number": 6073,
+      "name": "Kelsey Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.960567,
+      "lat": 50.39642
+    },
+    {
+      "number": 6076,
+      "name": "Kitamaat Village",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -128.651724,
+      "lat": 53.966377
+    },
+    {
+      "number": 6077,
+      "name": "Kitkatla",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -130.4388889,
+      "lat": 53.795175
+    },
+    {
+      "number": 6081,
+      "name": "Klemtu",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -128.523635,
+      "lat": 52.590516
+    },
+    {
+      "number": 6086,
+      "name": "Ladysmith",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.815057,
+      "lat": 48.999008
+    },
+    {
+      "number": 6089,
+      "name": "Lund",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.763,
+      "lat": 49.982
+    },
+    {
+      "number": 6091,
+      "name": "Madeira Park",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.025432,
+      "lat": 49.622739
+    },
+    {
+      "number": 6093,
+      "name": "Mansons Landing",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.98365,
+      "lat": 50.07141
+    },
+    {
+      "number": 6095,
+      "name": "Maaqtusiis (Marktosis)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -126.058799,
+      "lat": 49.278835
+    },
+    {
+      "number": 6098,
+      "name": "Mcivor's Landing (Langley)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -122.52501,
+      "lat": 49.163099
+    },
+    {
+      "number": 6099,
+      "name": "Mcmillan Island",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -122.567318,
+      "lat": 49.179911
+    },
+    {
+      "number": 6101,
+      "name": "Minstrel Island - Wharf and Floats",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -126.3053611,
+      "lat": 50.61355556
+    },
+    {
+      "number": 6102,
+      "name": "Mission",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -122.3001111,
+      "lat": 49.12890278
+    },
+    {
+      "number": 6103,
+      "name": "Mitchell Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -126.851138,
+      "lat": 50.630395
+    },
+    {
+      "number": 6116,
+      "name": "Ocean Falls",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -127.697225,
+      "lat": 52.353141
+    },
+    {
+      "number": 6120,
+      "name": "Okeover Inlet",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.711577,
+      "lat": 49.991138
+    },
+    {
+      "number": 6121,
+      "name": "Oona River",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -130.248231,
+      "lat": 53.942372
+    },
+    {
+      "number": 6123,
+      "name": "Opitsat",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.905842,
+      "lat": 49.172291
+    },
+    {
+      "number": 6130,
+      "name": "Porpoise Bay (Sechelt)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.758292,
+      "lat": 49.483168
+    },
+    {
+      "number": 6131,
+      "name": "Port Alberni-Fishing Harbour",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.812814,
+      "lat": 49.236809
+    },
+    {
+      "number": 6132,
+      "name": "Port Clements",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -132.183402,
+      "lat": 53.689712
+    },
+    {
+      "number": 6134,
+      "name": "Port Hardy",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -127.491535,
+      "lat": 50.713674
+    },
+    {
+      "number": 6135,
+      "name": "Port Mcneill",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -127.0870556,
+      "lat": 50.59177778
+    },
+    {
+      "number": 6137,
+      "name": "Lax Kw'Alaams",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -130.4312139,
+      "lat": 54.56100833
+    },
+    {
+      "number": 6138,
+      "name": "Powell River South",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.5294833,
+      "lat": 49.83481944
+    },
+    {
+      "number": 6139,
+      "name": "Prince Rupert (Cow Bay)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -130.3233,
+      "lat": 54.3177
+    },
+    {
+      "number": 6140,
+      "name": "Prince Rupert (Dodge Cove)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -130.3845917,
+      "lat": 54.2885
+    },
+    {
+      "number": 6141,
+      "name": "Prince Rupert (Fairview Bay)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -130.3538889,
+      "lat": 54.29222222
+    },
+    {
+      "number": 6143,
+      "name": "Port Edward",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -130.2962972,
+      "lat": 54.22788611
+    },
+    {
+      "number": 6144,
+      "name": "Prince Rupert (Rushbrook)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -130.305185,
+      "lat": 54.325062
+    },
+    {
+      "number": 6146,
+      "name": "Quathiaski Cove",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.2166,
+      "lat": 50.04254167
+    },
+    {
+      "number": 6147,
+      "name": "Queen Charlotte",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -132.073002,
+      "lat": 53.253009
+    },
+    {
+      "number": 6155,
+      "name": "Saltery Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.1764806,
+      "lat": 49.78211944
+    },
+    {
+      "number": 6158,
+      "name": "Schooner Cove-Breakwater",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.13318,
+      "lat": 49.287588
+    },
+    {
+      "number": 6159,
+      "name": "Sea Otter Cove-Mooring Buoys",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -128.35,
+      "lat": 50.67805556
+    },
+    {
+      "number": 6161,
+      "name": "Secret Cove",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.965002,
+      "lat": 49.533968
+    },
+    {
+      "number": 6166,
+      "name": "Tsehum Harbour (Shoal Harbour)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.40806,
+      "lat": 48.667398
+    },
+    {
+      "number": 6172,
+      "name": "Sointula",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -127.030367,
+      "lat": 50.640835
+    },
+    {
+      "number": 6173,
+      "name": "Sooke",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.725755,
+      "lat": 48.369914
+    },
+    {
+      "number": 6175,
+      "name": "Squamish",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.154476,
+      "lat": 49.69461
+    },
+    {
+      "number": 6176,
+      "name": "Squirrel Cove",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -124.911467,
+      "lat": 50.118697
+    },
+    {
+      "number": 6178,
+      "name": "Steveston (Gulf of Georgia)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.1917,
+      "lat": 49.12456
+    },
+    {
+      "number": 6179,
+      "name": "Stewart",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -130.008398,
+      "lat": 55.920462
+    },
+    {
+      "number": 6184,
+      "name": "Tofino (Armitage Point)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -125.892149,
+      "lat": 49.150864
+    },
+    {
+      "number": 6188,
+      "name": "Ucluelet East",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -125.540174,
+      "lat": 48.945915
+    },
+    {
+      "number": 6189,
+      "name": "Ucluelet West",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.553858,
+      "lat": 48.945403
+    },
+    {
+      "number": 6191,
+      "name": "Vancouver (False Creek)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.138939,
+      "lat": 49.272829
+    },
+    {
+      "number": 6192,
+      "name": "Vesuvius Bay",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.5733694,
+      "lat": 48.88170833
+    },
+    {
+      "number": 6195,
+      "name": "Whaler Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.325831,
+      "lat": 48.883383
+    },
+    {
+      "number": 6196,
+      "name": "Whiskey Slough (Pender Harbour)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -124.043736,
+      "lat": 49.616204
+    },
+    {
+      "number": 6198,
+      "name": "Whonnock",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -122.475386,
+      "lat": 49.172322
+    },
+    {
+      "number": 6201,
+      "name": "Winter Harbour - Wharf and Floats",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -128.029181,
+      "lat": 50.512911
+    },
+    {
+      "number": 6203,
+      "name": "Zeballos",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -126.843678,
+      "lat": 49.97922
+    },
+    {
+      "number": 6206,
+      "name": "Ladner (Delta)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.0917,
+      "lat": 49.0924
+    },
+    {
+      "number": 6207,
+      "name": "Gilford Island",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -126.601577,
+      "lat": 50.695734
+    },
+    {
+      "number": 6239,
+      "name": "Ucluelet (Otter Street)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -125.541178,
+      "lat": 48.941062
+    },
+    {
+      "number": 6240,
+      "name": "Tofino (4Th Street) - Floats",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.9002778,
+      "lat": 49.15333333
+    },
+    {
+      "number": 6241,
+      "name": "Tofino (Wingen Lane)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -125.905593,
+      "lat": 49.15444
+    },
+    {
+      "number": 6279,
+      "name": "Steveston (Paramount)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -123.16137,
+      "lat": 49.11883
+    },
+    {
+      "number": 6286,
+      "name": "Douglas Inlet-Mooring Buoys",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -132.175,
+      "lat": 52.9325
+    },
+    {
+      "number": 6288,
+      "name": "Ganges (Outer Harbour)",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -123.497744,
+      "lat": 48.852176
+    },
+    {
+      "number": 6291,
+      "name": "Henslung Cove-Mooring Buoys",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -132.9994444,
+      "lat": 54.19055556
+    },
+    {
+      "number": 6299,
+      "name": "Hartley Bay",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -129.251275,
+      "lat": 53.424737
+    },
+    {
+      "number": 6300,
+      "name": "Oona River Mooring Buoys",
+      "province": "BC",
+      "type": "Non-Core Fishing",
+      "lon": -130.237475,
+      "lat": 53.941118
+    },
+    {
+      "number": 6341,
+      "name": "Campbell River (Discovery Harbour)",
+      "province": "BC",
+      "type": "Core Fishing",
+      "lon": -125.243477,
+      "lat": 50.035753
+    }
+  ]
+}

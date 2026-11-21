@@ -50,8 +50,11 @@ export const waves = spectrum.map(([wavelength, amplitude, degrees]) => {
   }
 })
 
-/** Height and analytic slope of the displaced swells at a horizontal position (metres, seconds). */
-export function seaAt(x: number, z: number, time: number) {
+/**
+ * Height and analytic slope of the displaced swells at a horizontal position (metres,
+ * seconds). `state` scales every amplitude: 1 is the open-ocean sea, a harbour is ~0.1.
+ */
+export function seaAt(x: number, z: number, time: number, state = 1) {
   let height = 0,
     dx = 0,
     dz = 0
@@ -59,9 +62,10 @@ export function seaAt(x: number, z: number, time: number) {
     if (!wave.geometry) continue
     const k = (2 * Math.PI) / wave.wavelength
     const phase = k * (wave.direction[0] * x + wave.direction[1] * z) - time * wave.speed
-    height += wave.amplitude * Math.sin(phase)
-    dx += wave.amplitude * k * wave.direction[0] * Math.cos(phase)
-    dz += wave.amplitude * k * wave.direction[1] * Math.cos(phase)
+    const a = wave.amplitude * state
+    height += a * Math.sin(phase)
+    dx += a * k * wave.direction[0] * Math.cos(phase)
+    dz += a * k * wave.direction[1] * Math.cos(phase)
   }
   return { height, dx, dz }
 }
@@ -79,7 +83,7 @@ const term = (w: (typeof waves)[number], body: string) => {
 }
 
 /**
- * GLSL:
+ * GLSL (expects `uniform float seaState`, the amplitude scale, declared before it):
  * - `seaDisplace(p, t)`: Gerstner displacement (dx, height, dz) of the geometry swells.
  * - `seaSurface(p, t, dist, out normal, out crest)`: all components; short chop fades
  *   with viewing distance (per-wave, by wavenumber) to avoid shimmer. `crest` > 0
@@ -92,7 +96,7 @@ vec3 seaDisplace(vec2 p, float t) {
     .filter((w) => w.geometry)
     .map((w) => term(w, 'r.xz += q * a * d * c; r.y += a * s;'))
     .join('\n  ')}
-  return r;
+  return r * seaState;
 }
 void seaSurface(vec2 p, float t, float dist, out vec3 normal, out float crest) {
   vec3 n = vec3(0.0, 1.0, 0.0);
@@ -102,7 +106,7 @@ void seaSurface(vec2 p, float t, float dist, out vec3 normal, out float crest) {
       term(
         w,
         `float fade = clamp(1.5 - dist * k / 300.0, 0.0, 1.0);
-    float ka = k * a * fade;
+    float ka = k * a * fade * seaState;
     n.xz -= d * ka * c;
     n.y -= q * ka * s;
     crest += q * ka * s * ${w.wavelength < 40 ? '1.6' : '0.25'};`,

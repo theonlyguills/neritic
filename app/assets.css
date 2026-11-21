@@ -116,9 +116,6 @@ main {
   position: absolute;
   inset: 0;
 }
-.render-surface {
-  right: 330px;
-}
 .render-surface.hidden {
   visibility: hidden;
   pointer-events: none;
@@ -491,8 +488,8 @@ footer {
   .demo-tag {
     display: none;
   }
-  .render-surface {
-    right: 270px;
+  .kpis {
+    display: none;
   }
   .inspector {
     width: 250px;
@@ -661,4 +658,322 @@ dialog.credits::backdrop {
   .bottom-tools {
     transition: none;
   }
+}
+
+/* ---- Operating-picture dashboard ---------------------------------------------------- */
+.crumbs {
+  align-items: center;
+}
+.crumbs .sep {
+  color: #5d7a85;
+  font-size: 16px;
+}
+.crumbs button {
+  padding: 12px 14px;
+}
+.clock {
+  margin-right: 18px;
+  color: var(--muted);
+}
+.clock b {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #e8efec;
+  margin-right: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.kpis {
+  position: absolute;
+  left: 40px;
+  top: 178px;
+  width: 210px;
+  display: grid;
+  gap: 8px;
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: 0.05s;
+}
+.ui-away .kpis {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition-duration: 0.22s;
+  transition-delay: 0s;
+  pointer-events: none;
+}
+.kpi {
+  padding: 10px 15px 10px;
+  background: linear-gradient(135deg, #0f2a35e6, #0b1f29d9);
+  border: 1px solid #a1c0c524;
+  border-radius: 5px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 40px #0004;
+}
+.kpi-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 8.5px;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.kpi-label i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.kpi strong {
+  display: block;
+  font-size: 26px;
+  font-weight: 300;
+  margin: 3px 0 2px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+}
+.kpi strong em {
+  font-style: normal;
+  font-size: 14px;
+  color: var(--muted);
+}
+.kpi small {
+  font-size: 10px;
+  color: #8fa9b1;
+}
+.inspector {
+  background: linear-gradient(160deg, #0f2a35ee, #0b1f29e6);
+  max-height: calc(100% - 96px);
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #3a5a66 transparent;
+}
+.live {
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.live-dot {
+  animation: live 1.6s ease-in-out infinite;
+}
+@keyframes live {
+  50% {
+    opacity: 0.25;
+  }
+}
+.feed {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  position: relative;
+}
+.feed li button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 9px 2px;
+  border-radius: 0;
+}
+.feed li button:hover {
+  background: #ffffff08;
+}
+.hail {
+  flex: none;
+  width: 46px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  padding: 3px 0;
+  text-align: center;
+  border-radius: 3px;
+  color: #e8efec;
+}
+.hail.out {
+  background: #4593dc33;
+  box-shadow: inset 0 0 0 1px #4593dc88;
+}
+.hail.in {
+  background: #c97d3033;
+  box-shadow: inset 0 0 0 1px #c97d3088;
+}
+.feed-body {
+  min-width: 0;
+  flex: 1;
+}
+.feed-body strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feed-body small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ago {
+  font-size: 9px;
+  color: #7f9aa3;
+  font-variant-numeric: tabular-nums;
+}
+.feed-enter-active {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 1.5s ease;
+}
+.feed-enter-from {
+  opacity: 0;
+  transform: translateX(24px);
+}
+.feed-leave-active {
+  display: none;
+}
+.feed-move {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.section {
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--mint);
+  font-weight: 600;
+  margin: 20px 0 9px;
+}
+.legend,
+.map-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.legend i,
+.map-legend i,
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex: none;
+}
+.bars {
+  display: grid;
+  gap: 7px;
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 112px 1fr 34px;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+}
+.bar-label {
+  color: #c9d8db;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar-track {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+}
+.seg {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  min-width: 2px;
+}
+.bar-value {
+  text-align: right;
+  color: #e8efec;
+  font-variant-numeric: tabular-nums;
+}
+.search {
+  display: block;
+  margin-top: 22px;
+}
+.search input {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #0a1d26;
+  border: 1px solid #a1c0c533;
+  border-radius: 4px;
+  color: #e8efec;
+  font: inherit;
+  font-size: 12px;
+}
+.vessel-list .dot {
+  margin: 0;
+}
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--c) 22%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 60%, transparent);
+  margin: 4px 0 6px;
+}
+.status-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c);
+}
+.map-legend {
+  background: #0b1f29cc;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  margin: 0;
+  backdrop-filter: blur(10px);
+}
+.bottom-tools {
+  right: 370px;
+}
+.map-hint {
+  flex: 1;
+  text-align: center;
+}
+
+/* Cesium's credit line sits bottom right, above the toolbar, clear of the KPI column. */
+.cesium-viewer-bottom {
+  left: auto !important;
+  right: 380px !important;
+  bottom: 62px !important;
+  max-width: 420px;
+  opacity: 0.7;
+}
+.cesium-credit-logoContainer {
+  display: none !important;
+}
+
+.kpis.regional {
+  top: 238px;
+}
+.kpis.regional .kpi:last-child {
+  display: none;
 }

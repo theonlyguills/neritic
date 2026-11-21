@@ -1,26 +1,24 @@
-export type Coast = 'atlantic' | 'pacific'
+import type { Coast, FleetFile, Harbour, HarbourFile } from './fleet'
+import {
+  DAY,
+  combineTotals,
+  emptyTotals,
+  FleetSimulation,
+  type HailTotals,
+  SIM_RATE,
+  type FleetStats,
+  type HailEvent,
+  type LiveVessel,
+} from './simulation'
+export type { Coast } from './fleet'
 export type ViewId = 'canada' | Coast | 'vessel'
 export interface Position {
   longitude: number
   latitude: number
 }
-export interface Vessel {
-  id: string
-  name: string
-  coast: Coast
-  position: Position
-  heading: number
-  speed: number
-  region: string
-  localScene?: string
-}
-export interface Snapshot {
-  time: number
-  vessels: Vessel[]
-}
 export interface DataProvider {
   snapshot(time: number): Snapshot
-  subscribe(listener: (snapshot: Snapshot) => void): () => void
+  subscribe(listener: (snapshot: Snapshot) => void, interval?: number): () => void
 }
 export interface SceneDefinition {
   id: ViewId
@@ -29,6 +27,8 @@ export interface SceneDefinition {
   subtitle: string
   anchor: Position
   height: number
+  /** Map views: camera looks at `anchor` from `height` metres away, tilted by `pitch`°. */
+  pitch?: number
   local?: {
     modelUrl: string
     /** Optional low-detail hull for vessels on the horizon. */
@@ -55,26 +55,29 @@ export const scenes: Record<ViewId, SceneDefinition> = {
   canada: {
     id: 'canada',
     renderer: 'cesium',
-    title: 'A wider perspective.',
-    subtitle: 'Two oceans. One connected view.',
-    anchor: { longitude: -96, latitude: 57 },
-    height: 7800000,
+    title: 'Canada’s fisheries, live.',
+    subtitle: 'Licences, hails and vessels on the water, coast to coast.',
+    anchor: { longitude: -95, latitude: 54 },
+    height: 8600000,
+    pitch: -64,
   },
   atlantic: {
     id: 'atlantic',
     renderer: 'cesium',
     title: 'Northwest Atlantic',
     subtitle: 'NAFO divisions · Regional activity',
-    anchor: { longitude: -56, latitude: 48 },
-    height: 2200000,
+    anchor: { longitude: -57, latitude: 48.5 },
+    height: 2600000,
+    pitch: -68,
   },
   pacific: {
     id: 'pacific',
     renderer: 'cesium',
     title: 'Canadian Pacific',
     subtitle: 'Fisheries management areas · Regional activity',
-    anchor: { longitude: -129, latitude: 51 },
-    height: 1150000,
+    anchor: { longitude: -129, latitude: 51.5 },
+    height: 1500000,
+    pitch: -66,
   },
   vessel: {
     id: 'vessel',
@@ -102,91 +105,125 @@ export const scenes: Record<ViewId, SceneDefinition> = {
     },
   },
 }
-const fleet: Vessel[] = [
-  {
-    id: 'nl-01',
-    name: 'Northern Light',
-    coast: 'atlantic',
-    position: { longitude: -50, latitude: 46 },
-    heading: 62,
-    speed: 7.2,
-    region: '3L',
-    localScene: 'vessel',
+export interface Snapshot {
+  time: number
+  vessels: LiveVessel[]
+  stats: Record<'canada' | Coast, FleetStats>
+  /** Most recent hails, newest first. */
+  feed: HailEvent[]
+  licences: FleetFile['licences']
+  harbours: Harbour[]
+  /** Rolling 24 h hail totals, carried forward incrementally between ticks. */
+  hailTotals: HailTotals
+}
+export const emptySnapshot: Snapshot = {
+  time: 0,
+  vessels: [],
+  stats: { canada: emptyStats(), atlantic: emptyStats(), pacific: emptyStats() },
+  feed: [],
+  licences: {
+    total: 0,
+    byRegion: { NL: 0, MAR: 0, GLF: 0, QC: 0, PAC: 0, ARC: 0 },
+    bySpecies: {},
   },
-  {
-    id: 'nl-02',
-    name: 'Atlantic Dawn',
-    coast: 'atlantic',
-    position: { longitude: -53, latitude: 44 },
-    heading: 110,
-    speed: 5.8,
-    region: '3O',
-  },
-  {
-    id: 'nl-03',
-    name: 'Labrador Star',
-    coast: 'atlantic',
-    position: { longitude: -53, latitude: 52 },
-    heading: 145,
-    speed: 6.4,
-    region: '2J',
-  },
-  {
-    id: 'nl-04',
-    name: 'Cape Horizon',
-    coast: 'atlantic',
-    position: { longitude: -59, latitude: 45 },
-    heading: 250,
-    speed: 4.2,
-    region: '4V',
-  },
-  {
-    id: 'bc-01',
-    name: 'Pacific Dawn',
-    coast: 'pacific',
-    position: { longitude: -128, latitude: 49 },
-    heading: 310,
-    speed: 6.1,
-    region: 'Offshore',
-  },
-  {
-    id: 'bc-02',
-    name: 'Western Sound',
-    coast: 'pacific',
-    position: { longitude: -132, latitude: 52 },
-    heading: 120,
-    speed: 5.3,
-    region: 'Offshore',
-  },
-  {
-    id: 'bc-03',
-    name: 'Cedar Bay',
-    coast: 'pacific',
-    position: { longitude: -130, latitude: 50.5 },
-    heading: 80,
-    speed: 7.0,
-    region: 'Offshore',
-  },
-]
-export function snapshotAt(time: number): Snapshot {
+  harbours: [],
+  hailTotals: emptyTotals(),
+}
+function emptyStats(): FleetStats {
   return {
-    time,
-    vessels: fleet.map((v, i) => ({
-      ...v,
-      position: {
-        longitude: v.position.longitude + Math.sin(time / 900 + i) * 0.012,
-        latitude: v.position.latitude + Math.sin(time / 1100 + i) * 0.008,
-      },
-    })),
+    vessels: 0,
+    atSea: 0,
+    fishing: 0,
+    inPort: 0,
+    inbound: 0,
+    outbound: 0,
+    hailOuts: 0,
+    hailIns: 0,
+    landingsKg: 0,
+    byRegion: {
+      NL: { atSea: 0, inPort: 0, vessels: 0 },
+      MAR: { atSea: 0, inPort: 0, vessels: 0 },
+      GLF: { atSea: 0, inPort: 0, vessels: 0 },
+      QC: { atSea: 0, inPort: 0, vessels: 0 },
+      PAC: { atSea: 0, inPort: 0, vessels: 0 },
+      ARC: { atSea: 0, inPort: 0, vessels: 0 },
+    },
+    bySpecies: [],
   }
 }
-export function createDemoProvider(): DataProvider {
-  const start = Date.now()
+/** Vessels with a close-up scene built for their setting: the demo walkthrough. */
+export const FEATURED: { id: string; setting: string; place: string }[] = [
+  { id: 'nl-01', setting: 'Offshore', place: 'Grand Banks, NAFO 3L' },
+  { id: 'nl-02', setting: 'Inshore', place: 'The Narrows, St. John’s' },
+  { id: 'ns-01', setting: 'Alongside', place: 'Lunenburg harbour' },
+  { id: 'bc-01', setting: 'Inshore', place: 'Johnstone Strait' },
+  { id: 'bc-02', setting: 'Arriving', place: 'Prince Rupert' },
+]
+/** Wall-clock style time of day for the demo clock (24 h per DAY demo seconds). */
+export function demoClock(time: number) {
+  const hours = ((time / DAY) * 24 + 5.5) % 24
+  const h = Math.floor(hours)
+  const m = Math.floor((hours - h) * 60)
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
+}
+/** Demo clock at page load: mid-"day", so the rolling counters start well populated. */
+export const START_TIME = 7200
+const FEED_LENGTH = 40
+/** Build a snapshot at demo time t; `feed` carries over the previous snapshot's hails. */
+export function snapshotAt(sim: FleetSimulation, time: number, previous?: Snapshot): Snapshot {
+  const vessels = sim.snapshot(time)
+  const since = previous?.time ?? time - DAY / 8
+  const fresh = sim.hails(since, time)
+  // The 24 h window slides: add what just happened, drop what fell out of the window.
+  const hailTotals = previous
+    ? combineTotals(
+        previous.hailTotals,
+        sim.hailTotals(fresh),
+        sim.hailTotals(sim.hails(previous.time - DAY, time - DAY)),
+      )
+    : sim.hailTotals(sim.hails(time - DAY, time))
   return {
-    snapshot: snapshotAt,
-    subscribe(fn) {
-      fn(snapshotAt(0))
-      const timer = setInterval(() => fn(snapshotAt((Date.now() - start) / 1000)), 1000)
+    time,
+    vessels,
+    stats: {
+      canada: sim.stats(vessels, hailTotals),
+      atlantic: sim.stats(vessels, hailTotals, 'atlantic'),
+      pacific: sim.stats(vessels, hailTotals, 'pacific'),
+    },
+    feed: [...fresh.reverse(), ...(previous?.feed ?? [])].slice(0, FEED_LENGTH),
+    licences: sim.licences,
+    harbours: previous?.harbours ?? [...sim.harbours.values()],
+    hailTotals,
+  }
+}
+/** Load the synthetic registry and real harbour list, then tick the simulation. */
+export async function loadDemoProvider(
+  load: (url: string) => Promise<unknown> = (url) =>
+    fetch(url).then((r) => {
+      if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`)
+      return r.json()
+    }),
+): Promise<DataProvider & { simulation: FleetSimulation }> {
+  const [fleet, harbours] = await Promise.all([
+    load('/data/fleet.json') as Promise<FleetFile>,
+    load('/data/harbours.json') as Promise<HarbourFile>,
+  ])
+  const simulation = new FleetSimulation(fleet, harbours)
+  return {
+    simulation,
+    snapshot: (time) => snapshotAt(simulation, time),
+    subscribe(fn, interval = 1000) {
+      const start = performance.now()
+      let last = snapshotAt(simulation, START_TIME)
+      fn(last)
+      const timer = setInterval(() => {
+        last = snapshotAt(
+          simulation,
+          START_TIME + ((performance.now() - start) / 1000) * SIM_RATE,
+          last,
+        )
+        fn(last)
+      }, interval)
       return () => clearInterval(timer)
     },
   }

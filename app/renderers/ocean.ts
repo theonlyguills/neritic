@@ -44,6 +44,11 @@ export function createOcean(normals: T.Texture, sun: T.Vector3, hull: HullFootpr
     // Vessel heading in the XZ plane (bow direction) and position.
     hullForward: { value: new T.Vector2(0, -1) },
     hullPosition: { value: new T.Vector2(0, 0) },
+    // Swell amplitude scale (1 open ocean; sheltered water is calmer).
+    seaState: { value: 1 },
+    // Coastal sceneries: terrain height (R, metres) over (minX, minZ, size); w = enabled.
+    shoreHeight: { value: placeholderHeight },
+    shoreBounds: { value: new T.Vector4(0, 0, 1, 0) },
   })
   material.vertexShader = vertexShader
   material.fragmentShader = fragmentShader
@@ -52,6 +57,14 @@ export function createOcean(normals: T.Texture, sun: T.Vector3, hull: HullFootpr
   return water
 }
 
+const placeholderHeight = new T.DataTexture(
+  new Float32Array([-100]),
+  1,
+  1,
+  T.RedFormat,
+  T.FloatType,
+)
+placeholderHeight.needsUpdate = true
 const SURGE_SAMPLES = 16
 const SURGE_STEP = 0.25
 
@@ -62,6 +75,7 @@ const SURGE_STEP = 0.25
  * breaks up as it goes. Driven by the same wave spectrum as the hull motion.
  */
 export function createBowSurge(water: Water, bowLocal: T.Vector3) {
+  const state = water.material.uniforms.seaState!
   const history = water.material.uniforms.surgeHistory!.value as number[]
   const bow = new T.Vector3()
   let lastRelative: number | undefined
@@ -69,7 +83,7 @@ export function createBowSurge(water: Water, bowLocal: T.Vector3) {
   let clock = 0
   return function update(boat: T.Object3D, time: number, dt: number) {
     bow.copy(bowLocal).applyMatrix4(boat.matrixWorld)
-    const relative = bow.y - seaAt(bow.x, bow.z, time).height
+    const relative = bow.y - seaAt(bow.x, bow.z, time, state.value).height
     const sinking = lastRelative === undefined || dt <= 0 ? 0 : (lastRelative - relative) / dt
     lastRelative = relative
     const target = Math.min(1, Math.max(0, (sinking - 0.06) * 1.8))
@@ -88,6 +102,7 @@ export function createBowSurge(water: Water, bowLocal: T.Vector3) {
 const vertexShader = /* glsl */ `
 uniform mat4 textureMatrix;
 uniform float time;
+uniform float seaState;
 varying vec4 mirrorCoord;
 varying vec4 worldPosition;
 varying vec2 seaCoord;
@@ -131,6 +146,9 @@ uniform float hullSpeed;
 uniform vec2 hullForward;
 uniform vec2 hullPosition;
 uniform float surgeHistory[${SURGE_SAMPLES}];
+uniform float seaState;
+uniform sampler2D shoreHeight;
+uniform vec4 shoreBounds;
 varying vec4 mirrorCoord;
 varying vec4 worldPosition;
 varying vec2 seaCoord;
@@ -228,6 +246,11 @@ void main() {
   float surgeReach = 0.8 + surgeHere * 3.5 * smoothstep(0.1, 0.85, along / hullHalfLength);
   float bowSurge = surgeHere * exp(-max(hull, 0.0) / surgeReach)
     * smoothstep(-0.5, 2.5, fromBow) * step(-hullHalfLength, along);
+  // A boat lying alongside makes no wake: wash and Kelvin arms need way on.
+  float underway = smoothstep(0.3, 2.0, hullSpeed);
+  wash *= underway;
+  kelvin *= underway;
+  hullFoam *= mix(0.25, 1.0, underway);
   float wakeAmount = clamp(hullFoam * 0.6 + wash * 0.62 + kelvin * 0.35, 0.0, 0.74);
   float wakeFoam = smoothstep(0.92 - wakeAmount, 1.1 - wakeAmount, foamTex) * min(wakeAmount * 1.5, 0.92);
   // Surge foam: wide, soft coverage edge so it thins into lace rather than cutting off.
@@ -240,7 +263,23 @@ void main() {
   float capAmount = smoothstep(0.42, 0.75, crest + (patches - 0.5) * 0.35) * 0.55;
   float capTex = fbm(seaCoord * 1.1 + vec2(time * 0.08, 0.0)) * 0.55 + fbm(seaCoord * 3.3) * 0.45;
   float whitecap = smoothstep(1.0 - capAmount, 1.12 - capAmount, capTex) * min(capAmount * 2.0, 1.0);
-  float foam = clamp(max(whitecap * 0.85, wakeFoam), 0.0, 1.0) * (1.0 - smoothstep(300.0, 1200.0, dist));
+  // Shoreline: surf where the water shoals against real terrain, and a shallow tint.
+  float shallow = 0.0;
+  float surf = 0.0;
+  if (shoreBounds.w > 0.5) {
+    vec2 suv = (seaCoord - shoreBounds.xy) / shoreBounds.z;
+    if (suv.x > 0.0 && suv.y > 0.0 && suv.x < 1.0 && suv.y < 1.0) {
+      float depth = -texture2D(shoreHeight, suv).r;
+      shallow = 1.0 - smoothstep(0.5, 9.0, depth);
+      // Bands of broken water running in towards the rocks, frayed by noise.
+      float bands = 0.5 + 0.5 * sin(depth * 1.6 + time * 1.3 + fbm(seaCoord * 0.08) * 5.0);
+      float lace = fbm(seaCoord * 0.45 + vec2(time * 0.12, -time * 0.09));
+      float reach = (1.0 - smoothstep(0.0, 3.5 + seaState * 3.0, depth)) * (0.35 + 0.65 * seaState);
+      surf = smoothstep(0.62 - reach * 0.5, 0.95 - reach * 0.4, lace * 0.7 + bands * 0.45) * reach;
+      surf = max(surf, (1.0 - smoothstep(0.0, 0.7, depth)) * 0.85 * smoothstep(0.35, 0.6, lace));
+    }
+  }
+  float foam = clamp(max(max(whitecap * 0.85, wakeFoam), surf), 0.0, 1.0) * (1.0 - smoothstep(300.0, 1200.0, dist) * (1.0 - shallow));
 
   // Reflection: planar mirror, broken up by the full surface slope.
   vec2 distortion = n.xz * (0.012 + 2.5 / dist) * distortionScale;
@@ -257,6 +296,8 @@ void main() {
   float backlit = pow(max(dot(v, -vec3(sunDirection.x, 0.0, sunDirection.z)), 0.0), 2.0);
   body += vec3(0.012, 0.045, 0.042) * smoothstep(-0.3, 1.1, height) * (0.3 + 0.7 * backlit);
   body += vec3(0.03, 0.08, 0.075) * wash;
+  // Shoaling water over rock and kelp: greener and a little brighter.
+  body = mix(body, vec3(0.045, 0.085, 0.07), shallow * 0.6);
   body *= mix(0.55, 1.0, shadow);
 
   vec3 h = normalize(sunDirection + v);

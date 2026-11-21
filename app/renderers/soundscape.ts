@@ -58,6 +58,9 @@ export class Soundscape {
   private bowFilter: BiquadFilterNode
   private windGain: GainNode
   private windFilter: BiquadFilterNode
+  private sternGain!: GainNode
+  /** 1 open ocean; sheltered water (harbour) quietens the hull wash and wind. */
+  private seaState = 1
   private gullBuffers: AudioBuffer[] = []
   private deckBuffers: AudioBuffer[] = []
   private gullVoices: T.PositionalAudio[] = []
@@ -159,7 +162,7 @@ export class Soundscape {
     sternFilter.type = 'bandpass'
     sternFilter.frequency.value = 350
     sternFilter.Q.value = 0.6
-    const sternGain = ctx.createGain()
+    const sternGain = (this.sternGain = ctx.createGain())
     sternGain.gain.value = 0.09
     loop(brown).connect(sternFilter).connect(sternGain)
     emitter(sternGain, boat, new T.Vector3(0, 0.5, hull.length * 0.5), 12)
@@ -242,6 +245,10 @@ export class Soundscape {
     this.applyLevel()
   }
 
+  setSeaState(state: number) {
+    this.seaState = Math.min(1, Math.max(0, state))
+  }
+
   setActive(active: boolean) {
     this.active = active
     this.applyLevel()
@@ -260,10 +267,12 @@ export class Soundscape {
   ) {
     if (this.level() === 0 || this.context.state !== 'running') return
     const now = this.context.currentTime
-    this.bowGain.gain.setTargetAtTime(0.04 + surge * 0.3, now, 0.2)
+    const sea = 0.25 + 0.75 * this.seaState
+    this.bowGain.gain.setTargetAtTime((0.04 + surge * 0.3) * sea, now, 0.2)
+    this.sternGain.gain.setTargetAtTime(0.09 * sea, now, 0.5)
     this.bowFilter.frequency.setTargetAtTime(320 + surge * 900, now, 0.2)
     const gust = 0.5 + 0.5 * Math.sin(time * 0.13) * Math.sin(time * 0.071 + 1.3)
-    this.windGain.gain.setTargetAtTime(0.05 + gust * 0.08, now, 0.8)
+    this.windGain.gain.setTargetAtTime((0.05 + gust * 0.08) * sea, now, 0.8)
     this.windFilter.frequency.setTargetAtTime(500 + gust * 600, now, 0.8)
     this.clock += dt
     if (this.gullBuffers.length && this.clock > this.nextGull) {
