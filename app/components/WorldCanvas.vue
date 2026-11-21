@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { loadDemoProvider, scenes, type ViewId } from '../domain/world'
+import { sceneryForVessel } from '../domain/scenery'
 import type { GeographicRenderer } from '../renderers/geographic'
 import type { LocalRenderer } from '../renderers/local'
 const world = useWorld()
@@ -27,6 +28,7 @@ function ensureLocal() {
       const { LocalRenderer } = await import('../renderers/local')
       if (disposed) return
       detailed = new LocalRenderer(local.value!)
+      detailed.dusk = world.dusk
       await detailed.initialize()
       localLoaded = true
     })()
@@ -44,6 +46,7 @@ function preloadLocal() {
     if (disposed || localReady) return
     ensureLocal()
       .then(() => (world.view === 'vessel' ? undefined : detailed?.warmUp()))
+      .then(() => detailed?.prefetchDusk())
       // Then the coast boundary layers, one background job at a time.
       .then(() => geographic?.preloadLayers())
       .catch(() => {
@@ -81,14 +84,20 @@ async function diveToVessel(epoch: number) {
   if (epoch !== generation || disposed) return
   geographic!.suspend()
   detailed!.setSound(world.sound)
+  const setting = vessel ? sceneryForVessel(vessel) : undefined
+  const long = !!setting?.tour && detailed!.arrivalDuration() > 6
+  world.tour = setting?.caption ? { ...setting.caption, long } : null
   const arrival = detailed!.arrive()
   world.displayView = world.view
   world.transition = 'arrive'
   await detailed!.activate(world.view, world.reducedMotion)
   detailed!.resize()
   detailed!.quality(world.quality)
-  // Panels return once the blur has cleared; the cinematic flight carries on behind them.
-  await Promise.race([arrival, new Promise((r) => setTimeout(r, 1900))])
+  // Quick entrance: panels return once the blur has cleared while the flight carries on.
+  // Town flyover: the screen stays cinematic (letterbox, caption) until it lands.
+  if (long) await arrival
+  else await Promise.race([arrival, new Promise((r) => setTimeout(r, 2600))])
+  world.tour = null
 }
 /**
  * Vessel → map zoom, the dive in reverse: the vessel camera lifts to high overhead as the
@@ -288,6 +297,10 @@ watch(
   { immediate: true },
 )
 watch(
+  () => world.dusk,
+  (on) => void detailed?.setDusk(on),
+)
+watch(
   () => world.quality,
   (value) => {
     geographic?.quality(value)
@@ -348,6 +361,23 @@ onBeforeUnmount(() => {
       <button @click="retry">Try again</button>
     </div>
     <div v-if="note && world.displayView !== 'vessel'" class="source-note">{{ note }}</div>
+    <div class="letterbox" :class="{ on: world.transition === 'arrive' && world.tour?.long }">
+      <i /><i />
+    </div>
+    <Transition name="caption">
+      <div v-if="world.tour && world.transition === 'arrive'" class="scene-caption">
+        <span>REAL TERRAIN · OPENSTREETMAP</span>
+        <strong>{{ world.tour.title }}</strong>
+        <small>{{ world.tour.line }}</small>
+      </div>
+    </Transition>
+    <button
+      v-if="world.tour?.long && world.transition === 'arrive'"
+      class="skip-intro"
+      @click="detailed?.skipFlight()"
+    >
+      Skip ›
+    </button>
     <div v-if="world.displayView === 'vessel'" class="camera-tools">
       <button @click="detailed?.reset()">Reset camera</button
       ><button @click="preset('elevated')">Elevated view</button

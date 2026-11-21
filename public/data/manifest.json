@@ -476,6 +476,14 @@
       "license": "ODbL 1.0, © OpenStreetMap contributors",
       "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "e373d2ddf992d4022b2baaaf502e105a14981d396f414bec19597566369db3a1"
+    },
+    {
+      "file": "assets/dusk-sky.hdr",
+      "source": "https://polyhaven.com/a/industrial_sunset_02_puresky",
+      "creator": "Sergej Majboroda (original), Jarod Guest (sky edits), Poly Haven",
+      "license": "CC0 1.0",
+      "processing": "2k Radiance HDR used as-is; sun measured by brightest-pixel centroid: u=0.5999, elevation 2.24°",
+      "sha256": "439d7e99b34bd3727896d9a06247d4bd80d8276f208f4fdefce919ce74b602c3"
     }
   ]
 }

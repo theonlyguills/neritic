@@ -41,7 +41,11 @@ PORT=3070 HOST=127.0.0.1 node .output/server/index.mjs
    - In port: Lunenburg (Lunenburg Star, alongside, about to sail).
    - Arriving: Prince Rupert (Skeena Spirit motors in along the real approach to the Fairview
      floats).
-     Camera presets and sound are on the bottom bar. "Return to …" rises back to the map.
+     Near a town (The Narrows, Lunenburg, Prince Rupert) the entrance is a slow letterboxed
+     flyover: over the town's real streets and houses, along the waterfront and in to the
+     vessel, with a caption naming the place. "Skip ›" or any click lands it at once. Other
+     scenes use a quicker spiral. The ☀ Day / ☾ Dusk switch on the bottom bar turns any scene to sunset: windows, porch and street lamps, the gas station and the lighthouse light up, and the boats show their navigation lights. Camera presets and sound are on the bottom bar. "Return to
+     …" rises back to the map.
 
 Browser back/forward and direct links such as `?view=atlantic` and
 `?view=vessel&vessel=nl-02` work. Reduce motion turns transitions into cuts.

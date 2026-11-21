@@ -14,8 +14,12 @@ export const useWorld = defineStore('world', {
     snapshot: markRaw(emptySnapshot) as Snapshot,
     quality: 'high' as 'high' | 'low',
     reducedMotion: false,
+    /** Vessel scenes at dusk (town lights, boat lights) instead of daylight. */
+    dusk: false,
     /** Vessel-scene soundscape; remembered per browser. */
     sound: true,
+    /** Entrance caption for the vessel scene; `long` = town flyover (letterbox, Skip). */
+    tour: null as null | { title: string; line: string; long: boolean },
     /** Ask the map to centre a vessel (bumped on each request). */
     focus: { id: '', n: 0 },
     error: '',

@@ -401,6 +401,15 @@ const hint = computed(() =>
             </select></label
           ><label class="motion-label"
             ><input v-model="world.reducedMotion" type="checkbox" /> Reduce motion</label
+          ><button
+            v-if="world.displayView !== 'canada'"
+            class="time-toggle"
+            :aria-pressed="world.dusk"
+            title="Time of day in the close-up vessel scenes"
+            @click="world.dusk = !world.dusk"
+          >
+            <span :class="{ on: !world.dusk }">☀ Day</span
+            ><span :class="{ on: world.dusk }">☾ Dusk</span></button
           ><label v-if="world.displayView === 'vessel'" class="motion-label"
             ><input v-model="world.sound" type="checkbox" /> Sound</label
           ><button @click="credits?.showModal()">Sources ↗</button>
@@ -441,8 +450,8 @@ const hint = computed(() =>
         Inshore boats: “Alma Paulin Fishing Boat” by Air Digital (a scanned Cape Islander) and
         “Fishing Vessel IV” by agt14032013, with a bucket by Melonpolygons and fish by yimit, all CC
         BY 4.0 via Sketchfab; cleaned up (the Cape Islander’s painted name removed) and ambient
-        occlusion baked. Additional skies: Poly Haven “Qwantani Late Afternoon”, “Rustig Koppie” and
-        “Kloofendal Overcast” (CC0).
+        occlusion baked. Additional skies: Poly Haven “Qwantani Late Afternoon”, “Rustig Koppie”,
+        “Kloofendal Overcast” and, for dusk, “Industrial Sunset 02” (CC0).
       </p>
       <p>
         Sound: engine, wind and hull wash are generated in the browser. Recordings: “BioAcoustica

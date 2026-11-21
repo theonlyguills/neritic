@@ -114,6 +114,9 @@ export interface Scenery {
   bounds: { minX: number; minZ: number; size: number }
   meta: SceneryMeta
   stats: SceneryStats
+  /** Lighthouse beacon sprites (empty when there are none). */
+  beacons: T.Points
+  setNight(v: number): void
   dispose(): void
 }
 
@@ -354,6 +357,8 @@ export function orientedBox(ring: XZ[]) {
 }
 
 export const colour = (hex: string) => new T.Color(hex)
+/** 0 day … 1 dusk: town lights (windows, porch lamps, street lamps) come on with it. */
+export const night = { value: 0 }
 export const pick = <V>(list: readonly V[], r: number) =>
   list[Math.min(list.length - 1, Math.floor(r * list.length))]!
 
@@ -565,6 +570,8 @@ interface Patch {
   colour?: string
   roughness?: string
   normal?: string
+  /** Added after three's emissive map chunk (`totalEmissiveRadiance += ...`). */
+  emissive?: string
 }
 
 /** Injects world-position varyings and the given chunks into a MeshStandardMaterial. */
@@ -607,6 +614,10 @@ export function patch(material: T.MeshStandardMaterial, p: Patch) {
       .replace(
         '#include <normal_fragment_maps>',
         `#include <normal_fragment_maps>\n${p.normal ?? ''}`,
+      )
+      .replace(
+        '#include <emissivemap_fragment>',
+        `#include <emissivemap_fragment>\n${p.emissive ?? ''}`,
       )
   }
   material.customProgramCacheKey = () => p.key
@@ -755,11 +766,12 @@ function wallMaterial(trimColour: T.Color) {
   })
   patch(material, {
     key: 'scenery-walls',
-    uniforms: { sTrim: { value: trimColour } },
+    uniforms: { sTrim: { value: trimColour }, sNight: night },
     vertexHeader:
       'attribute vec4 aWall;\nattribute float aStyle;\nvarying vec4 vWall;\nvarying float vStyle;',
     vertexMain: 'vWall = aWall; vStyle = aStyle;',
-    fragmentHeader: 'uniform vec3 sTrim;\nvarying vec4 vWall;\nvarying float vStyle;',
+    fragmentHeader:
+      'uniform vec3 sTrim;\nuniform float sNight;\nvarying vec4 vWall;\nvarying float vStyle;\nvec3 sGlow = vec3(0.0);',
     colour: /* glsl */ `
     {
       // aWall: u along the wall (m), v above the ground floor (m), eave height, wall length.
@@ -839,6 +851,15 @@ function wallMaterial(trimColour: T.Color) {
       c = mix(c, trim, bars * detail);
       c = mix(c, doorColour, door * detail);
       c = mix(c, sRgb(vec3(0.1, 0.11, 0.12)), signBand * detail);
+      // Dusk: some rooms lit (warm lamps; cooler in shops), porch lights by front doors.
+      float litHash = fract(sin((winId + 3.1) * 78.233) * 43758.5453);
+      float lit = step(litHash, mix(0.42, 0.85, isShop));
+      vec3 lamp = mix(vec3(1.0, 0.62, 0.3), vec3(1.0, 0.85, 0.62), fract(litHash * 7.0));
+      lamp = mix(lamp, vec3(0.92, 0.95, 1.0), isShop);
+      float porch = front * isHouse * step(abs(doorCu - 0.78), 0.1) * step(abs(v - 2.05), 0.12);
+      sGlow = sNight * (lamp * glass * (1.0 - bars) * lit * mix(2.2, 3.6, curtain)
+            + vec3(1.0, 0.75, 0.45) * porch * 6.0
+            + vec3(0.9, 0.95, 1.0) * signBand * 0.6);
       // Plants and sheds: roll-up loading doors along long walls, a man door beside each.
       float isIndustrial = step(1.5, style) * step(style, 2.5);
       float bay = mod(u - 3.0, 16.0);
@@ -859,8 +880,49 @@ function wallMaterial(trimColour: T.Color) {
     }
     `,
     roughness: 'roughnessFactor = sRough;',
+    emissive: 'totalEmissiveRadiance += sGlow;',
   })
   return material
+}
+
+/** Additive glow sprites (lamps, canopy lights, beacons), sized in world metres. */
+export function glowPoints(positions: number[], colours: number[], size: number, name: string) {
+  const g = new T.BufferGeometry()
+  g.setAttribute('position', new T.Float32BufferAttribute(positions, 3))
+  g.setAttribute('color', new T.Float32BufferAttribute(colours, 3))
+  const material = new T.PointsMaterial({
+    size,
+    map: glowTexture(),
+    vertexColors: true,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+    blending: T.AdditiveBlending,
+    sizeAttenuation: true,
+    fog: false,
+  })
+  const points = new T.Points(g, material)
+  points.name = name
+  points.visible = false
+  points.frustumCulled = false
+  return points
+}
+let sharedGlow: T.Texture | undefined
+function glowTexture() {
+  if (sharedGlow) return sharedGlow
+  const c = document.createElement('canvas')
+  c.width = c.height = 64
+  const g = c.getContext('2d')!
+  const r = g.createRadialGradient(32, 32, 0, 32, 32, 32)
+  r.addColorStop(0, 'rgba(255,255,255,1)')
+  r.addColorStop(0.1, 'rgba(255,255,255,0.95)')
+  r.addColorStop(0.3, 'rgba(255,255,255,0.32)')
+  r.addColorStop(1, 'rgba(255,255,255,0)')
+  g.fillStyle = r
+  g.fillRect(0, 0, 64, 64)
+  sharedGlow = new T.CanvasTexture(c)
+  sharedGlow.colorSpace = T.SRGBColorSpace
+  return sharedGlow
 }
 
 /** Vertex-coloured surfaces with world-space weathering (roofs, timber, concrete, rock). */
@@ -2196,6 +2258,18 @@ export function buildScenery(
       )
     : undefined
   if (street) group.add(street.group)
+  // Lighthouse beacons (flashed by the renderer at dusk).
+  const beaconPositions: number[] = []
+  for (const l of meta.features.landmarks)
+    if (l.kind === 'lighthouse') beaconPositions.push(l.x, l.base + l.height + 0.6, l.z)
+  const beacons = glowPoints(
+    beaconPositions,
+    beaconPositions.map((_, i) => [1, 0.96, 0.85][i % 3]!),
+    26,
+    'beacons',
+  )
+  if (beaconPositions.length) group.add(beacons)
+  disposables.push(beacons.geometry, beacons.material as T.Material)
   const trees = buildTrees(
     meta,
     grid,
@@ -2243,6 +2317,12 @@ export function buildScenery(
     bounds: { minX: -half - cell / 2, minZ: -half - cell / 2, size: meta.sizeM + cell },
     meta,
     stats: { vertices, triangles, treeInstances: trees.count, drawCalls },
+    beacons,
+    /** 0 day … 1 dusk: windows, porch and street lamps (shared by every scenery). */
+    setNight(v: number) {
+      night.value = v
+      street?.setNight(v)
+    },
     dispose() {
       group.removeFromParent()
       street?.dispose()

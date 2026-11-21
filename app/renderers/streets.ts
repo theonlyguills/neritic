@@ -10,6 +10,7 @@ import * as T from 'three'
 import {
   Mesher,
   cap,
+  glowPoints,
   colour,
   hash2,
   mulberry32,
@@ -246,6 +247,12 @@ export function buildStreets(
   const town = townIndex(buildings)
   const roads = new Mesher({ aRoad: 4 })
   const fixtures = new Mesher() // poles, canopies, pumps, signs
+  const rubble = new Mesher() // embankments under roads built out over the water
+  // Dusk lighting: street lamps on the poles, canopy lights and price signs.
+  const lamps: number[] = [],
+    lampColours: number[] = []
+  const bright: number[] = [],
+    brightColours: number[] = []
   const wires: number[] = []
   /** Road corridors as rings, for keeping trees off the roads. */
   const corridors: XZ[][] = []
@@ -264,7 +271,10 @@ export function buildStreets(
     const lift = 0.14 + cls * 0.012
     const left: V3[] = [],
       right: V3[] = []
-    for (const s of samples) {
+    // Where the map has a road but the elevation data has sea (fill along the shore,
+    // causeways), the road runs on a rock embankment rather than floating on the water.
+    const wet = samples.map((s) => !road.bridge && heightAt(s.x, s.z) < 0.3)
+    for (const [i, s] of samples.entries()) {
       const nx = -s.dz,
         nz = s.dx
       const lx = s.x + nx * w * 0.5,
@@ -272,8 +282,30 @@ export function buildStreets(
       const rx = s.x - nx * w * 0.5,
         rz = s.z - nz * w * 0.5
       const yc = road.bridge ? Math.max(heightAt(s.x, s.z), 2.2) : ground(s.x, s.z)
-      left.push([lx, Math.max(ground(lx, lz), yc - 0.6) + lift, lz])
-      right.push([rx, Math.max(ground(rx, rz), yc - 0.6) + lift, rz])
+      const deck = wet[i] ? 1.8 : -Infinity
+      left.push([lx, Math.max(ground(lx, lz), yc - 0.6, deck) + lift, lz])
+      right.push([rx, Math.max(ground(rx, rz), yc - 0.6, deck) + lift, rz])
+    }
+    for (let i = 0; i < samples.length - 1; i++) {
+      if (!wet[i] && !wet[i + 1]) continue
+      const a = samples[i]!,
+        b = samples[i + 1]!
+      for (const side of [1, -1]) {
+        const edge = side > 0 ? left : right
+        const foot = (s: Sample, top: V3): V3 => [
+          top[0] - s.dz * side * 5,
+          -1.5,
+          top[2] + s.dx * side * 5,
+        ]
+        rubble.quad(
+          edge[i]!,
+          edge[i + 1]!,
+          foot(b, edge[i + 1]!),
+          foot(a, edge[i]!),
+          colour('#6f6a63'),
+          [-a.dz * side, 0.6, a.dx * side],
+        )
+      }
     }
     for (let i = 0; i < samples.length - 1; i++) {
       const a = samples[i]!,
@@ -309,7 +341,7 @@ export function buildStreets(
     for (const side of [1, -1]) {
       if (cls < 1) break
       for (let i = 0; i < samples.length - 1; i++) {
-        if (!inTown[i] || !inTown[i + 1]) continue
+        if (!inTown[i] || !inTown[i + 1] || wet[i] || wet[i + 1]) continue
         const edge = (s: Sample, off: number): V3 => {
           const x = s.x - s.dz * off * side,
             z = s.z + s.dx * off * side
@@ -398,6 +430,21 @@ export function buildStreets(
           8,
           colour('#7d8285'),
         )
+      // A cobra-head lamp on every other pole, out over the road.
+      if (Math.round(u / 38) % 2 === 0 && near >= 2) {
+        const hx = x - nx * 1.6,
+          hz = z - nz * 1.6
+        fixtures.quad(
+          [x, y + 8.9, z],
+          [hx, y + 9.25, hz],
+          [hx, y + 9.35, hz],
+          [x, y + 9.0, z],
+          pole,
+          [ax, 0, az],
+        )
+        lamps.push(hx, y + 9.15, hz)
+        lampColours.push(1, 0.8, 0.55)
+      }
       const top: V3 = [x, y + 10.05, z]
       if (previous) {
         const a = previous.top
@@ -584,6 +631,12 @@ export function buildStreets(
       base + 0.1,
       colour('#8d8b86'),
     )
+    for (let qa = 0.2; qa < 0.95; qa += 0.3)
+      for (let pa = 0.15; pa < 0.95; pa += 0.23) {
+        const [x, z] = at(a0 + (a1 - a0) * pa, b0 + (b1 - b0) * qa)
+        bright.push(x, top - 0.15, z)
+        brightColours.push(0.95, 0.97, 1)
+      }
     for (const q of [b0 + (b1 - b0) * 0.3, b0 + (b1 - b0) * 0.7]) {
       for (const p of [a0 + (a1 - a0) * 0.25, a0 + (a1 - a0) * 0.75]) {
         const [x, z] = at(p, q)
@@ -633,6 +686,8 @@ export function buildStreets(
     }
     panel(sy + 4.2, sy + 6.4, white)
     panel(sy + 6.4, sy + 7.0, band)
+    bright.push(sx, sy + 5.4, sz)
+    brightColours.push(1, 0.95, 0.85)
     corridors.push(corners)
   }
 
@@ -648,6 +703,7 @@ export function buildStreets(
     disposables.push(geometry, material)
   }
   add(roads, roadMaterial(), 'roads', false)
+  add(rubble, weatheredMaterial('embankment', 0.95, 1.4), 'embankments', false)
   add(fixtures, weatheredMaterial('fixtures', 0.6, 0.4), 'street-fixtures', false)
   if (wires.length) {
     const geometry = new T.BufferGeometry()
@@ -702,9 +758,24 @@ export function buildStreets(
     group.add(mesh)
     disposables.push(geometry, material)
   }
+  const glows = [
+    glowPoints(lamps, lampColours, 10, 'street-lamps'),
+    glowPoints(bright, brightColours, 6, 'canopy-lights'),
+  ]
+  for (const g of glows) {
+    group.add(g)
+    disposables.push(g.geometry, g.material as T.Material)
+  }
   return {
     group,
     corridors,
+    /** 0 day … 1 dusk. */
+    setNight(v: number) {
+      for (const g of glows) {
+        ;(g.material as T.PointsMaterial).opacity = v
+        g.visible = v > 0.01
+      }
+    },
     stats: { roads: streets.roads.length, cars: kept.length, wireSegments: wires.length / 6 },
     dispose() {
       for (const d of disposables) d.dispose()

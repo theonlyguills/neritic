@@ -34,6 +34,10 @@ export interface SceneryConfig {
   seaState: number
   /** Sun bearing relative to the camera's look towards land, degrees (raking light). */
   sunOffsetDeg?: number
+  /** Town nearby: the entrance is a long, slow flyover of it instead of the quick spiral. */
+  tour?: boolean
+  /** Lower-third caption shown during the entrance. */
+  caption?: { title: string; line: string }
   /** Share of parked cars drawn (1 = all; busy towns are thinned for frame rate). */
   carShare?: number
   /** Other vessels working on the horizon (offshore). */
@@ -53,6 +57,18 @@ export interface BoatModel {
   waterlineOffset: number
   /** Outfit with the trawler's crew, nets and deck gear. */
   trawlerDeck: boolean
+  /**
+   * Navigation lights in the hull's frame (metres, bow −Z, waterline y = 0), measured on
+   * the model: sidelights on the wheelhouse, masthead, stern, optional deck work light.
+   */
+  /** Engine room in the hull's frame, and its size class (sound pitch and loudness). */
+  engine: { position: [number, number, number]; size: 'large' | 'small' }
+  navLights: {
+    side: [number, number, number]
+    masthead: [number, number, number]
+    stern: [number, number, number]
+    work?: [number, number, number]
+  }
 }
 
 const TABLE_MOUNTAIN: SkyConfig = {
@@ -90,12 +106,26 @@ const OVERCAST: SkyConfig = {
   flare: false,
 }
 
+/** Dusk for every scenery: Poly Haven "Industrial Sunset 02 (Pure Sky)", CC0; sun on the horizon. */
+export const DUSK_SKY: SkyConfig = {
+  url: '/assets/dusk-sky.hdr',
+  sun: { u: 0.5999, elevation: 2.24 },
+  sunAzimuth: -109,
+  intensity: 0.22,
+  sunlight: 1.0,
+  flare: true,
+}
+
 export const SCENERIES: Record<string, SceneryConfig> = {
   'grand-banks': {
     id: 'grand-banks',
     kind: 'offshore',
     coast: 'any',
     place: 'Offshore · open ocean',
+    caption: {
+      title: 'Grand Banks, NAFO 3L',
+      line: 'Offshore groundfish grounds, about 300 km from St. John’s',
+    },
     sky: TABLE_MOUNTAIN,
     fog: { colour: '#b3b8b9', density: 0.0003 },
     seaState: 1,
@@ -108,6 +138,11 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     coast: 'atlantic',
     place: 'The Narrows, St. John’s NL',
     terrainUrl: '/scenery/narrows/',
+    caption: {
+      title: 'The Narrows · St. John’s, Newfoundland and Labrador',
+      line: 'Signal Hill and Cabot Tower above the harbour mouth',
+    },
+    tour: true,
     sky: LATE_AFTERNOON,
     sunOffsetDeg: 55,
     fog: { colour: '#b9bfc0', density: 0.00016 },
@@ -121,6 +156,11 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     coast: 'atlantic',
     place: 'Lunenburg harbour NS',
     terrainUrl: '/scenery/lunenburg/',
+    caption: {
+      title: 'Lunenburg, Nova Scotia',
+      line: 'Old Town Lunenburg · UNESCO World Heritage Site · home port of the Bluenose',
+    },
+    tour: true,
     sky: BRIGHT_MORNING,
     sunOffsetDeg: -60,
     fog: { colour: '#bcc2c2', density: 0.00012 },
@@ -135,6 +175,10 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     coast: 'pacific',
     place: 'Johnstone Strait BC',
     terrainUrl: '/scenery/johnstone/',
+    caption: {
+      title: 'Johnstone Strait, British Columbia',
+      line: 'Salmon seine grounds off Telegraph Cove',
+    },
     sky: LATE_AFTERNOON,
     sunOffsetDeg: 50,
     fog: { colour: '#aeb8bc', density: 0.00014 },
@@ -148,6 +192,11 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     coast: 'pacific',
     place: 'Prince Rupert harbour BC',
     terrainUrl: '/scenery/prince-rupert/',
+    caption: {
+      title: 'Prince Rupert, British Columbia',
+      line: 'North Coast fishing harbour at the mouth of the Skeena',
+    },
+    tour: true,
     sky: OVERCAST,
     sunOffsetDeg: 30,
     fog: { colour: '#aeb7ba', density: 0.00013 },
@@ -167,6 +216,13 @@ export const BOATS: Record<string, BoatModel> = {
     deckHeight: 5.5,
     waterlineOffset: 6.8,
     trawlerDeck: true,
+    engine: { position: [0, 3.5, 6], size: 'large' },
+    navLights: {
+      side: [3.0, 11.3, -15.2],
+      masthead: [0, 19.0, -8.6],
+      stern: [0, 5.1, 23.7],
+      work: [0.4, 5.9, 17.2],
+    },
   },
   // "Alma Paulin Fishing Boat", Air Digital (CC BY 4.0): a scanned New Brunswick Cape Islander.
   'inshore-atlantic': {
@@ -178,6 +234,9 @@ export const BOATS: Record<string, BoatModel> = {
     deckHeight: 0.8,
     waterlineOffset: 0.55,
     trawlerDeck: false,
+    // Under the wheelhouse floor, as on most Cape Islanders.
+    engine: { position: [0, 0.4, -1.8], size: 'small' },
+    navLights: { side: [1.45, 2.35, -3.4], masthead: [0, 2.72, -2.2], stern: [0, 1.0, 6.35] },
   },
   // "Fishing Vessel IV", agt14032013 (CC BY 4.0): a West Coast seiner.
   'inshore-pacific': {
@@ -189,6 +248,8 @@ export const BOATS: Record<string, BoatModel> = {
     deckHeight: 1.1,
     waterlineOffset: 1.01,
     trawlerDeck: false,
+    engine: { position: [0, 0.7, -2.6], size: 'small' },
+    navLights: { side: [1.75, 2.3, -4.4], masthead: [0, 8.6, 0], stern: [0, 1.1, 8.45] },
   },
 }
 

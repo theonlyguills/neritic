@@ -977,3 +977,112 @@ dialog.credits::backdrop {
 .kpis.regional .kpi:last-child {
   display: none;
 }
+
+/* Vessel entrance: letterbox bars and a lower-third caption during the town flyover. */
+.letterbox i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 11%;
+  background: #02080c;
+  z-index: 4;
+  pointer-events: none;
+  transition: transform 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.letterbox i:first-child {
+  top: 0;
+  transform: translateY(-101%);
+}
+.letterbox i:last-child {
+  bottom: 0;
+  transform: translateY(101%);
+}
+.letterbox.on i {
+  transform: none;
+}
+.scene-caption {
+  position: absolute;
+  left: 48px;
+  bottom: calc(11% + 34px);
+  z-index: 5;
+  pointer-events: none;
+  text-shadow: 0 2px 18px #000a;
+  max-width: 640px;
+}
+.scene-caption span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2.4px;
+  color: var(--mint);
+  font-weight: 600;
+}
+.scene-caption strong {
+  display: block;
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(26px, 2.6vw, 40px);
+  margin: 10px 0 6px;
+  letter-spacing: -0.5px;
+}
+.scene-caption small {
+  font-size: 13px;
+  color: #d6e3e4;
+}
+.caption-enter-active {
+  transition:
+    opacity 1.2s ease 0.9s,
+    transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s;
+}
+.caption-leave-active {
+  transition: opacity 0.5s ease;
+}
+.caption-enter-from {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.caption-leave-to {
+  opacity: 0;
+}
+.skip-intro {
+  position: absolute;
+  right: 36px;
+  bottom: calc(11% + 30px);
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 1px;
+  background: #0b1f29b3;
+  border-color: #ffffff2b;
+  backdrop-filter: blur(8px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .letterbox i,
+  .caption-enter-active {
+    transition: none;
+  }
+}
+
+/* Day / dusk switch in the vessel view's toolbar. */
+.bottom-tools .time-toggle {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid #ffffff2b;
+  border-radius: 14px;
+  background: #0a1d26;
+}
+.time-toggle span {
+  padding: 3px 9px;
+  border-radius: 12px;
+  color: var(--muted);
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+.time-toggle span.on {
+  background: #f0c27a;
+  color: #1a1208;
+}
+.time-toggle span.on:last-child {
+  background: #6f63b8;
+  color: #fff;
+}

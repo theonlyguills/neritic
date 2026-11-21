@@ -59,6 +59,10 @@ export class Soundscape {
   private windGain: GainNode
   private windFilter: BiquadFilterNode
   private sternGain!: GainNode
+  private engineMix!: GainNode
+  private engineEmitter!: T.PositionalAudio
+  private bowEmitter!: T.PositionalAudio
+  private sternEmitter!: T.PositionalAudio
   /** 1 open ocean; sheltered water (harbour) quietens the hull wash and wind. */
   private seaState = 1
   private gullBuffers: AudioBuffer[] = []
@@ -116,6 +120,7 @@ export class Soundscape {
       parent.add(audio)
       this.emitters.push(audio)
       input.connect(audio.getOutput())
+      return audio
     }
 
     // Engine room: diesel firing harmonics + blade-rate pulse, heavily low-passed.
@@ -146,7 +151,35 @@ export class Soundscape {
     pulse.start()
     this.loops.push(pulse)
     engineFilter.connect(engineMix)
-    emitter(engineMix, boat, new T.Vector3(0, 2, 6), 14)
+    this.engineMix = engineMix
+    // The drone sits almost entirely below 100 Hz, which laptop speakers cannot play.
+    // A parallel exciter derives overtones from the same signal (soft saturation, then
+    // only the 140–900 Hz part), so small speakers carry the engine and the ear supplies
+    // the low fundamental; on headphones it reads as the same engine with a little bite.
+    const engineOut = ctx.createGain()
+    engineMix.connect(engineOut)
+    const shaper = ctx.createWaveShaper()
+    const curve = new Float32Array(1024)
+    for (let i = 0; i < curve.length; i++) {
+      const x = (i / (curve.length - 1)) * 2 - 1
+      curve[i] = Math.tanh(x * 6) / Math.tanh(6)
+    }
+    shaper.curve = curve
+    shaper.oversample = '2x'
+    const drive = ctx.createGain()
+    drive.gain.value = 3
+    const exciterHigh = ctx.createBiquadFilter()
+    exciterHigh.type = 'highpass'
+    exciterHigh.frequency.value = 140
+    exciterHigh.Q.value = 0.7
+    const exciterLow = ctx.createBiquadFilter()
+    exciterLow.type = 'lowpass'
+    exciterLow.frequency.value = 900
+    const exciterGain = ctx.createGain()
+    exciterGain.gain.value = 0.38
+    engineMix.connect(drive).connect(shaper).connect(exciterHigh).connect(exciterLow)
+    exciterLow.connect(exciterGain).connect(engineOut)
+    this.engineEmitter = emitter(engineOut, boat, new T.Vector3(0, 2, 6), 14)
 
     // Bow wash: swells with each plunge.
     this.bowFilter = ctx.createBiquadFilter()
@@ -155,7 +188,7 @@ export class Soundscape {
     this.bowGain = ctx.createGain()
     this.bowGain.gain.value = 0.05
     loop(pink).connect(this.bowFilter).connect(this.bowGain)
-    emitter(this.bowGain, boat, new T.Vector3(0, 0.5, -hull.length * 0.42), 10)
+    this.bowEmitter = emitter(this.bowGain, boat, new T.Vector3(0, 0.5, -hull.length * 0.42), 10)
 
     // Stern churn: steady prop wash.
     const sternFilter = ctx.createBiquadFilter()
@@ -165,7 +198,7 @@ export class Soundscape {
     const sternGain = (this.sternGain = ctx.createGain())
     sternGain.gain.value = 0.09
     loop(brown).connect(sternFilter).connect(sternGain)
-    emitter(sternGain, boat, new T.Vector3(0, 0.5, hull.length * 0.5), 12)
+    this.sternEmitter = emitter(sternGain, boat, new T.Vector3(0, 0.5, hull.length * 0.5), 12)
 
     // Wind across the deck: everywhere, gusting.
     this.windFilter = ctx.createBiquadFilter()
@@ -243,6 +276,23 @@ export class Soundscape {
   setEnabled(enabled: boolean) {
     this.enabled = enabled
     this.applyLevel()
+  }
+
+  /**
+   * Follow the hull on screen: the engine sits in its engine room (so it pans as the
+   * camera orbits) and the wash at its bow and stern. Same engine voice for every boat; a
+   * big trawler's is louder and carries further than an inshore boat's.
+   */
+  setHull(hull: {
+    length: number
+    engine: { position: [number, number, number]; size: 'large' | 'small' }
+  }) {
+    const large = hull.engine.size === 'large'
+    this.engineEmitter.position.set(...hull.engine.position)
+    this.engineEmitter.setRefDistance(large ? 32 : 18)
+    this.engineMix.gain.value = large ? 0.75 : 0.5
+    this.bowEmitter.position.set(0, 0.5, -hull.length * 0.42)
+    this.sternEmitter.position.set(0, 0.5, hull.length * 0.5)
   }
 
   setSeaState(state: number) {
