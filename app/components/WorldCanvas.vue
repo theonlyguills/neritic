@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { createDemoProvider, scenes } from '../domain/world'
-import type { SceneAdapter } from '../renderers/types'
+import type { GeographicRenderer } from '../renderers/geographic'
 import type { LocalRenderer } from '../renderers/local'
 const world = useWorld()
 const router = useRouter()
 const globe = ref<HTMLElement>()
 const local = ref<HTMLElement>()
 const note = ref('')
-let geographic: SceneAdapter | undefined
+let geographic: GeographicRenderer | undefined
 let detailed: LocalRenderer | undefined
 let observer: ResizeObserver
 let stop: () => void
@@ -51,13 +51,73 @@ function preloadLocal() {
   if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 3000 })
   else setTimeout(start, 1500)
 }
+/**
+ * Map → vessel zoom: the globe dives onto the vessel with a building radial blur, the
+ * vessel scene takes over at peak blur from high overhead and swoops down as it clears.
+ * Panels slide out for the move and back in once the camera settles (CSS, `transition`).
+ * The dive also covers any remaining load time of the vessel scene.
+ */
+async function diveToVessel(epoch: number) {
+  const target = world.snapshot.vessels.find((v) => v.localScene === world.view)
+  const anchor = target?.position ?? scenes[world.view].anchor
+  world.transition = 'dive'
+  const loading = ensureLocal()
+  await geographic!.dive(anchor)
+  if (epoch !== generation || disposed) return
+  if (!localLoaded) world.loading = true // hold at peak blur until the scene is ready
+  await loading
+  world.loading = false
+  if (epoch !== generation || disposed) return
+  geographic!.suspend()
+  detailed!.setSound(world.sound)
+  const arrival = detailed!.arrive()
+  world.displayView = world.view
+  world.transition = 'arrive'
+  await detailed!.activate(world.view, world.reducedMotion)
+  detailed!.resize()
+  detailed!.quality(world.quality)
+  await arrival
+}
+/**
+ * Vessel → map zoom, the dive in reverse: the vessel camera lifts to high overhead as the
+ * blur builds, the globe takes over low over the vessel and pulls out to the camera the
+ * map view had before the dive while the blur clears.
+ */
+async function riseToMap(epoch: number) {
+  const vessel = world.snapshot.vessels.find((v) => v.localScene === world.displayView)
+  const anchor = vessel?.position ?? scenes[world.displayView].anchor
+  world.transition = 'depart'
+  await detailed!.depart()
+  if (epoch !== generation || disposed) return
+  detailed!.suspend()
+  const rising = geographic!.rise(anchor, world.view)
+  world.displayView = world.view
+  world.transition = 'rise'
+  await geographic!.activate(world.view, world.reducedMotion, true)
+  if (epoch !== generation) return
+  geographic!.update(world.snapshot)
+  geographic!.resize()
+  geographic!.quality(world.quality)
+  await rising
+}
 async function switchView() {
   const epoch = ++generation
   const three = scenes[world.view].renderer === 'three'
-  // No spinner when the target scene is already built: the switch is immediate.
-  world.loading = three ? !localLoaded : !globeLoaded
+  const fromMap = scenes[world.displayView].renderer === 'cesium'
   world.error = ''
   try {
+    if (three && fromMap && globeLoaded && !world.reducedMotion) {
+      detailed?.suspend()
+      await diveToVessel(epoch)
+      return
+    }
+    if (!three && !fromMap && globeLoaded && detailed && !world.reducedMotion) {
+      await riseToMap(epoch)
+      return
+    }
+    // No spinner when the target scene is already built: the switch is immediate.
+    world.loading = three ? !localLoaded : !globeLoaded
+    world.displayView = world.view
     geographic?.suspend()
     detailed?.suspend()
     if (three) {
@@ -84,7 +144,7 @@ async function switchView() {
               note.value = message
             },
           })
-          await (geographic as InstanceType<typeof GeographicRenderer>).initialize()
+          await geographic.initialize()
           globeLoaded = true
         })()
       await ready
@@ -100,7 +160,10 @@ async function switchView() {
     if (epoch === generation)
       world.error = `Scene could not load: ${error instanceof Error ? error.message : String(error)}`
   } finally {
-    if (epoch === generation) world.loading = false
+    if (epoch === generation) {
+      world.loading = false
+      world.transition = ''
+    }
   }
 }
 function retry() {
@@ -192,13 +255,13 @@ onBeforeUnmount(() => {
     <div
       ref="globe"
       class="render-surface"
-      :class="{ hidden: world.view === 'vessel' }"
+      :class="{ hidden: world.displayView === 'vessel' }"
       aria-label="Interactive geographic view"
     />
     <div
       ref="local"
       class="render-surface"
-      :class="{ hidden: world.view !== 'vessel' }"
+      :class="{ hidden: world.displayView !== 'vessel' }"
       aria-label="Interactive fishing vessel scene"
     />
     <div v-if="world.loading" class="loading" role="status">
@@ -209,11 +272,11 @@ onBeforeUnmount(() => {
       <p>{{ world.error }}</p>
       <button @click="retry">Try again</button>
     </div>
-    <div v-if="note && world.view !== 'vessel'" class="source-note">{{ note }}</div>
+    <div v-if="note && world.displayView !== 'vessel'" class="source-note">{{ note }}</div>
     <div class="camera-tools">
-      <button @click="world.view === 'vessel' ? detailed?.reset() : geographic?.reset()">
+      <button @click="world.displayView === 'vessel' ? detailed?.reset() : geographic?.reset()">
         Reset camera</button
-      ><template v-if="world.view === 'vessel'"
+      ><template v-if="world.displayView === 'vessel'"
         ><button @click="preset('elevated')">Elevated view</button
         ><button @click="preset('water')">Water level</button
         ><button @click="preset('deck')">Working deck</button></template

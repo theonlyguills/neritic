@@ -615,3 +615,50 @@ dialog.credits::backdrop {
     bottom: 150px !important;
   }
 }
+
+/* Map → vessel zoom: panels leave quickly for the move, then return staggered once the
+   camera settles. */
+.view-heading,
+.inspector,
+.camera-tools,
+.bottom-tools {
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.inspector {
+  transition-delay: 0.08s;
+}
+.camera-tools {
+  transition-delay: 0.22s;
+}
+.bottom-tools {
+  transition-delay: 0.3s;
+}
+.ui-away .view-heading,
+.ui-away .inspector,
+.ui-away .camera-tools,
+.ui-away .bottom-tools {
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: 0.22s;
+  transition-delay: 0s;
+}
+.ui-away .view-heading {
+  transform: translateY(-14px);
+}
+.ui-away .inspector {
+  transform: translateX(48px);
+}
+.ui-away .camera-tools,
+.ui-away .bottom-tools {
+  transform: translateY(14px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .view-heading,
+  .inspector,
+  .camera-tools,
+  .bottom-tools {
+    transition: none;
+  }
+}

@@ -4,11 +4,12 @@ const world = useWorld()
 const route = useRoute()
 const router = useRouter()
 const credits = ref<HTMLDialogElement>()
-const scene = computed(() => scenes[world.view])
+const scene = computed(() => scenes[world.displayView])
 const vessels = computed(() =>
   world.snapshot.vessels.filter(
     (v) =>
-      world.view === 'canada' || v.coast === (world.view === 'vessel' ? 'atlantic' : world.view),
+      world.displayView === 'canada' ||
+      v.coast === (world.displayView === 'vessel' ? 'atlantic' : world.displayView),
   ),
 )
 watch(
@@ -23,11 +24,11 @@ function go(view: ViewId) {
   void router.push({ query: { view } })
 }
 const level = computed(() =>
-  world.view === 'canada' ? '01' : world.view === 'vessel' ? '03' : '02',
+  world.displayView === 'canada' ? '01' : world.displayView === 'vessel' ? '03' : '02',
 )
 </script>
 <template>
-  <div class="app-shell">
+  <div class="app-shell" :class="{ 'ui-away': world.transition }">
     <header class="topbar">
       <a class="brand" href="?view=canada" @click.prevent="go('canada')"
         ><span class="brand-mark">≋</span><span>PELAGIC<small>MARINE OPERATIONS</small></span></a
@@ -48,9 +49,9 @@ const level = computed(() =>
         <div class="eyebrow">
           CANADIAN WATERS <span>/</span> {{ level }} —
           {{
-            world.view === 'canada'
+            world.displayView === 'canada'
               ? 'OVERVIEW'
-              : world.view === 'vessel'
+              : world.displayView === 'vessel'
                 ? 'ON THE WATER'
                 : 'REGIONAL VIEW'
           }}
@@ -58,21 +59,21 @@ const level = computed(() =>
         <h1>{{ scene.title }}</h1>
         <p>{{ scene.subtitle }}</p>
         <button
-          v-if="world.view !== 'canada'"
+          v-if="world.displayView !== 'canada'"
           class="back"
-          @click="go(world.view === 'vessel' ? 'atlantic' : 'canada')"
+          @click="go(world.displayView === 'vessel' ? 'atlantic' : 'canada')"
         >
-          ← {{ world.view === 'vessel' ? 'Return to Atlantic' : 'Canada overview' }}
+          ← {{ world.displayView === 'vessel' ? 'Return to Atlantic' : 'Canada overview' }}
         </button>
       </section>
       <aside class="inspector" aria-label="Activity details">
         <div class="panel-heading">
           <span class="eyebrow">{{
-            world.view === 'vessel' ? 'VESSEL PROFILE' : 'OPERATING PICTURE'
+            world.displayView === 'vessel' ? 'VESSEL PROFILE' : 'OPERATING PICTURE'
           }}</span
           ><span class="live-dot" />
         </div>
-        <template v-if="world.view === 'canada'"
+        <template v-if="world.displayView === 'canada'"
           ><h2>Across the coasts</h2>
           <p class="muted">Explore regional activity, then get closer to life on the water.</p>
           <button class="coast-card" @click="go('atlantic')">
@@ -89,7 +90,7 @@ const level = computed(() =>
             <div><strong>7</strong><span>DEMO VESSELS</span></div>
           </div></template
         >
-        <template v-else-if="world.view === 'vessel'"
+        <template v-else-if="world.displayView === 'vessel'"
           ><h2>Northern Light</h2>
           <p class="muted">Commercial stern trawler · Grand Banks</p>
           <div class="profile-art">↗ <span>NL–01</span></div>
@@ -135,7 +136,7 @@ const level = computed(() =>
               ><span>↗</span>
             </button>
           </div>
-          <template v-if="world.vessel?.coast === world.view"
+          <template v-if="world.vessel?.coast === world.displayView"
             ><div class="selection-info">
               <span class="eyebrow">SELECTED VESSEL</span>
               <h3>{{ world.vessel.name }}</h3>
@@ -156,7 +157,7 @@ const level = computed(() =>
       </aside>
       <div class="bottom-tools">
         <span class="map-hint">{{
-          world.view === 'vessel'
+          world.displayView === 'vessel'
             ? 'DRAG TO ORBIT · SCROLL TO ZOOM'
             : 'DRAG TO PAN · SCROLL TO ZOOM · CLICK TO SELECT'
         }}</span>
@@ -169,7 +170,7 @@ const level = computed(() =>
             </select></label
           ><label class="motion-label"
             ><input v-model="world.reducedMotion" type="checkbox" /> Reduce motion</label
-          ><label v-if="world.view === 'vessel'" class="motion-label"
+          ><label v-if="world.displayView === 'vessel'" class="motion-label"
             ><input v-model="world.sound" type="checkbox" /> Sound</label
           ><button @click="credits?.showModal()">Sources ↗</button>
         </div>
@@ -178,7 +179,9 @@ const level = computed(() =>
     <footer>
       <span>OCEAN PERSPECTIVES / WORKING MODEL</span
       ><span>{{
-        world.view === 'vessel' ? 'LOCAL SCENE · ILLUSTRATIVE' : 'GEOGRAPHIC VIEW · SHADED RELIEF'
+        world.displayView === 'vessel'
+          ? 'LOCAL SCENE · ILLUSTRATIVE'
+          : 'GEOGRAPHIC VIEW · SHADED RELIEF'
       }}</span
       ><span>01 — 03</span>
     </footer>

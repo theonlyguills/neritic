@@ -3,6 +3,11 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import type { Water } from 'three/addons/objects/Water.js'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js'
 import { seaAt } from './sea'
 import { createBowSurge, createOcean } from './ocean'
 import { weatherMaterial } from './weathering'
@@ -56,6 +61,27 @@ export class LocalRenderer implements SceneAdapter {
   /** Created on first visible activation (audio needs a user gesture), not during warm-up. */
   sound?: Soundscape
   soundEnabled = true
+  /** Zoom-blur post-processing, used only while a transition is blurring the frame. */
+  composer: EffectComposer
+  zoomBlur: ShaderPass
+  /**
+   * Post-process anti-aliasing, only when the browser did not grant multisampling on the
+   * canvas (it asks for `antialias: true`, but e.g. Chrome on some Intel GPUs ignores
+   * that). With MSAA available this stays off and costs nothing.
+   */
+  smaa?: SMAAPass
+  /** Scripted camera move around the vessel (zoom transitions); controls are off meanwhile. */
+  flight?: {
+    begin: number
+    duration: number
+    from: T.Spherical
+    to: T.Spherical
+    target: T.Vector3
+    ease: (t: number) => number
+    blur: (t: number) => number
+    finish: () => void
+    resolve: () => void
+  }
   gulls = createGulls(18, new T.Vector2(0, 30))
   bowSurge: ReturnType<typeof createBowSurge>
   /** Other vessels working the same ground, hull-down towards the horizon. */
@@ -123,7 +149,110 @@ export class LocalRenderer implements SceneAdapter {
       this.water,
       new T.Vector3(0, 0, -definition.local.lengthMetres * 0.45),
     )
+    this.composer = new EffectComposer(this.renderer)
+    this.composer.addPass(new RenderPass(this.scene, this.camera))
+    this.zoomBlur = new ShaderPass({
+      uniforms: { tDiffuse: { value: null }, strength: { value: 0 } },
+      vertexShader: /* glsl */ `
+        varying vec2 vUv;
+        void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: /* glsl */ `
+        uniform sampler2D tDiffuse;
+        uniform float strength;
+        varying vec2 vUv;
+        void main() {
+          vec2 toCentre = vUv - vec2(0.5);
+          vec4 sum = vec4(0.0);
+          for (int i = 0; i < 20; i++) {
+            float t = float(i) / 19.0;
+            sum += texture2D(tDiffuse, vUv - toCentre * t * strength * 0.4);
+          }
+          // Same deep-water fade as the globe's dive blur, for a seamless hand-off.
+          vec3 colour = sum.rgb / 20.0 * (1.0 + strength * 0.12);
+          colour = mix(colour, vec3(0.03, 0.08, 0.1), smoothstep(0.55, 1.0, strength) * 0.85);
+          gl_FragColor = vec4(colour, 1.0);
+        }`,
+    })
+    // Tone mapping and sRGB first, so the blur and its fade work in display colour, like
+    // Cesium's post-process (the fade colour then matches on both sides of the cut).
+    this.composer.addPass(new OutputPass())
+    const gl = this.renderer.getContext()
+    if ((gl.getParameter(gl.SAMPLES) as number) < 2) {
+      this.smaa = new SMAAPass()
+      this.composer.addPass(this.smaa)
+    }
+    // Recorded on the canvas for diagnosis (which anti-aliasing this browser is using).
+    this.renderer.domElement.dataset.antialias = this.smaa ? 'smaa' : 'msaa'
+    this.composer.addPass(this.zoomBlur)
     this.resize()
+  }
+  /** Overhead and slightly south of the boat: north-up, like the globe camera at the cut. */
+  private overhead() {
+    return new T.Spherical(340, 0.06, 0)
+  }
+  private fly(flight: Omit<NonNullable<LocalRenderer['flight']>, 'begin' | 'resolve'>) {
+    this.flight?.resolve()
+    this.controls.enabled = false
+    this.controls.target.copy(flight.target)
+    return new Promise<void>((resolve) => {
+      this.flight = { ...flight, begin: performance.now(), resolve }
+      this.stepFlight()
+    })
+  }
+  /**
+   * Second half of the map → vessel zoom: start high overhead, fully blurred, then swoop
+   * down on an arc into the elevated preset while the blur clears. Call before `activate`
+   * so the first visible frame is the overhead one.
+   */
+  arrive(duration = 1.5) {
+    const local = this.definition.local!
+    const target = new T.Vector3(...local.targets.elevated)
+    return this.fly({
+      duration,
+      target,
+      from: this.overhead(),
+      to: new T.Spherical().setFromVector3(new T.Vector3(...local.cameras.elevated).sub(target)),
+      ease: (t) => 1 - Math.pow(1 - t, 3), // fast in, settling out
+      blur: (t) => 1 - T.MathUtils.smoothstep(t, 0, 0.5),
+      finish: () => this.preset('elevated'),
+    })
+  }
+  /**
+   * First half of the vessel → map zoom: lift from wherever the viewer is to high overhead,
+   * accelerating, as the blur builds to its peak, where the caller cuts to the globe.
+   */
+  depart(duration = 0.9) {
+    const target = this.controls.target.clone()
+    const from = new T.Spherical().setFromVector3(this.camera.position.clone().sub(target))
+    const to = this.overhead()
+    // Unwind the azimuth the short way round so the lift does not spin.
+    to.theta =
+      from.theta + Math.atan2(Math.sin(to.theta - from.theta), Math.cos(to.theta - from.theta))
+    return this.fly({
+      duration,
+      target,
+      from,
+      to,
+      ease: (t) => t * t * (2.2 - 1.2 * t), // accelerating, still moving at the cut
+      blur: (t) => Math.pow(t, 2.5),
+      finish: () => undefined,
+    })
+  }
+  private stepFlight() {
+    const f = this.flight!
+    const t = Math.min(1, (performance.now() - f.begin) / (f.duration * 1000))
+    const e = f.ease(t)
+    const radius = Math.exp(T.MathUtils.lerp(Math.log(f.from.radius), Math.log(f.to.radius), e))
+    const phi = T.MathUtils.lerp(f.from.phi, f.to.phi, f.to.phi > f.from.phi ? Math.pow(e, 1.4) : e)
+    const theta = T.MathUtils.lerp(f.from.theta, f.to.theta, e)
+    this.camera.position.setFromSpherical(new T.Spherical(radius, phi, theta)).add(f.target)
+    this.camera.lookAt(f.target)
+    this.zoomBlur.uniforms.strength!.value = f.blur(t)
+    if (t < 1) return
+    this.flight = undefined
+    f.finish()
+    this.controls.enabled = true
+    f.resolve()
   }
   async initialize() {
     // Load independently, but settle all requests before cleanup on a partial failure.
@@ -222,6 +351,8 @@ export class LocalRenderer implements SceneAdapter {
       this.scene.add(ship)
       this.distant.push({ ship, x: x!, z: z!, phase: phase! })
     }
+    // They arrive after the background warm-up: upload them too while still hidden.
+    if (!this.running) await this.warmUp()
   }
   /**
    * Prepare GPU state while hidden: compile every material's program and upload geometry
@@ -235,9 +366,18 @@ export class LocalRenderer implements SceneAdapter {
     await this.renderer.compileAsync(this.scene, this.camera)
     if (this.disposed || this.running) return
     this.renderer.render(this.scene, this.camera)
+    // Also build the transition's post-processing (blur + output passes): compiling those
+    // at the cut stalled the zoom by seconds on Windows/ANGLE, where shader compiles are slow.
+    this.zoomBlur.uniforms.strength!.value = 0.5
+    this.composer.render()
+    this.zoomBlur.uniforms.strength!.value = 0
+    this.createSound()
   }
-  async activate(_view: ViewId, reduced: boolean) {
-    this.reduced = reduced
+  /**
+   * Build the soundscape (silent and suspended until a user gesture and activation), so
+   * its audio graph and sample decoding are not paid for at the moment of the cut.
+   */
+  private createSound() {
     const local = this.definition.local!
     this.sound ??= new Soundscape(
       this.camera,
@@ -246,8 +386,13 @@ export class LocalRenderer implements SceneAdapter {
       { length: local.lengthMetres, deckY: local.deckHeight },
       SOUND_SAMPLES,
     )
-    this.sound.setEnabled(this.soundEnabled)
-    this.sound.setActive(true)
+    return this.sound
+  }
+  async activate(_view: ViewId, reduced: boolean) {
+    this.reduced = reduced
+    const sound = this.createSound()
+    sound.setEnabled(this.soundEnabled)
+    sound.setActive(true)
     this.running = true
     this.lastFrame = performance.now()
     this.tick()
@@ -300,10 +445,12 @@ export class LocalRenderer implements SceneAdapter {
       this.sunlight.position.copy(this.sunDirection).multiplyScalar(150)
       this.flare.position.copy(this.sunDirection).multiplyScalar(6000)
     }
-    this.controls.update()
+    if (this.flight) this.stepFlight()
+    else this.controls.update()
     this.boat.updateMatrixWorld()
     this.boatInverse.value.copy(this.boat.matrixWorld).invert()
-    this.renderer.render(this.scene, this.camera)
+    if (this.smaa || this.zoomBlur.uniforms.strength!.value > 0.002) this.composer.render()
+    else this.renderer.render(this.scene, this.camera)
   }
   preset(name: 'elevated' | 'water' | 'deck') {
     this.camera.position.set(...this.definition.local!.cameras[name])
@@ -323,6 +470,12 @@ export class LocalRenderer implements SceneAdapter {
     this.sound?.resume()
   }
   suspend() {
+    // A suspended flight finishes instantly so controls are never left disabled.
+    if (this.flight) {
+      this.flight.begin = -Infinity
+      this.stepFlight()
+    }
+    this.zoomBlur.uniforms.strength!.value = 0
     this.sound?.setActive(false)
     this.running = false
     cancelAnimationFrame(this.frame)
@@ -333,8 +486,14 @@ export class LocalRenderer implements SceneAdapter {
     const vessel = snapshot.vessels.find((v) => v.localScene === this.definition.id)
     if (vessel) this.water.material.uniforms.hullSpeed!.value = vessel.speed * 0.5144
   }
+  currentQuality?: 'high' | 'low'
   quality(value: 'high' | 'low') {
+    // Re-applying the same pixel ratio reallocates the canvas and render targets (a visible
+    // hitch at every scene entry), so only act on a real change.
+    if (value === this.currentQuality) return
+    this.currentQuality = value
     this.renderer.setPixelRatio(value === 'high' ? Math.min(devicePixelRatio, 1.5) : 0.65)
+    this.composer.setPixelRatio(this.renderer.getPixelRatio())
     this.renderer.shadowMap.enabled = value === 'high'
   }
   resize() {
@@ -343,6 +502,7 @@ export class LocalRenderer implements SceneAdapter {
     this.camera.aspect = w / h
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(w, h)
+    this.composer.setSize(w, h)
   }
   release(root: T.Object3D) {
     root.traverse((object) => {
@@ -362,6 +522,7 @@ export class LocalRenderer implements SceneAdapter {
     this.release(this.scene)
     this.water.material.uniforms.normalSampler?.value?.dispose()
     this.flare.dispose()
+    this.composer.dispose()
     this.sound?.dispose()
     this.environment?.dispose()
     this.skyTexture?.dispose()

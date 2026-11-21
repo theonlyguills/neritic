@@ -3,6 +3,10 @@ import { snapshotAt, type ViewId, type Snapshot } from '../domain/world'
 export const useWorld = defineStore('world', {
   state: () => ({
     view: 'canada' as ViewId,
+    /** View currently on screen; trails `view` while a transition is in flight. */
+    displayView: 'canada' as ViewId,
+    /** Zoom transition phase (map ⇄ vessel); panels are hidden while non-empty. */
+    transition: '' as '' | 'dive' | 'arrive' | 'depart' | 'rise',
     selectedVessel: 'nl-01',
     selectedRegion: '',
     snapshot: snapshotAt(0) as Snapshot,
