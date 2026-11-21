@@ -34,6 +34,8 @@ export interface SceneryConfig {
   seaState: number
   /** Sun bearing relative to the camera's look towards land, degrees (raking light). */
   sunOffsetDeg?: number
+  /** Share of parked cars drawn (1 = all; busy towns are thinned for frame rate). */
+  carShare?: number
   /** Other vessels working on the horizon (offshore). */
   distantShips: boolean
   gulls: number
@@ -122,6 +124,7 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     sky: BRIGHT_MORNING,
     sunOffsetDeg: -60,
     fog: { colour: '#bcc2c2', density: 0.00012 },
+    carShare: 0.5,
     seaState: 0.12,
     distantShips: false,
     gulls: 26,

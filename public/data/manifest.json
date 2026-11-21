@@ -448,6 +448,34 @@
       "processing": "Poly Haven 1k glTF; gltf-transform 4 optimize: meshopt, WebP 1024 px. Metres, Y up. Usable as a hull fender.",
       "retrieved": "2026-11-21",
       "sha256": "8907ccd0a54efdd523bcea1c0c3c849efe8e96f77cc031d8b202fc134dc115b7"
+    },
+    {
+      "file": "scenery/narrows/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "aec04f6746da003b4caed2e497d5b55ecc965ac22c878bf65bc3b933a2724af6"
+    },
+    {
+      "file": "scenery/lunenburg/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "8f0a80ed4b2bbc54553da24ab4eebfd6e46d3f94329a3b365773c02d9ab00f79"
+    },
+    {
+      "file": "scenery/johnstone/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "fbd4429d7cf3aa5242137019c3f91fc58b6d88825071f34f83d457fcad2ac0e9"
+    },
+    {
+      "file": "scenery/prince-rupert/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "e373d2ddf992d4022b2baaaf502e105a14981d396f414bec19597566369db3a1"
     }
   ]
 }

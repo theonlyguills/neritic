@@ -400,7 +400,7 @@ export class LocalRenderer implements SceneAdapter {
     if (!scenery.terrainUrl) return Promise.resolve(undefined)
     let pending = this.terrains.get(scenery.id)
     if (!pending) {
-      pending = loadScenery(scenery.terrainUrl, this.renderer)
+      pending = loadScenery(scenery.terrainUrl, this.renderer, { carShare: scenery.carShare })
       pending.catch(() => this.terrains.delete(scenery.id))
       this.terrains.set(scenery.id, pending)
     }

@@ -1,4 +1,5 @@
 import * as T from 'three'
+import { buildStreets, streetFinder, type StreetsFile } from './streets'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 
 /**
@@ -90,6 +91,8 @@ export interface SceneryOptions {
   shadows?: boolean
   /** Harbour scenes: wharves kept around the hero's berth (default 3). */
   wharves?: number
+  /** Share of parked cars kept (1 = all). */
+  carShare?: number
 }
 
 export interface SceneryStats {
@@ -143,7 +146,11 @@ export async function loadScenery(
     }
     smallTownWaterfront(meta, options.wharves ?? 3, ground)
   }
-  return buildScenery(meta, terrainBuffer, coverBuffer, renderer, options)
+  // Street-level OSM detail (roads, fuel, parking): optional, added by fetch-streets.mjs.
+  const streets = (await fetch(`${base}/streets.json`)
+    .then((r) => (r.ok ? r.json() : undefined))
+    .catch(() => undefined)) as StreetsFile | undefined
+  return buildScenery(meta, terrainBuffer, coverBuffer, renderer, options, streets)
 }
 
 /**
@@ -209,9 +216,9 @@ function smallTownWaterfront(
 
 // ------------------------------------------------------------------------------ helpers
 
-type V3 = [number, number, number]
+export type V3 = [number, number, number]
 
-function mulberry32(seed: number) {
+export function mulberry32(seed: number) {
   let a = seed >>> 0
   return () => {
     a = (a + 0x6d2b79f5) >>> 0
@@ -222,7 +229,7 @@ function mulberry32(seed: number) {
   }
 }
 
-function hash2(x: number, z: number) {
+export function hash2(x: number, z: number) {
   let h = Math.imul(x | 0, 374761393) + Math.imul(z | 0, 668265263)
   h = Math.imul(h ^ (h >>> 13), 1274126177)
   return ((h ^ (h >>> 16)) >>> 0) / 4294967296
@@ -257,7 +264,7 @@ function fbm(x: number, z: number, octaves = 3) {
   return sum / norm
 }
 
-function pointInRing(x: number, z: number, ring: XZ[]) {
+export function pointInRing(x: number, z: number, ring: XZ[]) {
   let inside = false
   for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
     const [xi, zi] = ring[i]!,
@@ -267,14 +274,14 @@ function pointInRing(x: number, z: number, ring: XZ[]) {
   return inside
 }
 
-function ringArea(ring: XZ[]) {
+export function ringArea(ring: XZ[]) {
   let a = 0
   for (let i = 0, j = ring.length - 1; i < ring.length; j = i++)
     a += ring[j]![0] * ring[i]![1] - ring[i]![0] * ring[j]![1]
   return a / 2
 }
 
-function ringCentroid(ring: XZ[]): XZ {
+export function ringCentroid(ring: XZ[]): XZ {
   let x = 0,
     z = 0
   for (const p of ring) {
@@ -319,7 +326,7 @@ function fillPolygon(
 }
 
 /** Oriented minimum-area rectangle of a ring: axes u = (ux, uz), v = (−uz, ux). */
-function orientedBox(ring: XZ[]) {
+export function orientedBox(ring: XZ[]) {
   let best = { area: Infinity, ux: 1, uz: 0, minU: 0, maxU: 0, minV: 0, maxV: 0 }
   for (let i = 0; i < ring.length; i++) {
     const a = ring[i]!,
@@ -346,15 +353,15 @@ function orientedBox(ring: XZ[]) {
   return best
 }
 
-const colour = (hex: string) => new T.Color(hex)
-const pick = <V>(list: readonly V[], r: number) =>
+export const colour = (hex: string) => new T.Color(hex)
+export const pick = <V>(list: readonly V[], r: number) =>
   list[Math.min(list.length - 1, Math.floor(r * list.length))]!
 
 /**
  * Accumulates flat-shaded, non-indexed triangles with vertex colours (and optional extra
  * attributes), so each material becomes one draw call.
  */
-class Mesher {
+export class Mesher {
   position: number[] = []
   normal: number[] = []
   color: number[] = []
@@ -487,7 +494,7 @@ class Mesher {
 }
 
 /** Triangulates a ring at a fixed height, facing up (or down). */
-function cap(m: Mesher, ring: XZ[], y: number, rgb: T.Color, up = true) {
+export function cap(m: Mesher, ring: XZ[], y: number, rgb: T.Color, up = true) {
   const contour = ring.map(([x, z]) => new T.Vector2(x, z))
   const faces = T.ShapeUtils.triangulateShape(contour, [])
   for (const face of faces) {
@@ -561,7 +568,7 @@ interface Patch {
 }
 
 /** Injects world-position varyings and the given chunks into a MeshStandardMaterial. */
-function patch(material: T.MeshStandardMaterial, p: Patch) {
+export function patch(material: T.MeshStandardMaterial, p: Patch) {
   const defines = Object.keys(p.defines ?? {})
     .map((name) => `#define ${name} ${p.defines![name]}`)
     .join('\n')
@@ -689,9 +696,11 @@ function terrainMaterial(mask: T.Texture, maskBounds: T.Vector4, pacific: boolea
       tuck = max(tuck, smoothstep(0.75, 1.0, cover.r) * 0.75);
       veg = mix(veg, sRgb(vec3(0.13, 0.17, 0.11)) * mix(0.75, 1.15, fine), tuck);
       // Town: lawns and gardens, with gravel and asphalt where it is densest.
-      vec3 lawn = mix(sRgb(vec3(0.33, 0.40, 0.21)), sRgb(vec3(0.30, 0.35, 0.20)), speck);
-      vec3 paved = mix(sRgb(vec3(0.30, 0.30, 0.30)), sRgb(vec3(0.42, 0.41, 0.38)), fine);
-      vec3 town = mix(lawn * mix(0.85, 1.1, fine), paved, smoothstep(0.62, 0.8, mid * 0.5 + speck * 0.2 + cover.g * 0.45));
+      // Real streets are drawn on top (streets.ts), so town ground is mostly mown lawn with
+      // the odd gravel yard.
+      vec3 lawn = mix(sRgb(vec3(0.36, 0.45, 0.22)), sRgb(vec3(0.31, 0.39, 0.2)), speck);
+      vec3 paved = mix(sRgb(vec3(0.40, 0.38, 0.34)), sRgb(vec3(0.47, 0.45, 0.4)), fine);
+      vec3 town = mix(lawn * mix(0.85, 1.1, fine), paved, smoothstep(0.82, 0.95, mid * 0.5 + speck * 0.2 + cover.g * 0.45) * 0.6);
       veg = mix(veg, town, smoothstep(0.1, 0.6, cover.g));
       float vegAmount = 1.0 - smoothstep(0.3, 0.5, slope + (mid - 0.5) * 0.35 + (fine - 0.5) * 0.12);
       // Grassy ledges hold on to the cliff faces.
@@ -757,7 +766,9 @@ function wallMaterial(trimColour: T.Color) {
       float u = vWall.x, v = vWall.y, eave = vWall.z, len = vWall.w;
       float px = max(length(fwidth(vec2(u, v))), 1e-3);
       float detail = 1.0 - smoothstep(0.05, 0.6, px);
-      float style = vStyle;
+      // Styles 10+ mark the wall facing the street (front door / storefront).
+      float front = step(9.5, vStyle);
+      float style = vStyle - front * 10.0;
       // 0 clapboard house, 1 commercial / apartments, 2 industrial, 3 church.
       float spacing = style < 0.5 ? 2.7 : style < 1.5 ? 2.3 : style < 2.5 ? 7.0 : 4.2;
       float ww = style < 0.5 ? 0.85 : style < 1.5 ? 1.35 : style < 2.5 ? 2.6 : 1.1;
@@ -777,6 +788,31 @@ function wallMaterial(trimColour: T.Color) {
       float glass = inCols * inRows * step(abs(cu), ww * 0.5) * step(row, wh);
       float frame = inCols * inRows * step(abs(cu), ww * 0.5 + 0.13) * step(row, wh + 0.13);
       frame = max(frame - glass, 0.0);
+      // Front door on houses: centred, or a bay off-centre; the windows in its bay give way.
+      float bayIndex = floor(local / spacing);
+      float doorBay = floor(cols * 0.5 - 0.01 * len);
+      float isHouse = step(style, 0.5);
+      float doorCu = (bayIndex == doorBay) ? cu : 99.0;
+      float door = front * isHouse * step(abs(doorCu), 0.5) * step(-0.05, v) * step(v, 2.15);
+      float doorFrame = front * isHouse * step(abs(doorCu), 0.64) * step(-0.05, v) * step(v, 2.3);
+      doorFrame = max(doorFrame - door, 0.0);
+      float groundFloor = step(v, storey - 0.4);
+      glass *= 1.0 - front * isHouse * step(abs(doorCu), spacing * 0.5) * groundFloor;
+      frame *= 1.0 - front * isHouse * step(abs(doorCu), spacing * 0.5) * groundFloor;
+      // Shops: storefront glass along the street, a sign band above it.
+      float isShop = step(0.5, style) * step(style, 1.5) * front;
+      float pier = step(0.35, abs(mod(u, 4.0) - 2.0) - 1.6 + 0.35);
+      float storefront = isShop * step(0.35, v) * step(v, 2.8) * (1.0 - pier) * step(0.6, u) * step(u, len - 0.6);
+      float signBand = isShop * step(2.95, v) * step(v, 3.6);
+      glass = max(glass * (1.0 - isShop * step(v, 3.6)), storefront);
+      frame *= 1.0 - isShop * step(v, 3.6);
+      // Glazing bars on house windows (two-over-two sashes).
+      float bars = isHouse * glass * max(step(abs(cu), 0.035), step(abs(row - wh * 0.5), 0.035));
+      // Curtains or blinds in some windows: a paler, warmer interior.
+      float winId = bayIndex + floor(vf / storey) * 17.0 + floor(vSWorld.x * 0.05) * 3.0 + floor(vSWorld.z * 0.05) * 7.0;
+      float curtain = step(0.55, fract(sin(winId * 12.9898) * 43758.5453)) * (1.0 - isShop);
+      // Sill: a pale ledge under each window.
+      float sillRow = inCols * step(abs(cu), ww * 0.5 + 0.2) * step(sill - 0.1, mod(v, storey)) * step(mod(v, storey), sill) * step(0.0, vf + 0.1) * step(v, eave - 0.6) * isHouse;
       float corner = (1.0 - step(0.16, u)) + step(len - 0.16, u);
       corner *= step(style, 0.5);
       vec3 wall = diffuseColor.rgb;
@@ -788,15 +824,38 @@ function wallMaterial(trimColour: T.Color) {
       // Soil splash and weathering towards the ground.
       wall *= mix(0.78, 1.0, smoothstep(-0.3, 1.2, v));
       vec3 glassColour = sRgb(vec3(0.07, 0.09, 0.11));
+      glassColour = mix(glassColour, sRgb(vec3(0.5, 0.46, 0.4)) * 0.45, curtain * 0.5 * step(row, wh * 0.92));
       vec3 trim = style < 0.5 || style > 2.5 ? sTrim : wall * 0.72;
+      // Concrete foundation showing below the siding.
+      float footing = isHouse * step(v, 0.45);
+      wall = mix(wall, sRgb(vec3(0.5, 0.49, 0.46)) * mix(0.85, 1.05, sNoise(vSWorld.xz * 2.0)), footing);
+      // Door colours: deep reds, navy, black, natural wood, by house.
+      float dh = fract(sin(dot(floor(vSWorld.xz / 9.0), vec2(127.1, 311.7))) * 43758.5453);
+      vec3 doorColour = dh < 0.25 ? sRgb(vec3(0.42, 0.08, 0.07)) : dh < 0.5 ? sRgb(vec3(0.08, 0.12, 0.22))
+                      : dh < 0.75 ? sRgb(vec3(0.06, 0.06, 0.06)) : sRgb(vec3(0.36, 0.24, 0.14));
       vec3 c = wall;
-      c = mix(c, trim, max(frame, corner) * detail);
+      c = mix(c, trim, max(max(frame, corner), max(doorFrame, sillRow)) * detail);
       c = mix(c, glassColour, glass * detail);
+      c = mix(c, trim, bars * detail);
+      c = mix(c, doorColour, door * detail);
+      c = mix(c, sRgb(vec3(0.1, 0.11, 0.12)), signBand * detail);
+      // Plants and sheds: roll-up loading doors along long walls, a man door beside each.
+      float isIndustrial = step(1.5, style) * step(style, 2.5);
+      float bay = mod(u - 3.0, 16.0);
+      float rollUp = isIndustrial * step(10.0, len) * step(0.0, u - 3.0) * step(u, len - 3.0)
+                   * step(bay, 4.2) * step(-0.1, v) * step(v, 4.4);
+      float slats = 1.0 - smoothstep(0.75, 1.0, fract(v / 0.32)) * 0.3;
+      vec3 doorPanel = mix(sRgb(vec3(0.62, 0.64, 0.65)), sRgb(vec3(0.28, 0.36, 0.45)), step(0.5, dh)) * slats;
+      c = mix(c, doorPanel, rollUp * detail);
+      float manDoor = isIndustrial * step(10.0, len) * step(5.2, bay) * step(bay, 6.2) * step(v, 2.1) * step(u, len - 3.0);
+      c = mix(c, sRgb(vec3(0.2, 0.22, 0.24)), manDoor * detail);
+      // Ribbed metal cladding catches the light in vertical stripes.
+      c *= 1.0 - isIndustrial * (1.0 - smoothstep(0.0, 0.08, fract(u / 0.3))) * 0.12 * detail;
       // From afar, windows average into a slightly darker wall.
       float avgGlass = inRows * (ww * wh) / (spacing * storey) * step(0.5, cols);
       c = mix(c, mix(wall, glassColour, avgGlass * 0.8), 1.0 - detail);
       diffuseColor.rgb = c;
-      sRough = mix(0.85, 0.12, glass * detail);
+      sRough = mix(0.85, 0.08, glass * (1.0 - bars) * detail);
     }
     `,
     roughness: 'roughnessFactor = sRough;',
@@ -805,7 +864,7 @@ function wallMaterial(trimColour: T.Color) {
 }
 
 /** Vertex-coloured surfaces with world-space weathering (roofs, timber, concrete, rock). */
-function weatheredMaterial(
+export function weatheredMaterial(
   key: string,
   roughness: number,
   strength = 1,
@@ -836,6 +895,44 @@ function weatheredMaterial(
   return material
 }
 
+/** Roofs: asphalt shingle courses on the slopes (metal or tar on flat roofs), weathered. */
+function roofMaterial() {
+  const material = new T.MeshStandardMaterial({
+    vertexColors: true,
+    roughness: 0.82,
+    metalness: 0,
+    side: T.DoubleSide,
+  })
+  patch(material, {
+    key: 'scenery-roofs',
+    colour: /* glsl */ `
+    {
+      vec3 P = vSWorld;
+      float px = max(length(fwidth(P)), 1e-3);
+      float detail = 1.0 - smoothstep(0.04, 0.5, px);
+      float pitched = smoothstep(0.08, 0.25, 1.0 - abs(vSNormal.y));
+      // Courses every 0.14 m of rise, tabs staggered course to course.
+      float course = P.y / 0.14;
+      float row = fract(course);
+      float along = dot(P.xz, normalize(vec2(-vSNormal.z, vSNormal.x) + 1e-4)) / 0.9 + floor(course) * 0.5;
+      float tab = sHash(vec2(floor(along), floor(course)));
+      float shingle = (0.8 + 0.2 * smoothstep(0.0, 0.18, row)) * mix(0.9, 1.08, tab);
+      shingle *= 1.0 - (1.0 - smoothstep(0.0, 0.06, fract(along))) * 0.25;
+      diffuseColor.rgb *= mix(1.0, shingle, pitched * detail);
+      // Weathering: moss and staining in streaks, lighter sun-bleached patches.
+      float n = sNoise3(P / 2.1);
+      diffuseColor.rgb *= mix(0.85, 1.12, n);
+      diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * vec3(0.85, 0.95, 0.8), smoothstep(0.6, 0.9, sNoise(P.xz / 4.0)) * pitched * 0.5);
+      sBump = (1.0 - row) * 0.02 * pitched * detail;
+    }
+    `,
+    normal: /* glsl */ `
+      normal = sPerturb(-vViewPosition, normal, vec2(dFdx(sBump), dFdy(sBump)), faceDirection);
+    `,
+  })
+  return material
+}
+
 // ------------------------------------------------------------------------------ build
 
 const PALETTES = {
@@ -856,7 +953,7 @@ const PALETTES = {
       '#c96f2d',
       '#d7cfbf',
     ],
-    roofs: ['#2b2d31', '#34373b', '#3d3a36', '#1f2124', '#41403c', '#3a3d42'],
+    roofs: ['#4a4d52', '#5a5753', '#3f4246', '#5c4a3c', '#3f5546', '#6e2f28', '#55595e', '#2f3236'],
   },
   // St. John's jellybean row houses.
   NL: {
@@ -874,7 +971,7 @@ const PALETTES = {
       '#5aa0c8',
       '#efece4',
     ],
-    roofs: ['#2b2d31', '#3a3b3e', '#4a4a4a', '#1f2124', '#454036'],
+    roofs: ['#4a4d52', '#56595c', '#3d4044', '#5c4a3c', '#2f3236', '#5a5347'],
   },
   // Coastal BC: muted siding, metal roofs.
   BC: {
@@ -890,7 +987,7 @@ const PALETTES = {
       '#b9b2a2',
       '#4f6168',
     ],
-    roofs: ['#2e3236', '#3a4a3f', '#5a2f2a', '#454545', '#5d6366', '#2a3a44'],
+    roofs: ['#4d5357', '#3f5546', '#6a3530', '#5a5d60', '#6e7479', '#34495a'],
   },
 } as const
 const INDUSTRIAL_WALLS = ['#c9ccce', '#e6e6e2', '#9aa1a6', '#7d8a92', '#b7c3c9', '#d5d2c8']
@@ -907,7 +1004,12 @@ function buildingStyle(kind: BuildingKind) {
         : 1
 }
 
-function buildBuildings(meta: SceneryMeta, heightAt: (x: number, z: number) => number) {
+function buildBuildings(
+  meta: SceneryMeta,
+  heightAt: (x: number, z: number) => number,
+  /** Unit direction from a point to the nearest street (within ~40 m), if any. */
+  toStreet: (x: number, z: number) => [number, number] | undefined = () => undefined,
+) {
   const walls = new Mesher({ aWall: 4, aStyle: 1 })
   const roofs = new Mesher()
   const palette =
@@ -960,6 +1062,20 @@ function buildBuildings(meta: SceneryMeta, heightAt: (x: number, z: number) => n
     let ground = Infinity
     for (const [x, z] of ring) ground = Math.min(ground, heightAt(x, z))
     const bottom = Math.min(ground, b.base) - 0.4
+    // The wall that faces the street gets the front door (houses) or storefront (shops).
+    const street = toStreet(cx, cz)
+    let frontWall = -1
+    if (street) {
+      let best = 0.55
+      for (let i = 0; i < ring.length; i++) {
+        const p = ring[i]!,
+          q = ring[(i + 1) % ring.length]!
+        const len = Math.hypot(q[0] - p[0], q[1] - p[1])
+        if (len < 2.5) continue
+        const facing = ((q[1] - p[1]) / len) * street[0] - ((q[0] - p[0]) / len) * street[1]
+        if (facing > best) [best, frontWall] = [facing, i]
+      }
+    }
     // Walls.
     for (let i = 0; i < ring.length; i++) {
       const p = ring[i]!,
@@ -979,7 +1095,7 @@ function buildBuildings(meta: SceneryMeta, heightAt: (x: number, z: number) => n
         [nx, 0, nz],
         {
           aWall: [w(0, bottom), w(len, bottom), w(len, yTop), w(0, yTop)],
-          aStyle: [[style], [style], [style], [style]],
+          aStyle: Array(4).fill([style + (i === frontWall ? 10 : 0)]),
         },
       )
     }
@@ -1054,6 +1170,14 @@ function buildBuildings(meta: SceneryMeta, heightAt: (x: number, z: number) => n
           aStyle: [[style], [style], [style]],
         })
       }
+    }
+    // A chimney on houses: brick or concrete, a quarter of the way along the ridge.
+    if (style === 0 && b.kind === 'house' && r2 > 0.15) {
+      const s0 = a0 + (a1 - a0) * (r1 < 0.5 ? 0.22 : 0.78)
+      const [x, , z] = at(s0, mid + (r1 - 0.5) * half * 0.6, 0)
+      const brick = colour(r2 < 0.6 ? '#7a3b2e' : '#8f8b84')
+      roofs.cylinder(x, z, eave, ridgeY + 0.9, 0.42, 0.42, 4, brick)
+      roofs.cylinder(x, z, ridgeY + 0.9, ridgeY + 1.0, 0.5, 0.5, 4, colour('#55524e'))
     }
   }
   return { walls, roofs }
@@ -1745,6 +1869,8 @@ function buildTrees(
   coverAt: (x: number, z: number) => readonly [number, number, number, number],
   density: number,
   shadows: boolean,
+  /** Extra no-tree areas (road corridors, parking lots). */
+  extraRings: XZ[][] = [],
 ): TreeSet {
   const pacific = meta.forest === 'dense-conifer'
   const harbour = meta.type === 'harbour'
@@ -1758,6 +1884,7 @@ function buildTrees(
     ...meta.features.piers.map((p) => p.polygon),
     ...meta.features.lakes.map((l) => l.polygon),
     ...meta.features.breakwaters.map((b) => b.polygon),
+    ...extraRings,
   ]
   for (const ring of rings) fillPolygon(ring, ex, -half, exCell, (c) => (blocked[c] = 1))
   // Thin structures (narrow footprints) may cover no cell centre: mark their vertices too.
@@ -1968,8 +2095,21 @@ export function buildScenery(
   coverBuffer: ArrayBuffer,
   renderer: T.WebGLRenderer,
   options: SceneryOptions = {},
+  streets?: StreetsFile,
 ): Scenery {
   const shadows = options.shadows ?? true
+  // Mapped fuel canopies are drawn as canopies (streets.ts), not as solid buildings; tiny
+  // sheds and outbuildings read as clutter at this scale.
+  if (streets) {
+    const canopyCentres = streets.canopies.map((c) => ringCentroid(c.polygon))
+    meta.features.buildings = meta.features.buildings.filter((b) => {
+      const [x, z] = ringCentroid(b.footprint)
+      return !canopyCentres.some(([cx, cz]) => Math.hypot(cx - x, cz - z) < 4)
+    })
+  }
+  meta.features.buildings = meta.features.buildings.filter(
+    (b) => Math.abs(ringArea(b.footprint)) >= 10 || b.kind !== 'shed',
+  )
   const n = meta.grid
   const half = meta.sizeM / 2
   const cell = meta.sizeM / (n - 1)
@@ -2022,9 +2162,13 @@ export function buildScenery(
     group.add(mesh)
     disposables.push(geometry, material)
   }
-  const { walls, roofs } = buildBuildings(meta, heightAt)
+  const { walls, roofs } = buildBuildings(
+    meta,
+    heightAt,
+    streets ? streetFinder(streets) : undefined,
+  )
   add(walls, wallMaterial(colour('#f1efe8')), 'building-walls')
-  add(roofs, weatheredMaterial('roofs', 0.8, 0.9, T.DoubleSide), 'building-roofs')
+  add(roofs, roofMaterial(), 'building-roofs')
   add(buildPiers(meta, heightAt), weatheredMaterial('piers', 0.88, 1), 'piers')
   add(buildBreakwaters(meta), weatheredMaterial('rock', 0.92, 1.2), 'breakwaters')
   add(buildLandmarks(meta), weatheredMaterial('landmarks', 0.7, 0.5), 'landmarks')
@@ -2040,7 +2184,27 @@ export function buildScenery(
     false,
   )
 
-  const trees = buildTrees(meta, grid, heightAt, mask.sample, options.treeDensity ?? 1, shadows)
+  const street = streets
+    ? buildStreets(
+        streets,
+        heightAt,
+        meta.features.buildings.map((b) => ringCentroid(b.footprint)),
+        shadows,
+        meta.features.buildings.length * 31 + 7,
+        meta.features.buildings.filter((b) => b.kind === 'house').map((b) => b.footprint),
+        options.carShare ?? 1,
+      )
+    : undefined
+  if (street) group.add(street.group)
+  const trees = buildTrees(
+    meta,
+    grid,
+    heightAt,
+    mask.sample,
+    options.treeDensity ?? 1,
+    shadows,
+    street?.corridors ?? [],
+  )
   for (const mesh of trees.meshes) group.add(mesh)
   const treeGeometries = new Set(trees.meshes.map((m) => m.geometry))
   const treeMaterials = new Set(trees.meshes.map((m) => m.material as T.Material))
@@ -2081,6 +2245,7 @@ export function buildScenery(
     stats: { vertices, triangles, treeInstances: trees.count, drawCalls },
     dispose() {
       group.removeFromParent()
+      street?.dispose()
       for (const d of disposables) d.dispose()
       for (const mesh of trees.meshes) mesh.dispose()
       group.clear()

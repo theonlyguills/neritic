@@ -63,8 +63,9 @@ Browser back/forward and direct links such as `?view=atlantic` and
 ### Add a close-up scenery
 
 1. Add the location (centre, size, kind) to `scripts/fetch-scenery.mjs` and run
-   `node scripts/fetch-scenery.mjs <id>`. It downloads the elevation and OpenStreetMap
-   features once, caches the raw files outside the repo, and writes `public/scenery/<id>/`.
+   `node scripts/fetch-scenery.mjs <id>`, then `node scripts/fetch-streets.mjs <id>` for roads,
+   fuel stations and parking. They download the elevation and OpenStreetMap features once,
+   cache the raw files outside the repo, and write `public/scenery/<id>/`.
 2. Add a `SCENERIES` entry in `app/domain/scenery.ts` (sky, haze, sea state, `terrainUrl`)
    and record the new files in `public/data/manifest.json`.
 3. Vessels pick a scenery by kind and coast (`sceneryForVessel`). For a scene tied to a place,
