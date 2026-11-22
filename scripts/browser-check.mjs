@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { writeFileSync } from 'node:fs'
 import { launchBrowser } from './browser.mjs'
 /** Server under test (default: the local preview). */
-const BASE = process.env.PELAGIC_URL ?? 'http://127.0.0.1:3070'
+const BASE = process.env.NERITIC_URL ?? 'http://127.0.0.1:3070'
 const browser = await launchBrowser()
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } })
 const errors = []

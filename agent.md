@@ -1,4 +1,4 @@
-# Pelagic — project context for the next agent
+# Neritic — project context for the next agent
 
 Updated: 2026-11-20. Project directory: `/home/guills/marine-operations`.
 

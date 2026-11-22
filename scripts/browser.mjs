@@ -2,7 +2,7 @@
  * Browser for the visual checks.
  *
  * Default: headless Chromium with SwiftShader (software WebGL; works anywhere, slow).
- * `PELAGIC_BROWSER=edge`: Windows Edge on the real GPU, for WSL with mirrored networking.
+ * `NERITIC_BROWSER=edge`: Windows Edge on the real GPU, for WSL with mirrored networking.
  * It starts Edge with a throwaway profile and a debug port, drives it over CDP, and closes
  * that Edge instance when done. An Edge window appears on the desktop while checks run.
  */
@@ -11,7 +11,7 @@ import { chromium } from '@playwright/test'
 
 const EDGE =
   process.env.EDGE_PATH ?? '/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
-const PROFILE = 'pelagic-check'
+const PROFILE = 'neritic-check'
 
 function closeEdge() {
   // Only the Edge processes started with our throwaway profile.
@@ -24,7 +24,7 @@ function closeEdge() {
 }
 
 export async function launchBrowser() {
-  if (process.env.PELAGIC_BROWSER !== 'edge')
+  if (process.env.NERITIC_BROWSER !== 'edge')
     return chromium.launch({
       headless: true,
       args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],

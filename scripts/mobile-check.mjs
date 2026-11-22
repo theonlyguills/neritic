@@ -1,7 +1,7 @@
 import { launchBrowser } from './browser.mjs'
 import assert from 'node:assert/strict'
 /** Server under test (default: the local preview). */
-const BASE = process.env.PELAGIC_URL ?? 'http://127.0.0.1:3070'
+const BASE = process.env.NERITIC_URL ?? 'http://127.0.0.1:3070'
 const browser = await launchBrowser()
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } })
 await page.goto(`${BASE}/?view=atlantic`)

@@ -128,7 +128,7 @@ const hint = computed(() =>
   <div class="app-shell" :class="{ 'ui-away': world.transition }">
     <header class="topbar">
       <a class="brand" href="?view=canada" @click.prevent="go('canada')"
-        ><span class="brand-mark">≋</span><span>PELAGIC<small>MARINE OPERATIONS</small></span></a
+        ><span class="brand-mark">≋</span><span>NERITIC<small>CFIS FLEETSCAPE</small></span></a
       >
       <nav class="crumbs" aria-label="Location">
         <button :class="{ active: world.view === 'canada' }" @click="go('canada')">Canada</button

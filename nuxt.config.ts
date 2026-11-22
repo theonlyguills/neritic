@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   css: ['~/assets.css'],
   app: {
     head: {
-      title: 'Pelagic · Marine operations',
+      title: 'Neritic · CFIS fleetscape',
       meta: [{ name: 'description', content: 'Interactive marine operations demonstration' }],
     },
   },

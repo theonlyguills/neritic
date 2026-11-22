@@ -292,7 +292,7 @@ onMounted(() => {
     Object.assign(window, { __local: () => detailed })
   world.reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
   try {
-    world.sound = localStorage.getItem('pelagic.sound') !== 'off'
+    world.sound = localStorage.getItem('neritic.sound') !== 'off'
   } catch {
     // Storage unavailable: keep the default.
   }
@@ -362,7 +362,7 @@ watch(
   (enabled) => {
     detailed?.setSound(enabled)
     try {
-      localStorage.setItem('pelagic.sound', enabled ? 'on' : 'off')
+      localStorage.setItem('neritic.sound', enabled ? 'on' : 'off')
     } catch {
       // Storage unavailable: the choice lasts for this page only.
     }

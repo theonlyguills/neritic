@@ -1,6 +1,6 @@
 /**
  * Builds public/data/harbours.json (real DFO Small Craft Harbours locations) and
- * public/data/fleet.json (an entirely synthetic, illustrative fleet) for the Pelagic demo.
+ * public/data/fleet.json (an entirely synthetic, illustrative fleet) for the Neritic demo.
  *
  *   node scripts/generate-fleet.mjs            # regenerate from the cached sources in scripts/data
  *   node scripts/generate-fleet.mjs --prepare  # re-download and rebuild scripts/data (network)
