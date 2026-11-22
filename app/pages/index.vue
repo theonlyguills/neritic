@@ -2,7 +2,7 @@
 import { FEATURED, demoClock, scenes, validView, type ViewId } from '../domain/world'
 import { SIM_RATE, type HailEvent, type LiveVessel } from '../domain/simulation'
 import { STATUS_COLOUR } from '../domain/palette'
-import { sceneryForVessel } from '../domain/scenery'
+import { chooseScenery } from '../domain/scenery'
 const world = useWorld()
 const route = useRoute()
 const router = useRouter()
@@ -101,7 +101,11 @@ const regionCount = computed(() => {
     (v) => v.area === world.selectedRegion && v.status === 'fishing',
   ).length
 })
-const setting = computed(() => (world.vessel ? sceneryForVessel(world.vessel).place : ''))
+const setting = computed(() => {
+  if (!world.vessel) return ''
+  const { config, representative } = chooseScenery(world.vessel)
+  return representative ? `${config.place} (representative)` : config.place
+})
 const clock = computed(() => demoClock(world.snapshot.time))
 const hint = computed(() =>
   world.displayView === 'vessel'

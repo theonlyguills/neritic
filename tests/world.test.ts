@@ -152,3 +152,31 @@ test('incremental 24 h hail counters match a full recount after many ticks', () 
     assert.equal(snap.stats[scope].landingsKg, fresh.stats[scope].landingsKg)
   }
 })
+
+test('vessels open the scene for where they are', async () => {
+  const { chooseScenery, PLACES } = await import('../app/domain/scenery')
+  const now = sim.snapshot(START_TIME + 321)
+  const built = new Set(PLACES.filter((p) => p.type === 'harbour').map((p) => p.id))
+  for (const v of now) {
+    const { config, representative } = chooseScenery(v)
+    assert.ok(config.id, v.id)
+    if (v.status === 'in-port' && built.has(v.homePort)) {
+      assert.equal(config.id, v.homePort, `${v.id} should open its own harbour`)
+      assert.equal(representative, false)
+    }
+    if (config.kind === 'offshore') assert.equal(config.id, 'grand-banks')
+  }
+  // Fishing right off a built harbour uses that harbour's terrain, out past its mouth.
+  const lunenburg = PLACES.find((p) => p.id === 'lunenburg')!
+  const off = chooseScenery({
+    status: 'fishing',
+    zone: 'inshore',
+    progress: 0.5,
+    coast: 'atlantic',
+    homePort: 'elsewhere',
+    longitude: lunenburg.lon + 0.05,
+    latitude: lunenburg.lat - 0.03,
+  })
+  assert.equal(off.config.terrainUrl, '/scenery/lunenburg/')
+  assert.equal(off.config.kind, 'inshore')
+})

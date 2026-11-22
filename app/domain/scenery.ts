@@ -5,6 +5,7 @@
  */
 import type { Coast } from './fleet'
 import { sceneryFor, type LiveVessel, type SceneryKind } from './simulation'
+import places from './places.generated.json'
 
 export interface SkyConfig {
   url: string
@@ -262,13 +263,130 @@ export function boatFor(v: Pick<LiveVessel, 'lengthM' | 'coast'>): BoatModel {
   return BOATS[`inshore-${v.coast}`] ?? BOATS.inshore ?? BOATS.trawler!
 }
 
-/** Scenery for a vessel, from its status and zone (see `sceneryFor`). */
-export function sceneryForVessel(
-  v: Pick<LiveVessel, 'status' | 'zone' | 'progress' | 'coast'>,
-): SceneryConfig {
+/** Sceneries built on disk (scripts/index-sceneries.mjs): real terrain and OSM features. */
+export interface Place {
+  id: string
+  type: 'harbour' | 'inshore'
+  place: string
+  province: string
+  coast: Coast
+  lon: number
+  lat: number
+  arrival: boolean
+  buildings: number
+}
+export const PLACES = places as Place[]
+
+const PROVINCE: Record<string, string> = {
+  NL: 'Newfoundland and Labrador',
+  NS: 'Nova Scotia',
+  NB: 'New Brunswick',
+  PE: 'Prince Edward Island',
+  QC: 'Quebec',
+  BC: 'British Columbia',
+  NU: 'Nunavut',
+}
+
+/** Config for a batch-built harbour (no hand-tuned entry): a per-coast template. */
+function harbourConfig(p: Place): SceneryConfig {
+  const pacific = p.coast === 'pacific'
+  return {
+    id: p.id,
+    kind: 'harbour',
+    coast: p.coast,
+    place: `${p.place} harbour ${p.province}`,
+    terrainUrl: `/scenery/${p.id}/`,
+    caption: {
+      title: `${p.place}, ${PROVINCE[p.province] ?? p.province}`,
+      line: 'Real terrain, streets and buildings from OpenStreetMap',
+    },
+    tour: p.buildings >= 40,
+    sky: pacific ? OVERCAST : BRIGHT_MORNING,
+    sunOffsetDeg: pacific ? 30 : -60,
+    fog: pacific
+      ? { colour: '#aeb7ba', density: 0.00013 }
+      : { colour: '#bcc2c2', density: 0.00012 },
+    seaState: 0.12,
+    carShare: 0.6,
+    distantShips: false,
+    gulls: 24,
+  }
+}
+
+/** Fishing off a built harbour: the same terrain, the boat out past the harbour mouth. */
+function offHarbourConfig(p: Place): SceneryConfig {
+  const base = SCENERIES[p.id] ?? harbourConfig(p)
+  return {
+    ...base,
+    id: `${p.id}:offshore`,
+    kind: 'inshore',
+    place: `Off ${p.place} ${p.province}`,
+    caption: base.caption && { ...base.caption, line: 'Fishing just outside the harbour' },
+    seaState: 0.45,
+    tour: false,
+  }
+}
+
+const km = (aLon: number, aLat: number, bLon: number, bLat: number) =>
+  Math.hypot((bLon - aLon) * Math.cos(((aLat + bLat) / 2) * (Math.PI / 180)), bLat - aLat) * 111.2
+
+function nearest(type: Place['type'], lon: number, lat: number, coast?: Coast) {
+  let best: { place: Place; km: number } | undefined
+  for (const p of PLACES) {
+    if (p.type !== type || (coast && p.coast !== coast)) continue
+    const d = km(lon, lat, p.lon, p.lat)
+    if (!best || d < best.km) best = { place: p, km: d }
+  }
+  return best
+}
+
+export interface SceneryChoice {
+  config: SceneryConfig
+  /** True when the vessel is not near this place: the scene stands in for its setting. */
+  representative: boolean
+}
+
+/**
+ * Scenery for a vessel from where it is and what it is doing:
+ * - alongside or arriving: its real home harbour when built, else the nearest built
+ *   harbour within 15 km, else a representative harbour on its coast;
+ * - fishing inshore: the nearest built inshore scene within 25 km, or the nearest built
+ *   harbour within 20 km (fishing off its mouth), else a representative inshore scene;
+ * - offshore: open ocean.
+ */
+export function chooseScenery(
+  v: Pick<
+    LiveVessel,
+    'status' | 'zone' | 'progress' | 'coast' | 'homePort' | 'longitude' | 'latitude'
+  >,
+): SceneryChoice {
   const kind = sceneryFor(v)
-  const match = Object.values(SCENERIES).find(
-    (s) => s.kind === kind && (s.coast === v.coast || s.coast === 'any'),
-  )
-  return match ?? SCENERIES['grand-banks']!
+  const config = (p: Place) => SCENERIES[p.id] ?? harbourConfig(p)
+  if (kind === 'harbour') {
+    const home = PLACES.find((p) => p.id === v.homePort && p.type === 'harbour')
+    if (home) return { config: config(home), representative: false }
+    const near = nearest('harbour', v.longitude, v.latitude)
+    if (near && near.km < 15) return { config: config(near.place), representative: false }
+    const stand = nearest('harbour', v.longitude, v.latitude, v.coast)
+    if (stand) return { config: config(stand.place), representative: true }
+  }
+  if (kind === 'inshore') {
+    const spot = nearest('inshore', v.longitude, v.latitude)
+    if (spot && spot.km < 25) return { config: config(spot.place), representative: false }
+    const port = nearest('harbour', v.longitude, v.latitude)
+    if (port && port.km < 20) return { config: offHarbourConfig(port.place), representative: false }
+    const stand = nearest('inshore', v.longitude, v.latitude, v.coast)
+    if (stand) return { config: config(stand.place), representative: true }
+  }
+  return { config: SCENERIES['grand-banks']!, representative: false }
+}
+
+/** Scenery for a vessel (see `chooseScenery`). */
+export function sceneryForVessel(
+  v: Pick<
+    LiveVessel,
+    'status' | 'zone' | 'progress' | 'coast' | 'homePort' | 'longitude' | 'latitude'
+  >,
+): SceneryConfig {
+  return chooseScenery(v).config
 }

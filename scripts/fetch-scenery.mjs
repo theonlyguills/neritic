@@ -106,6 +106,28 @@ const SCENES = {
 
 const args = process.argv.slice(2)
 const flag = (name) => args.includes(name)
+// `--harbours`: also build every major harbour in public/data/harbours.json (berth at the
+// harbour point, entrance at its approach), skipping ones already defined above.
+if (args.includes('--harbours')) {
+  const { harbours } = JSON.parse(fs.readFileSync('public/data/harbours.json', 'utf8'))
+  for (const h of harbours) {
+    if (!h.major || SCENES[h.id]) continue
+    const pacific = h.coast === 'pacific'
+    SCENES[h.id] = {
+      name: `${h.name} Harbour`,
+      place: h.name,
+      province: h.province,
+      type: 'harbour',
+      center: { lat: h.lat, lon: h.lon },
+      sizeM: 4000,
+      zoom: 14,
+      forest: pacific ? 'dense-conifer' : 'sparse-scrub',
+      deckHeight: pacific ? 4 : 2.4,
+      berth: { near: { lat: h.lat, lon: h.lon } },
+      entrance: { lat: h.approach[1], lon: h.approach[0] },
+    }
+  }
+}
 const option = (name) => {
   const i = args.indexOf(name)
   return i >= 0 ? args[i + 1] : undefined
@@ -1609,7 +1631,21 @@ function writeDebug(id, a, h, meta) {
 const sha256 = (file) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
 
 const results = []
-for (const id of Object.keys(SCENES)) if (!only || id === only) results.push(await build(id))
+const failed = []
+for (const id of Object.keys(SCENES)) {
+  if (only && id !== only) continue
+  // Batch runs (--harbours) carry on past a place that cannot be built.
+  if (flag('--skip-existing') && fs.existsSync(path.join('public', 'scenery', id, 'scenery.json')))
+    continue
+  try {
+    results.push(await build(id))
+  } catch (error) {
+    if (!flag('--harbours')) throw error
+    failed.push(id)
+    console.error(`  ${id} failed: ${error instanceof Error ? error.message : error}`)
+  }
+}
+if (failed.length) console.error(`Failed: ${failed.join(', ')}`)
 
 const entries = []
 for (const { id, dir, meta } of results) {

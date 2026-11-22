@@ -517,11 +517,12 @@ export class LocalRenderer implements SceneAdapter {
   }
   private terrainFor(scenery: SceneryConfig) {
     if (!scenery.terrainUrl) return Promise.resolve(undefined)
-    let pending = this.terrains.get(scenery.id)
+    const key = scenery.terrainUrl
+    let pending = this.terrains.get(key)
     if (!pending) {
       pending = loadScenery(scenery.terrainUrl, this.renderer, { carShare: scenery.carShare })
-      pending.catch(() => this.terrains.delete(scenery.id))
-      this.terrains.set(scenery.id, pending)
+      pending.catch(() => this.terrains.delete(key))
+      this.terrains.set(key, pending)
     }
     return pending
   }
@@ -650,6 +651,20 @@ export class LocalRenderer implements SceneAdapter {
       }
       this.stepArrival()
     }
+    // Fishing off a built harbour: out past the mouth, where its approach begins, bow
+    // pointed out to sea.
+    const mouth = meta?.arrival
+    if (scenery.kind === 'inshore' && meta?.type === 'harbour' && mouth && mouth.length > 1) {
+      const [x, z] = mouth[0]!
+      const [nx, nz] = mouth[Math.min(4, mouth.length - 1)]!
+      this.boat.position.set(x, 0, z)
+      this.heading = Math.atan2(x - nx, -(z - nz))
+      this.boat.rotation.y = -this.heading
+      const u = this.water.material.uniforms
+      u.hullPosition!.value.set(x, z)
+      u.hullForward!.value.set(Math.sin(this.heading), -Math.cos(this.heading))
+    }
+    this.gulls.mesh.position.set(this.boat.position.x, 0, this.boat.position.z)
     this.town = this.terrain ? townCentre(this.terrain) : undefined
     this.distantGroup.visible = scenery.distantShips
     this.gulls.mesh.count = Math.min(MAX_GULLS, scenery.gulls)
@@ -728,7 +743,8 @@ export class LocalRenderer implements SceneAdapter {
     let position = candidate(-1)
     if (this.terrain) {
       // Pick the side over open water, and stay well clear of the ground.
-      const ground = (p: T.Vector3) => this.terrain!.heightAt(p.x, p.z)
+      const o = this.boat.position
+      const ground = (p: T.Vector3) => this.terrain!.heightAt(p.x + o.x, p.z + o.z)
       const other = candidate(1)
       if (ground(other) < ground(position)) position = other
       position.y = Math.max(position.y, ground(position) + 12)
@@ -1214,10 +1230,12 @@ export class LocalRenderer implements SceneAdapter {
         .copy(this.sunDirection)
         .multiplyScalar(150)
         .add(this.sunlight.target.position)
-      this.flare.position.copy(this.sunDirection).multiplyScalar(6000)
     }
     if (this.flight) this.stepFlight()
     else this.controls.update()
+    // Flare along the sun direction from the camera (after it moved this frame): measured
+    // from the origin it skews sideways in scenes where the boat is far from the origin.
+    this.flare.position.copy(this.sunDirection).multiplyScalar(6000).add(this.camera.position)
     this.boat.updateMatrixWorld()
     this.boatInverse.value.copy(this.boat.matrixWorld).invert()
     if (this.smaa || this.zoomBlur.uniforms.strength!.value > 0.002) this.composer.render()

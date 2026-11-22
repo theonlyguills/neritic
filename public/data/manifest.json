@@ -484,6 +484,874 @@
       "license": "CC0 1.0",
       "processing": "2k Radiance HDR used as-is; sun measured by brightest-pixel centroid: u=0.5999, elevation 2.24°",
       "sha256": "439d7e99b34bd3727896d9a06247d4bd80d8276f208f4fdefce919ce74b602c3"
+    },
+    {
+      "file": "scenery/bay-de-verde/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "4e26abddd58aabd1faaf20f71fec2d2d8ff00168cb408d4284b5dc24cb34a71d"
+    },
+    {
+      "file": "scenery/bay-de-verde/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.084132, -52.897863; retrieved 2026-11-21",
+      "sha256": "2daa2af16ebec2f2ed86cc92b7f6e689cd09d9f1626d0531cc33781e47d21ff9"
+    },
+    {
+      "file": "scenery/bay-de-verde/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.084132, -52.897863); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "95bd66109bcc3ba3e43d6e2883d2aee355b03655bdd163a29e5a5390bdb646ce"
+    },
+    {
+      "file": "scenery/bonavista/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "8b678d0cc8840ba1483b6e2392d012bef2346ce67206cb19b817b50e995143d3"
+    },
+    {
+      "file": "scenery/bonavista/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.653235, -53.121219; retrieved 2026-11-21",
+      "sha256": "ee003d80afe7e57717d030c9faca3c71bdb33d1bc36b21da0edd7a1e378e028d"
+    },
+    {
+      "file": "scenery/bonavista/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.653235, -53.121219); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "40170f6a9750eed994a9125b111ec294b2f387a59e48c0dd52897423002c33d7"
+    },
+    {
+      "file": "scenery/campbell-river/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "d784567b880e9774b99fb23db57a571c791401b65ec4e2fe7715332cae73fd8c"
+    },
+    {
+      "file": "scenery/campbell-river/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 50.031749, -125.242974; retrieved 2026-11-21",
+      "sha256": "1d8c11f3deb2be4becb62d748b6779556f91676aa3eb135e7b7f4a90f6c3dab3"
+    },
+    {
+      "file": "scenery/campbell-river/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 50.031749, -125.242974); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "d40ae0b0af030fe9e67fd2c1af302b7f67871e7818fc71d18160366655b50063"
+    },
+    {
+      "file": "scenery/cap-aux-meules/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "52f88eb40da2d0aed620701df13218c8f6c7efc13b1c8012f87dcacef31ce590"
+    },
+    {
+      "file": "scenery/cap-aux-meules/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.379288, -61.852677; retrieved 2026-11-21",
+      "sha256": "0c575c0589b9326c933ab7d9b5a2471b6555c09e83169b0d80954139d8e7a160"
+    },
+    {
+      "file": "scenery/cap-aux-meules/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.379288, -61.852677); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "3b8d839c94de6abe153ecd918a4dd9f5d30501a8bb0bfc9f30d2bf00a75d63ee"
+    },
+    {
+      "file": "scenery/caraquet/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "471c85d9b9b9de4a6bc1371ab8dbf20c9770c215f38034a4eaac4f88fbb59507"
+    },
+    {
+      "file": "scenery/caraquet/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.796582, -64.929489; retrieved 2026-11-21",
+      "sha256": "32dbf8e493f1a88ed2c0cee6da390f074c31ce268fccd78a4c2fe6f40c953234"
+    },
+    {
+      "file": "scenery/caraquet/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.796582, -64.929489); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "25b4a1f46ed5e2d483e4f41886bb9410db0375fa6282d80492c0718fc8f804cc"
+    },
+    {
+      "file": "scenery/catalina/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "7dfc795b303ba8043676a89e51b88b1304667830d762d1198ad77abf69c8bbd4"
+    },
+    {
+      "file": "scenery/catalina/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.51546, -53.075238; retrieved 2026-11-21",
+      "sha256": "659931b0f07700ca6c31d4db8d3fc1eb92324e2fe305dd43d7f4af2f7b1bd4f2"
+    },
+    {
+      "file": "scenery/catalina/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.51546, -53.075238); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "859c24e6e31ae6ab7bbfa0813c4adb41c966ab26d4d51a5b411a4aa3baa4b73c"
+    },
+    {
+      "file": "scenery/channel-port-aux-basques/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "2a73c53ff86d3c4c944f6bc87c66b57345662361686e765016e25cf5bf253576"
+    },
+    {
+      "file": "scenery/channel-port-aux-basques/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.574592, -59.13938; retrieved 2026-11-21",
+      "sha256": "d3bffa5288ffb0a76e17fc67f99269b2a002815398ab9c5e60f0ae1377baa856"
+    },
+    {
+      "file": "scenery/channel-port-aux-basques/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.574592, -59.13938); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "0e22b2ab0476fcb2b81391d36f0047d6c4ef590d28bc0109f6ad583fc8c6e2b9"
+    },
+    {
+      "file": "scenery/cheticamp/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "dbe534cb257783984dfff0e734b515c543cae6e54366b58e3c0c2fa65990c52f"
+    },
+    {
+      "file": "scenery/cheticamp/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.636261, -61.010522; retrieved 2026-11-21",
+      "sha256": "8d3bf5b1c439addde89d165b6d4ba6da66ef688dc1b1b6ec77fec2c99e38744c"
+    },
+    {
+      "file": "scenery/cheticamp/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.636261, -61.010522); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "8c914a40197d40ed96ea2a1cc0c776924f432a558feb99b2f5e7c466dc2271a9"
+    },
+    {
+      "file": "scenery/clarks-harbour/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "66326763b32a0be5a3d84da5895bb21b5366dc372b220f0c789296fcb67bdc38"
+    },
+    {
+      "file": "scenery/clarks-harbour/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 43.443983, -65.634931; retrieved 2026-11-21",
+      "sha256": "0aa1cc77eec03ef0f2a8f783113a3151ad3c18d1f7650bf0cfc77ffbe005a468"
+    },
+    {
+      "file": "scenery/clarks-harbour/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 43.443983, -65.634931); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "fdda76a5756e1ca2915c88b1254decf11abbe5d222b2d1bf7b8a98835606455e"
+    },
+    {
+      "file": "scenery/grande-riviere/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "071145b46ef6a9fbfe0f78f270b3c8cabf0dbb0e8743ec8169ae532c5340d301"
+    },
+    {
+      "file": "scenery/grande-riviere/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.394373, -64.494636; retrieved 2026-11-21",
+      "sha256": "3e7912a44929683a914c04339d0ba54ff06ad7810d6f70a9f88e571433173fe9"
+    },
+    {
+      "file": "scenery/grande-riviere/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.394373, -64.494636); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "a446eb18b2966a1f30f4ad39eb0834d7d4bdfabd2cd18bc4dc8b4d73d24999cb"
+    },
+    {
+      "file": "scenery/harbour-breton/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "4d1b3f4c01b8c7e4a4304c8b54b21c692ba4a94638eb07c5fee207b2496920d4"
+    },
+    {
+      "file": "scenery/harbour-breton/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.478045, -55.812325; retrieved 2026-11-21",
+      "sha256": "0e544732a340dac0074becbe7db3d403d79933c0f68316d095094000a24096cf"
+    },
+    {
+      "file": "scenery/harbour-breton/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.478045, -55.812325); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "345cb5960e6ee467c7c29f13125b3382e9de08ed30d9b30a2b0e868f75e6831e"
+    },
+    {
+      "file": "scenery/harbour-grace/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "d2d8c65caa4fcef276fa29b9af1f74094634856403ddb0299b6d0af487adf710"
+    },
+    {
+      "file": "scenery/harbour-grace/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.690404, -53.218478; retrieved 2026-11-21",
+      "sha256": "712d605ea67db58780ecde77664f06ae6c570b9aae42ede5f3141af1df1d2373"
+    },
+    {
+      "file": "scenery/harbour-grace/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.690404, -53.218478); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "66c900098e46bf9c2912ab26324b0dbf7e8cb175fb08303ed82d8877b4253185"
+    },
+    {
+      "file": "scenery/louisbourg/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "f419692baedce97dffb6538e18927c3b93cecad9b468237c1914f8f4bd61ce6f"
+    },
+    {
+      "file": "scenery/louisbourg/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 45.918161, -59.970436; retrieved 2026-11-21",
+      "sha256": "b283dd50bee2535397ae345cd2daf26c9282a06fd82f78d3f686934d0c1b6535"
+    },
+    {
+      "file": "scenery/louisbourg/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 45.918161, -59.970436); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "d8f1eb5a305518e508fa80df280b62c4fab1949e30dccd3f0f8067b9d6084ec6"
+    },
+    {
+      "file": "scenery/lower-east-pubnico/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "d6c0740c93efc075a5dc6f39e616e96ce0d0c408064b9b06e05a117e65b26247"
+    },
+    {
+      "file": "scenery/lower-east-pubnico/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 43.605491, -65.77669; retrieved 2026-11-21",
+      "sha256": "fa56c68a289210198bd70a759bc961086074f2b97249176c69dd0efcf085827a"
+    },
+    {
+      "file": "scenery/lower-east-pubnico/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 43.605491, -65.77669); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "b2e4f2adddd034a943baa5a052c7e4f1fd25fb4bf0e19fa648c245255ebb8858"
+    },
+    {
+      "file": "scenery/matane/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "10695aed8a1bdce47a9132a51c822ecdc665006c85f76f0952baa96c4f2f038f"
+    },
+    {
+      "file": "scenery/matane/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.842168, -67.578922; retrieved 2026-11-21",
+      "sha256": "a35df2e46d881d2de424f03626078d0ec91bbd4caec6b2c3305fbfa08558c9c8"
+    },
+    {
+      "file": "scenery/matane/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.842168, -67.578922); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "ce0dd694827c175a2fcf3cb68f7f5bab2dc402daa030c093d27184d9e795e01b"
+    },
+    {
+      "file": "scenery/meteghan/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "2bfba7f8d97c4467dbe6f6f47ee010d2980d0fc7cb4fb3dd8d46efd8e35e928f"
+    },
+    {
+      "file": "scenery/meteghan/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 44.194087, -66.166591; retrieved 2026-11-21",
+      "sha256": "8b2bac1f0fe3f028a8943493ffd2bec2c36a5e1b3f1d68bed7089c36b08963a7"
+    },
+    {
+      "file": "scenery/meteghan/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 44.194087, -66.166591); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "c4e107d48caca619da7e677bb830bd675fafd0cb6ef0b78e5966a2bd15971031"
+    },
+    {
+      "file": "scenery/north-head/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "9f6f6e126389f012ba83b33a40e95bc5fd85c644f28be8f3f3412a0ca8bfadd3"
+    },
+    {
+      "file": "scenery/north-head/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 44.762682, -66.75026; retrieved 2026-11-21",
+      "sha256": "9a3ae31ccae656f586edbf4a0314403ad665b103349d1caf0aeca220a2b904c1"
+    },
+    {
+      "file": "scenery/north-head/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 44.762682, -66.75026); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "d13170dddbcf9b4f6e98fb717f9a55814915f24c6801d22a2c1d05244da2b9df"
+    },
+    {
+      "file": "scenery/north-rustico/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "b3da0acbd951a922957742583fffa9c58a05209e405e16f96942d164ffbda9f8"
+    },
+    {
+      "file": "scenery/north-rustico/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.456844, -63.309285; retrieved 2026-11-21",
+      "sha256": "dc14d9dc911adc76dc2d035f517d184038ec1c988bb56727b65b1d81528f31fb"
+    },
+    {
+      "file": "scenery/north-rustico/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.456844, -63.309285); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "c01ebd5b01a3412e9b7fd2c95a1981d4651a678c7de942d7957e56de9f3c6e64"
+    },
+    {
+      "file": "scenery/pangnirtung/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "59b8859dd02d6dbe2914be64bb6895422b53fc2d96d5165a64d505ab87673cef"
+    },
+    {
+      "file": "scenery/pangnirtung/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 66.148971, -65.70352; retrieved 2026-11-21",
+      "sha256": "16869adb4131f61593ce224d7a8ce8df2473736736b5089af6e35458ebb205b5"
+    },
+    {
+      "file": "scenery/pangnirtung/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 25 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 66.148971, -65.70352); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "7d7876f23d4ba5a725c0599e5204991c17ebf52f2c8e21c6a1737f340c5d6ecf"
+    },
+    {
+      "file": "scenery/port-au-choix/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "689381a9282baae6fa2fd1e6ed0b50a5396178b0b441f911cccaf95cccd11657"
+    },
+    {
+      "file": "scenery/port-au-choix/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 50.700945, -57.354055; retrieved 2026-11-21",
+      "sha256": "a490f592ed8978c9a53635dbeb9505dadd1a05f18fa650322f5922df218eee51"
+    },
+    {
+      "file": "scenery/port-au-choix/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 50.700945, -57.354055); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "5db4ae0f0cc1889e9b601f7c7c6002af371753d7e41575212ed70ca8d053e8ce"
+    },
+    {
+      "file": "scenery/port-hardy/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "78856a56fb444d9f92ccfcc51d8be38b6fdca8a5141da1fb9a55f01a74c630ed"
+    },
+    {
+      "file": "scenery/port-hardy/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 50.713898, -127.491657; retrieved 2026-11-21",
+      "sha256": "577bedfd3d78a81b3614a73f19e258e801c746fe6dfbcad83f70d2d28b0ab5ef"
+    },
+    {
+      "file": "scenery/port-hardy/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 50.713898, -127.491657); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "a3c28d8e202b43c9eb5ba0cf1ded963c9c782f22735f0369722b2b9a225b0496"
+    },
+    {
+      "file": "scenery/riviere-au-renard/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "2dc5322ec01f6a6546356a1b482bef358b38ca0a0b6c503877a116ee2589c8b2"
+    },
+    {
+      "file": "scenery/riviere-au-renard/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.996036, -64.387151; retrieved 2026-11-21",
+      "sha256": "850827b1cb1ff01a3018c9ca6fe14013d19005fd9a0aac102727256b394a094c"
+    },
+    {
+      "file": "scenery/riviere-au-renard/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.996036, -64.387151); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "2925ad258fa9c84de1e9786dbce30ce1609c3a88ccf4b2e06cca21f4c2f299bb"
+    },
+    {
+      "file": "scenery/sambro/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "2724145ab99bb8f770bed37a6ccc193ab00c0fb9352c293f96fcc89d8259bf2e"
+    },
+    {
+      "file": "scenery/sambro/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 44.478145, -63.599198; retrieved 2026-11-21",
+      "sha256": "d3e2fc1e2b9c85a4cc78454ea4959e5626fc220aa1df5fa64432b8226ed8f629"
+    },
+    {
+      "file": "scenery/sambro/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 44.478145, -63.599198); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "f29a1df35aa10263917698a778f176d9570803e3a8effe6c3f5f0cfb12b73476"
+    },
+    {
+      "file": "scenery/sept-iles/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "9be8a80c41582f798cf6398750215889e3cc7b6c0a70d12f0760276bd4d3647a"
+    },
+    {
+      "file": "scenery/sept-iles/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 50.196569, -66.38196; retrieved 2026-11-21",
+      "sha256": "f3e0391ae024f8e9404674cbdcd53964d1cefe24a856af8314e4997f282083d2"
+    },
+    {
+      "file": "scenery/sept-iles/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 50.196569, -66.38196); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "5f5157189a2692a5b86309c23c26bfde581a0bf2dee5497db6cb05c70269c34e"
+    },
+    {
+      "file": "scenery/shippagan/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "61f91d4c6573fbd54b0ff0b662bfb12945eab0e55a0a8b6c04fa3478dd1b6342"
+    },
+    {
+      "file": "scenery/shippagan/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.747665, -64.706755; retrieved 2026-11-21",
+      "sha256": "6c11e6a4095c37ca1feadec91a1b52d1e32d21f18e18f053483e9a840a76a487"
+    },
+    {
+      "file": "scenery/shippagan/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.747665, -64.706755); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "4f08aa7580002ae59e1bdc0c45ec21280188a66e8c3ff2784bceb1d2ccbbc48b"
+    },
+    {
+      "file": "scenery/st-johns/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "bdeffec6d1b1a9f71c3ea6f9f2f519344b1754fb73214bc9fae2121541b0567e"
+    },
+    {
+      "file": "scenery/st-johns/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.565757, -52.69012; retrieved 2026-11-21",
+      "sha256": "05b9c38a7cb7bf1fbec949287f563b456a031e1fc65b5ca8f690ba9cdb260b38"
+    },
+    {
+      "file": "scenery/st-johns/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.565757, -52.69012); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "b3f6e1f0707a31e08b73458762d56c44ba5cad3809db3081c9bc9f66daeb931a"
+    },
+    {
+      "file": "scenery/twillingate/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "2a4aade2203ab651adbba564fb0165463b0dfd53e11dac0904baa27f069a61ae"
+    },
+    {
+      "file": "scenery/twillingate/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 49.648147, -54.766979; retrieved 2026-11-21",
+      "sha256": "f9fd25c230727b6128b037681af031864f63642bc6c5f8ae3abbe8558613899c"
+    },
+    {
+      "file": "scenery/twillingate/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 49.648147, -54.766979); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "ff98f114ee5682f205412e7b5d38f319b7ee40616d5271570b765fe3627219a3"
+    },
+    {
+      "file": "scenery/ucluelet/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "6d330777ecb1df041ab6f9d1ba6908cee2087b427c34e18306df4d7a98f5a356"
+    },
+    {
+      "file": "scenery/ucluelet/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.945364, -125.553948; retrieved 2026-11-21",
+      "sha256": "9ffcb32e06489687adfb11138ace962eb6d14f6988db3d7fbeb51235bf05c64e"
+    },
+    {
+      "file": "scenery/ucluelet/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.945364, -125.553948); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "7defdd828180e4f92e1c5ccdf4ddc214a921a28426d8f1598a70dbdaa3780095"
+    },
+    {
+      "file": "scenery/yarmouth/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "cb31bd8adf2d9ae24f8ac7aa15dce0a6f7e7c357d1e583156b7948ea9bf352ea"
+    },
+    {
+      "file": "scenery/yarmouth/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 43.815159, -66.15059; retrieved 2026-11-21",
+      "sha256": "4c4f0a879b8419427f6f0fe83ea5eac00e9f5437abfd55dbf4d64c86cf91b0f7"
+    },
+    {
+      "file": "scenery/yarmouth/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 43.815159, -66.15059); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "65548a189a345b4ba78d06a12bd263abe7b530036b79d8c3af3fd721431e623c"
+    },
+    {
+      "file": "scenery/steveston/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "6e0f6cfdc6f72ce9f977db57bbb600d1776d3424b6017737b9ef5551d9360835"
+    },
+    {
+      "file": "scenery/steveston/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 49.126864, -123.19716; retrieved 2026-11-21",
+      "sha256": "2a2aa72ec4eefcf422a21dc4a7f6223f6cd781badb83cf2f19710294e3d0e01f"
+    },
+    {
+      "file": "scenery/steveston/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 49.126864, -123.19716); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "175bf857937ee60822fe23419f91f3b1fc58904119a441dbac56739976e8616f"
+    },
+    {
+      "file": "scenery/sointula/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "10585ed64819be53cf49a998ff4673e7dd558d2b4073292ca857bacee5dec336"
+    },
+    {
+      "file": "scenery/sointula/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 50.640815, -127.030199; retrieved 2026-11-21",
+      "sha256": "2c3db2baa0e4e4eda695ebf4efcaad7213ed1ad723e159c0eca101361e46adcd"
+    },
+    {
+      "file": "scenery/sointula/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 50.640815, -127.030199); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "5d54e99dcf8168472d472445353fd5453d55841beeb7996c5d72aa72186affe4"
+    },
+    {
+      "file": "scenery/bay-de-verde/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "6e4223913e03110ce3a96572581a57c4b9af8b66289ff0532358b361e0d84994"
+    },
+    {
+      "file": "scenery/bonavista/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "fa95568c4d629be6345e4b1f1858929f42a6bf337ece0c04c0a53e4db8c2fd62"
+    },
+    {
+      "file": "scenery/campbell-river/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "24063dc209913554875abdb38aa79f9a22bf58315cd3567b14a1f95bcc36f592"
+    },
+    {
+      "file": "scenery/cap-aux-meules/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "0121e92d76a5ac6f8900e7c15a1efda0f57d9285267ec0fdd71abfe962f3417a"
+    },
+    {
+      "file": "scenery/caraquet/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "140ffdffe22cb0ad80af36ad3cff505fdf9adffeb05ba43c838429a9d9e697cf"
+    },
+    {
+      "file": "scenery/catalina/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "c66b0db2c61b23668c50c7f5342fd5155e25488006ccdf06426927324c9a3d44"
+    },
+    {
+      "file": "scenery/channel-port-aux-basques/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "fa5727638a4b7b19e21ec994a016b200890553e7d34b1c0aa766c28514630e66"
+    },
+    {
+      "file": "scenery/cheticamp/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "f54526f48d0ae2bb6c9b6c03a85aebde38693a5cfb4401dd0c682fc31bcca5ee"
+    },
+    {
+      "file": "scenery/clarks-harbour/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "7645b10c5c0ae030552fa2f075137a0f3dd56572ab171136ef92f20f21e3be07"
+    },
+    {
+      "file": "scenery/grande-riviere/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "6fa3d42c164a6247901a8b4049947796cf80a225882183d8cf51b39dfc06aff9"
+    },
+    {
+      "file": "scenery/harbour-breton/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "aa2d26d55f2c867cc55733a5bde3cb75589753a7ea36bd51dd1b123b59b36339"
+    },
+    {
+      "file": "scenery/harbour-grace/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "b63731b176423e7b88e2a91bd9b003502980baa2eb9670e0397074a766b52996"
+    },
+    {
+      "file": "scenery/louisbourg/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "b451195f6e4bd7608d3171e054a24328212d25da28f82b02c08c55be609e3f71"
+    },
+    {
+      "file": "scenery/lower-east-pubnico/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "9c15b80a733b5f88d02b72b7ef2f4467661ca3e1bce4ecb0d9bc5c3616776d94"
+    },
+    {
+      "file": "scenery/matane/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "2ac70edc8ad2fbc107e9961a6078459569e591fb3d4f86623727c87eb58486d5"
+    },
+    {
+      "file": "scenery/meteghan/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "9215f3f0bb4ddfc0aad5deeee82fe3fc7b715df755bee26a0880c229a1ae348a"
+    },
+    {
+      "file": "scenery/north-head/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "1209f7e72518915722b9dd9c032d6c40fd04b37892aa2600cbaefd58ec8a5620"
+    },
+    {
+      "file": "scenery/north-rustico/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "f28dc16cb1dd66156b78b424fa854642ef6ca52bf1468e4b186914b0f404742d"
+    },
+    {
+      "file": "scenery/pangnirtung/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "a6c2e1f7da0ef16567d26a8d7c7916bee71e3ab4efdd3d2c19f4e030c754d277"
+    },
+    {
+      "file": "scenery/port-au-choix/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "ac0ea42c17e9e7901cc0dd80b7f3046407b0615e0e6895bc4746148e169e2224"
+    },
+    {
+      "file": "scenery/port-hardy/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "4a25ede54515b876d6529302c6ebb1f285cfbd4c8ead9750a697f892c8dc251c"
+    },
+    {
+      "file": "scenery/riviere-au-renard/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "5b3441f194ea6ae90e9677e7072a4ec025573073ee2ed7fe5e6f49ec2537aa3c"
+    },
+    {
+      "file": "scenery/sambro/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "dbf114b90a75a11c10bb569d83f784a8d42db60964ff8ac07999915d98e2995e"
+    },
+    {
+      "file": "scenery/sept-iles/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "ba1cfb8d1b37700852ab5d01053e13e5bcf2ccc8512d8619325de93f87829e67"
+    },
+    {
+      "file": "scenery/shippagan/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "2280e8080c84f2e3f407f829d7e77610cfec6ecd23b6b00fb67bbd355dcccb61"
+    },
+    {
+      "file": "scenery/sointula/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "7a59cc811916945d361991fbe5850107664199691cce4e00f8dfd77138a56dbc"
+    },
+    {
+      "file": "scenery/st-johns/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "ce9d1877eeee1aff5b0589071cedf84019d0417b07fc4177daa4190969e5d620"
+    },
+    {
+      "file": "scenery/steveston/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "b414420e81ee85bef7f28ce5178bc5f76cb18583f05dc939776774aab5ee50b8"
+    },
+    {
+      "file": "scenery/twillingate/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "ca0583da6097f672538a5235930937d0082131e3258f7699eb48177dbebf81ed"
+    },
+    {
+      "file": "scenery/ucluelet/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "d8552d61432c848900288e28cd466efa488e206a34f9509afdc342104b83f7ef"
+    },
+    {
+      "file": "scenery/yarmouth/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "sha256": "28b979058fad541f8df43a0cd5ba81bbc4985e9ea48eaf75bc4da60f0fa20259"
     }
   ]
 }
