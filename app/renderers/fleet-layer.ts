@@ -345,8 +345,34 @@ export class FleetLayer {
     }
   }
 
+  /** Attention pings (hail alerts): expanding rings at a vessel, three pulses. */
+  private pings: { b: C.Billboard; born: number }[] = []
+  ping(id: string, colour: string) {
+    const v = this.vessels.get(id)
+    if (!v || !this.visible) return
+    const b = this.billboards.add({
+      position: C.Cartesian3.fromDegrees(v.longitude, v.latitude),
+      disableDepthTestDistance: Number.POSITIVE_INFINITY,
+      color: C.Color.fromCssColorString(colour),
+    })
+    this.setImage(b, 'ping-ring', ring)
+    this.pings.push({ b, born: performance.now() })
+  }
+
   private animate() {
     const now = performance.now()
+    for (let i = this.pings.length - 1; i >= 0; i--) {
+      const { b, born } = this.pings[i]!
+      const age = (now - born) / 1400
+      if (age >= 3) {
+        this.billboards.remove(b)
+        this.pings.splice(i, 1)
+        continue
+      }
+      const t = age % 1
+      b.scale = 0.3 + t * 1.3
+      b.color = b.color.withAlpha(0.95 * (1 - t) ** 1.5, b.color)
+    }
     const pulse = (now % 1600) / 1600
     this.selection.scale = 0.36 + pulse * 0.22
     this.selection.color = C.Color.WHITE.withAlpha(1 - pulse * 0.8)

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { markRaw } from 'vue'
 import { emptySnapshot, type ViewId, type Snapshot } from '../domain/world'
+import type { FleetSimulation } from '../domain/simulation'
 export const useWorld = defineStore('world', {
   state: () => ({
     view: 'canada' as ViewId,
@@ -10,6 +11,8 @@ export const useWorld = defineStore('world', {
     transition: '' as '' | 'dive' | 'arrive' | 'depart' | 'rise' | 'swoop',
     selectedVessel: 'nl-01',
     selectedRegion: '',
+    /** The running simulation (raw), for per-vessel detail: licences and hail history. */
+    simulation: null as FleetSimulation | null,
     /** Raw (non-reactive inside): thousands of vessels are replaced every tick. */
     snapshot: markRaw(emptySnapshot) as Snapshot,
     quality: 'high' as 'high' | 'low',

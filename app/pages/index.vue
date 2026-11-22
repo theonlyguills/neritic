@@ -107,6 +107,15 @@ const setting = computed(() => {
   return representative ? `${config.place} (representative)` : config.place
 })
 const clock = computed(() => demoClock(world.snapshot.time))
+const clockAt = (t: number) => demoClock(t)
+const heldLicences = computed(() =>
+  world.simulation && world.vessel ? world.simulation.licencesOf(world.vessel.id) : [],
+)
+const history = computed(() =>
+  world.simulation && world.vessel
+    ? world.simulation.history(world.vessel.id, world.snapshot.time, 5)
+    : [],
+)
 const hint = computed(() =>
   world.displayView === 'vessel'
     ? 'DRAG TO ORBIT · SCROLL TO ZOOM'
@@ -263,7 +272,29 @@ const hint = computed(() =>
                 {{ world.vessel.latitude.toFixed(3) }}° N
                 {{ Math.abs(world.vessel.longitude).toFixed(3) }}° W
               </dd>
-            </dl></template
+            </dl>
+            <h3 class="section">Licences</h3>
+            <ul class="licences">
+              <li v-for="l in heldLicences" :key="l.number">
+                <span
+                  ><strong>{{ l.species }}</strong
+                  ><small>{{ l.number }} · {{ l.gear }} · {{ l.area }}</small></span
+                ><em :class="{ open: l.open }">{{ l.open ? 'Open' : 'Closed' }}</em>
+              </li>
+            </ul>
+            <h3 class="section">Recent hails</h3>
+            <ol class="timeline">
+              <li v-for="h in history" :key="h.key" :class="h.kind">
+                <i /><span
+                  ><strong>{{ h.kind === 'out' ? 'Hail out' : 'Hail in' }}</strong> ·
+                  {{ clockAt(h.time) }}</span
+                ><small>{{
+                  h.kind === 'out'
+                    ? `${h.port} → ${h.area} · ${h.species}`
+                    : `${h.area} → ${h.port} · est. ${tonnes(h.estimateKg)}`
+                }}</small>
+              </li>
+            </ol></template
           >
           <p class="muted small">
             Drag to orbit. Scroll to move closer. Scenery, weather and the vessel model illustrate
@@ -406,10 +437,9 @@ const hint = computed(() =>
           ><label class="motion-label"
             ><input v-model="world.reducedMotion" type="checkbox" /> Reduce motion</label
           ><button
-            v-if="world.displayView !== 'canada'"
             class="time-toggle"
             :aria-pressed="world.dusk"
-            title="Time of day in the close-up vessel scenes"
+            title="Time of day on the map and in the vessel scenes"
             @click="world.dusk = !world.dusk"
           >
             <span :class="{ on: !world.dusk }">☀ Day</span
@@ -433,8 +463,8 @@ const hint = computed(() =>
       <button class="close" autofocus @click="credits?.close()">Close ×</button>
       <h2>Sources & credits</h2>
       <p>
-        Geographic imagery: NASA GIBS Blue Marble; bundled Natural Earth shaded relief. Terrain is
-        an ellipsoid, with imagery-based relief.
+        Geographic imagery: NASA GIBS Blue Marble and, at dusk, VIIRS Black Marble city lights;
+        bundled Natural Earth shaded relief. Terrain is an ellipsoid, with imagery-based relief.
       </p>
       <p>
         Boundary sources and preprocessing are recorded in

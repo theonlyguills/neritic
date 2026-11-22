@@ -355,6 +355,66 @@ export class FleetSimulation {
     return totals
   }
 
+  /** Licences held by the vessel's licence holder (synthetic, stable per vessel). */
+  licencesOf(id: string): Licence[] {
+    const p = this.vessels.find((x) => x.v.id === id)
+    if (!p) return []
+    const v = p.v
+    const number = (k: number) =>
+      `${v.region}-${String(Math.floor(hash(`${v.id}:lic:${k}`) * 900000) + 100000)}`
+    const list: Licence[] = [
+      { number: number(0), species: v.species, gear: v.gear, area: v.ground.area, open: true },
+    ]
+    const pool = SIDE_LICENCES[v.region].filter(([sp]) => sp !== v.species)
+    for (let k = 1; k < v.licences && pool.length; k++) {
+      const [species, gear] = pool.splice(
+        Math.floor(hash(`${v.id}:pick:${k}`) * pool.length),
+        1,
+      )[0]!
+      list.push({
+        number: number(k),
+        species,
+        gear,
+        area: v.ground.area,
+        open: hash(`${v.id}:season:${k}`) < 0.45,
+      })
+    }
+    return list
+  }
+
+  /** The vessel's most recent hails before demo time t, newest first. */
+  history(id: string, t: number, count = 6): HailEvent[] {
+    const p = this.vessels.find((x) => x.v.id === id)
+    if (!p) return []
+    const { port, out, fish } = p.legs
+    const events: HailEvent[] = []
+    const last = Math.floor(t / p.v.cycle + p.v.phase)
+    for (let k = last; k > last - count && k >= -50; k--)
+      for (const [kind, offset] of [
+        ['in', port + out + fish],
+        ['out', port],
+      ] as const) {
+        const time = (k + offset - p.v.phase) * p.v.cycle
+        if (time > t) continue
+        events.push({
+          key: `${p.v.id}:${kind}:${k}`,
+          time,
+          kind,
+          vesselId: p.v.id,
+          name: p.v.name,
+          port: p.harbour.name,
+          area: p.v.ground.area,
+          species: p.v.species,
+          coast: p.v.coast,
+          region: p.v.region,
+          estimateKg: kind === 'in' ? this.tripCatch(p, k) : 0,
+          from: [0, 0],
+          to: [0, 0],
+        })
+      }
+    return events.sort((a, b) => b.time - a.time).slice(0, count)
+  }
+
   stats(vessels: LiveVessel[], hails: HailTotals, coast?: Coast): FleetStats {
     const byRegion = Object.fromEntries(
       REGIONS.map((r) => [r, { atSea: 0, inPort: 0, vessels: 0 }]),
@@ -398,6 +458,52 @@ export class FleetSimulation {
         .sort((a, b) => b.atSea - a.atSea),
     }
   }
+}
+
+export interface Licence {
+  number: string
+  species: string
+  gear: string
+  area: string
+  /** Season status at the demo date. */
+  open: boolean
+}
+
+/** Other fisheries a licence holder in a region commonly also holds (synthetic). */
+const SIDE_LICENCES: Record<DfoRegion, [string, string][]> = {
+  NL: [
+    ['Cod', 'Gillnet'],
+    ['Capelin', 'Purse seine'],
+    ['Lobster', 'Trap'],
+    ['Mackerel', 'Handline'],
+  ],
+  MAR: [
+    ['Lobster', 'Trap'],
+    ['Haddock', 'Longline'],
+    ['Herring', 'Purse seine'],
+    ['Halibut', 'Longline'],
+  ],
+  GLF: [
+    ['Lobster', 'Trap'],
+    ['Herring', 'Gillnet'],
+    ['Mackerel', 'Handline'],
+    ['Snow crab', 'Trap'],
+  ],
+  QC: [
+    ['Lobster', 'Trap'],
+    ['Snow crab', 'Trap'],
+    ['Greenland halibut', 'Gillnet'],
+  ],
+  PAC: [
+    ['Salmon', 'Troll'],
+    ['Spot prawn', 'Trap'],
+    ['Dungeness crab', 'Trap'],
+    ['Halibut', 'Longline'],
+  ],
+  ARC: [
+    ['Turbot', 'Gillnet'],
+    ['Shrimp', 'Bottom trawl'],
+  ],
 }
 
 /** Which close-up scenery a vessel opens into, from where it is and what it is doing. */

@@ -180,3 +180,26 @@ test('vessels open the scene for where they are', async () => {
   assert.equal(off.config.terrainUrl, '/scenery/lunenburg/')
   assert.equal(off.config.kind, 'inshore')
 })
+
+test('vessel profile: licences are stable and the hail history matches the feed', () => {
+  const v = fleet.vessels.find((x) => !(x.id in HERO_PINS) && x.licences >= 3)!
+  const a = sim.licencesOf(v.id)
+  assert.deepEqual(a, sim.licencesOf(v.id))
+  assert.equal(a.length, Math.min(v.licences, a.length))
+  assert.equal(a[0]!.species, v.species)
+  assert.equal(new Set(a.map((l) => l.number)).size, a.length)
+  const t = START_TIME + 500
+  const history = sim.history(v.id, t, 6)
+  assert.ok(history.length > 0)
+  const window = new Set(
+    sim
+      .hails(t - v.cycle * 4, t)
+      .filter((e) => e.vesselId === v.id)
+      .map((e) => e.key),
+  )
+  for (const e of history) {
+    assert.ok(e.time <= t)
+    if (e.time > t - v.cycle * 4) assert.ok(window.has(e.key), e.key)
+  }
+  for (let i = 1; i < history.length; i++) assert.notEqual(history[i]!.kind, history[i - 1]!.kind)
+})

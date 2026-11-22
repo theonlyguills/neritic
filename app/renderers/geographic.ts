@@ -41,6 +41,9 @@ export class GeographicRenderer implements SceneAdapter {
   lastHail = ''
   private introduced = false
   polarCap?: C.Entity
+  nightLayer?: C.ImageryLayer
+  imageryFailed = false
+  dusk = false
   constructor(
     element: HTMLElement,
     private context: RenderContext,
@@ -169,9 +172,24 @@ export class GeographicRenderer implements SceneAdapter {
       if (!failed && !this.disposed) {
         failed = true
         layer.show = false
+        this.imageryFailed = true
         if (this.polarCap) this.polarCap.show = false
         this.context.status('Online imagery unavailable. Showing bundled Natural Earth imagery.')
       }
+    })
+    // Dusk: city lights (NASA Black Marble), shown only on the night side of the globe.
+    const night = new C.UrlTemplateImageryProvider({
+      url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
+      tilingScheme: new C.WebMercatorTilingScheme(),
+      maximumLevel: 8,
+      credit: 'NASA GIBS · Black Marble',
+    })
+    this.nightLayer = this.viewer.imageryLayers.addImageryProvider(night)
+    this.nightLayer.dayAlpha = 0
+    this.nightLayer.nightAlpha = 1
+    this.nightLayer.show = false
+    night.errorEvent.addEventListener(() => {
+      if (this.nightLayer) this.nightLayer.alpha = 0
     })
     // Web Mercator imagery stops at ±85°: cap the pole in the Arctic Ocean's colour rather
     // than showing the paler fallback image as a hard-edged disc.
@@ -182,6 +200,7 @@ export class GeographicRenderer implements SceneAdapter {
         height: 0,
       },
     })
+    this.setDusk(this.dusk)
     this.addHotspots()
     await this.warmShaders()
   }
@@ -650,6 +669,27 @@ export class GeographicRenderer implements SceneAdapter {
   }
   select(id: string) {
     this.fleet.select(id)
+  }
+  /**
+   * Dusk on the map: real sun lighting at an early-evening moment over Canada (Atlantic
+   * already in night, Prairies at sunset, BC in late afternoon), with city lights on the
+   * night side. Day: the evenly lit globe.
+   */
+  setDusk(on: boolean) {
+    this.dusk = on
+    const scene = this.viewer.scene
+    scene.globe.enableLighting = on
+    scene.globe.dynamicAtmosphereLighting = on
+    scene.globe.dynamicAtmosphereLightingFromSun = on
+    scene.globe.nightFadeOutDistance = on ? 4.0e7 : 1.0e7
+    scene.globe.nightFadeInDistance = on ? 1.0e6 : 5.0e7
+    this.viewer.clock.shouldAnimate = false
+    // 23:15 UTC in late November: about 7:45 pm in Newfoundland, 3:15 pm in Vancouver.
+    this.viewer.clock.currentTime = C.JulianDate.fromIso8601('2026-11-21T23:15:00Z')
+    if (this.nightLayer) this.nightLayer.show = on
+    // The polar patch is a flat colour (unlit): it would glow on the night side.
+    if (this.polarCap && !this.imageryFailed) this.polarCap.show = !on
+    scene.requestRender()
   }
   quality(value: 'high' | 'low') {
     this.viewer.resolutionScale = value === 'high' ? 1 : 0.7

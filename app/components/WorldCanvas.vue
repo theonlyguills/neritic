@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { loadDemoProvider, scenes, type ViewId } from '../domain/world'
 import { sceneryForVessel } from '../domain/scenery'
+import type { HailEvent } from '../domain/simulation'
+import { STATUS_COLOUR } from '../domain/palette'
 import type { GeographicRenderer } from '../renderers/geographic'
 import type { LocalRenderer } from '../renderers/local'
 const world = useWorld()
@@ -196,6 +198,7 @@ async function switchView() {
               note.value = message
             },
           })
+          geographic.dusk = world.dusk
           await geographic.initialize()
           globeLoaded = true
           if (import.meta.dev || location.search.includes('debug'))
@@ -235,6 +238,48 @@ function retry() {
   }
   void switchView()
 }
+/**
+ * Hail alerts on the map: every ~9 s a fresh hail (on the coast in view) pops up, its
+ * vessel pings on the map, and one click flies there or boards it.
+ */
+const alert = ref<HailEvent | null>(null)
+let lastAlert = 0
+let alertTimer: ReturnType<typeof setTimeout> | undefined
+function considerAlert() {
+  const view = world.displayView
+  if (view === 'vessel' || world.transition || world.loading) return
+  if (performance.now() - lastAlert < 9000) return
+  const fresh = world.snapshot.feed.filter(
+    (e) => world.snapshot.time - e.time < 3 && (view === 'canada' || e.coast === view),
+  )
+  // Prefer a good landing coming in; otherwise whatever just hailed.
+  const pick =
+    fresh.find((e) => e.kind === 'in' && e.estimateKg >= 3000) ??
+    fresh.find((e) => e.kind === 'out')
+  if (!pick) return
+  lastAlert = performance.now()
+  alert.value = pick
+  geographic?.fleet.ping(
+    pick.vesselId,
+    pick.kind === 'out' ? STATUS_COLOUR.outbound : STATUS_COLOUR.inbound,
+  )
+  clearTimeout(alertTimer)
+  alertTimer = setTimeout(() => (alert.value = null), 7000)
+}
+function showAlert() {
+  if (!alert.value) return
+  world.focusVessel(alert.value.vesselId)
+  alert.value = null
+}
+function boardAlert() {
+  if (!alert.value) return
+  const id = alert.value.vesselId
+  alert.value = null
+  world.selectVessel(id)
+  void router.push({ query: { view: 'vessel', vessel: id } })
+}
+const alertTonnes = (kg: number) =>
+  kg >= 1000 ? `${(kg / 1000).toFixed(1)} t` : `${kg.toLocaleString('en-CA')} kg`
 function preset(name: 'elevated' | 'water' | 'deck') {
   detailed?.preset(name)
 }
@@ -256,9 +301,11 @@ onMounted(() => {
   void loadDemoProvider()
     .then((provider) => {
       if (disposed) return
+      world.simulation = markRaw(provider.simulation)
       stop = provider.subscribe((snapshot) => {
         world.accept(snapshot)
         fleetReady()
+        considerAlert()
         if (world.displayView === 'vessel') detailed?.update(snapshot)
         else geographic?.update(snapshot)
       })
@@ -298,7 +345,10 @@ watch(
 )
 watch(
   () => world.dusk,
-  (on) => void detailed?.setDusk(on),
+  (on) => {
+    void detailed?.setDusk(on)
+    geographic?.setDusk(on)
+  },
 )
 watch(
   () => world.quality,
@@ -334,6 +384,7 @@ onBeforeUnmount(() => {
   observer?.disconnect()
   window.removeEventListener('pointerdown', resumeAudio)
   window.removeEventListener('keydown', resumeAudio)
+  clearTimeout(alertTimer)
   geographic?.dispose()
   detailed?.dispose()
 })
@@ -361,6 +412,25 @@ onBeforeUnmount(() => {
       <button @click="retry">Try again</button>
     </div>
     <div v-if="note && world.displayView !== 'vessel'" class="source-note">{{ note }}</div>
+    <Transition name="alert">
+      <div v-if="alert && world.displayView !== 'vessel'" class="hail-alert" role="status">
+        <span class="hail" :class="alert.kind">{{
+          alert.kind === 'out' ? '↗ HAIL OUT' : '↙ HAIL IN'
+        }}</span>
+        <div>
+          <strong>{{ alert.name }}</strong>
+          <small v-if="alert.kind === 'out'"
+            >{{ alert.port }} → {{ alert.area }} · {{ alert.species }}</small
+          >
+          <small v-else
+            >{{ alert.area }} → {{ alert.port }} · est. {{ alertTonnes(alert.estimateKg) }}
+            {{ alert.species.toLowerCase() }}</small
+          >
+        </div>
+        <button @click="showAlert">Show</button>
+        <button class="board" @click="boardAlert">Board ›</button>
+      </div>
+    </Transition>
     <div class="letterbox" :class="{ on: world.transition === 'arrive' && world.tour?.long }">
       <i /><i />
     </div>
