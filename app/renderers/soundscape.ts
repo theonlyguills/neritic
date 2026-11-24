@@ -157,6 +157,8 @@ export class Soundscape {
     // only the 140–900 Hz part), so small speakers carry the engine and the ear supplies
     // the low fundamental; on headphones it reads as the same engine with a little bite.
     const engineOut = ctx.createGain()
+    // Overall engine level (drone + exciter), lowered by a third after a headphone listen.
+    engineOut.gain.value = 0.67
     engineMix.connect(engineOut)
     const shaper = ctx.createWaveShaper()
     const curve = new Float32Array(1024)
