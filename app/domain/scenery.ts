@@ -6,6 +6,7 @@
 import type { Coast } from './fleet'
 import { sceneryFor, type LiveVessel, type SceneryKind } from './simulation'
 import places from './places.generated.json'
+import { url } from './base'
 
 export interface SkyConfig {
   url: string
@@ -74,7 +75,7 @@ export interface BoatModel {
 
 const TABLE_MOUNTAIN: SkyConfig = {
   // Poly Haven "Table Mountain 2"; sun measured in the image (see manifest).
-  url: '/assets/table-mountain-sky.hdr',
+  url: url('/assets/table-mountain-sky.hdr'),
   sun: { u: 0.6383, elevation: 7.26 },
   sunAzimuth: -109,
   intensity: 0.62,
@@ -83,7 +84,7 @@ const TABLE_MOUNTAIN: SkyConfig = {
 }
 // Poly Haven pure skies (CC0); sun measured in each image (see manifest).
 const LATE_AFTERNOON: SkyConfig = {
-  url: '/assets/late-afternoon-sky.hdr',
+  url: url('/assets/late-afternoon-sky.hdr'),
   sun: { u: 0.6004, elevation: 19.08 },
   sunAzimuth: -109,
   intensity: 0.55,
@@ -91,7 +92,7 @@ const LATE_AFTERNOON: SkyConfig = {
   flare: true,
 }
 const BRIGHT_MORNING: SkyConfig = {
-  url: '/assets/bright-morning-sky.hdr',
+  url: url('/assets/bright-morning-sky.hdr'),
   sun: { u: 0.5973, elevation: 28.3 },
   sunAzimuth: -109,
   intensity: 0.5,
@@ -99,7 +100,7 @@ const BRIGHT_MORNING: SkyConfig = {
   flare: true,
 }
 const OVERCAST: SkyConfig = {
-  url: '/assets/overcast-maritime-sky.hdr',
+  url: url('/assets/overcast-maritime-sky.hdr'),
   sun: { u: 0.6084, elevation: 22.67 },
   sunAzimuth: -109,
   intensity: 0.75,
@@ -109,7 +110,7 @@ const OVERCAST: SkyConfig = {
 
 /** Dusk for every scenery: Poly Haven "Industrial Sunset 02 (Pure Sky)", CC0; sun on the horizon. */
 export const DUSK_SKY: SkyConfig = {
-  url: '/assets/dusk-sky.hdr',
+  url: url('/assets/dusk-sky.hdr'),
   sun: { u: 0.5999, elevation: 2.24 },
   sunAzimuth: -109,
   intensity: 0.22,
@@ -138,7 +139,7 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     kind: 'inshore',
     coast: 'atlantic',
     place: 'The Narrows, St. John’s NL',
-    terrainUrl: '/scenery/narrows/',
+    terrainUrl: url('/scenery/narrows/'),
     caption: {
       title: 'The Narrows · St. John’s, Newfoundland and Labrador',
       line: 'Signal Hill and Cabot Tower above the harbour mouth',
@@ -156,7 +157,7 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     kind: 'harbour',
     coast: 'atlantic',
     place: 'Lunenburg harbour NS',
-    terrainUrl: '/scenery/lunenburg/',
+    terrainUrl: url('/scenery/lunenburg/'),
     caption: {
       title: 'Lunenburg, Nova Scotia',
       line: 'Old Town Lunenburg · UNESCO World Heritage Site · home port of the Bluenose',
@@ -175,7 +176,7 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     kind: 'inshore',
     coast: 'pacific',
     place: 'Johnstone Strait BC',
-    terrainUrl: '/scenery/johnstone/',
+    terrainUrl: url('/scenery/johnstone/'),
     caption: {
       title: 'Johnstone Strait, British Columbia',
       line: 'Salmon seine grounds off Telegraph Cove',
@@ -192,7 +193,7 @@ export const SCENERIES: Record<string, SceneryConfig> = {
     kind: 'harbour',
     coast: 'pacific',
     place: 'Prince Rupert harbour BC',
-    terrainUrl: '/scenery/prince-rupert/',
+    terrainUrl: url('/scenery/prince-rupert/'),
     caption: {
       title: 'Prince Rupert, British Columbia',
       line: 'North Coast fishing harbour at the mouth of the Skeena',
@@ -210,8 +211,8 @@ export const SCENERIES: Record<string, SceneryConfig> = {
 export const BOATS: Record<string, BoatModel> = {
   trawler: {
     id: 'trawler',
-    url: '/assets/stern-trawler-40m.glb',
-    farUrl: '/assets/stern-trawler-40m-far.glb',
+    url: url('/assets/stern-trawler-40m.glb'),
+    farUrl: url('/assets/stern-trawler-40m-far.glb'),
     lengthM: 47.5,
     beamM: 11.4,
     deckHeight: 5.5,
@@ -228,8 +229,8 @@ export const BOATS: Record<string, BoatModel> = {
   // "Alma Paulin Fishing Boat", Air Digital (CC BY 4.0): a scanned New Brunswick Cape Islander.
   'inshore-atlantic': {
     id: 'inshore-atlantic',
-    url: '/assets/cape-islander.glb',
-    farUrl: '/assets/cape-islander-far.glb',
+    url: url('/assets/cape-islander.glb'),
+    farUrl: url('/assets/cape-islander-far.glb'),
     lengthM: 12.95,
     beamM: 4.03,
     deckHeight: 0.8,
@@ -242,8 +243,8 @@ export const BOATS: Record<string, BoatModel> = {
   // "Fishing Vessel IV", agt14032013 (CC BY 4.0): a West Coast seiner.
   'inshore-pacific': {
     id: 'inshore-pacific',
-    url: '/assets/pacific-seiner.glb',
-    farUrl: '/assets/pacific-seiner-far.glb',
+    url: url('/assets/pacific-seiner.glb'),
+    farUrl: url('/assets/pacific-seiner-far.glb'),
     lengthM: 17,
     beamM: 4.78,
     deckHeight: 1.1,
@@ -255,7 +256,7 @@ export const BOATS: Record<string, BoatModel> = {
 }
 
 /** The crew figures used on the trawler's deck. */
-export const CREW_URL = '/assets/deck-crew.glb'
+export const CREW_URL = url('/assets/deck-crew.glb')
 
 /** Hull for a vessel: the trawler for big offshore boats, else the coast's inshore boat. */
 export function boatFor(v: Pick<LiveVessel, 'lengthM' | 'coast'>): BoatModel {
@@ -295,7 +296,7 @@ function harbourConfig(p: Place): SceneryConfig {
     kind: 'harbour',
     coast: p.coast,
     place: `${p.place} harbour ${p.province}`,
-    terrainUrl: `/scenery/${p.id}/`,
+    terrainUrl: url(`/scenery/${p.id}/`),
     caption: {
       title: `${p.place}, ${PROVINCE[p.province] ?? p.province}`,
       line: 'Real terrain, streets and buildings from OpenStreetMap',

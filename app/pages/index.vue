@@ -3,6 +3,7 @@ import { FEATURED, demoClock, scenes, validView, type ViewId } from '../domain/w
 import { SIM_RATE, type HailEvent, type LiveVessel } from '../domain/simulation'
 import { STATUS_COLOUR } from '../domain/palette'
 import { chooseScenery } from '../domain/scenery'
+import { url } from '../domain/base'
 const world = useWorld()
 const route = useRoute()
 const router = useRouter()
@@ -468,7 +469,7 @@ const hint = computed(() =>
       </p>
       <p>
         Boundary sources and preprocessing are recorded in
-        <a href="/data/manifest.json" target="_blank">the data manifest</a>.
+        <a :href="url('/data/manifest.json')" target="_blank">the data manifest</a>.
       </p>
       <p>
         Stern trawler: “Fishing Trawler 40m” by agt14032013,

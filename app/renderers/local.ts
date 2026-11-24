@@ -30,9 +30,10 @@ import {
   type SceneryConfig,
 } from '../domain/scenery'
 import type { SceneAdapter } from './types'
+import { url } from '../domain/base'
 
 /** Recorded one-shots; missing files are skipped (the procedural layers still play). */
-const clip = (name: string) => `/audio/${name}.mp3`
+const clip = (name: string) => url(`/audio/${name}.mp3`)
 const SOUND_SAMPLES: SoundSamples = {
   // Herring gull calls (Atlantic); provenance in public/data/manifest.json.
   gulls: ['gull-01', 'gull-02', 'gull-03', 'gull-04', 'gull-05', 'gull-06', 'gull-08'].map(clip),
@@ -209,7 +210,7 @@ export class LocalRenderer implements SceneAdapter {
     this.scene.background = new T.Color('#97b2c3')
     // Marine haze: distant hulls and the horizon soften into the sky.
     this.scene.fog = new T.FogExp2('#b3b8b9', 0.0003)
-    const normals = new T.TextureLoader().load('/assets/waternormals.jpg', (t) => {
+    const normals = new T.TextureLoader().load(url('/assets/waternormals.jpg'), (t) => {
       t.wrapS = t.wrapT = T.RepeatWrapping
     })
     this.water = createOcean(normals, this.sunDirection, {
@@ -1006,7 +1007,7 @@ export class LocalRenderer implements SceneAdapter {
         const d = Math.hypot(x - mid.x, z - mid.y)
         if (d < nearest) [nearest, deck] = [d, pier.deckHeight]
       }
-    void this.gltf('/assets/fish-crate.glb').then((gltf) => {
+    void this.gltf(url('/assets/fish-crate.glb')).then((gltf) => {
       if (this.placement?.scenery.id !== scenery.id) return
       const box = new T.Box3().setFromObject(gltf.scene)
       const size = box.getSize(new T.Vector3())

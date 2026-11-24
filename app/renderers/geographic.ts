@@ -4,6 +4,7 @@ import { scenes, type Coast, type Snapshot, type ViewId } from '../domain/world'
 import type { RenderContext, SceneAdapter } from './types'
 import { FleetLayer, heightForZoom, type FleetPick } from './fleet-layer'
 import { BoundaryLayer } from './boundaries'
+import { url } from '../domain/base'
 /** Altitude of the cut between globe and vessel scene, metres. */
 const DIVE_HEIGHT = 1200
 /** Zoom gestures: below this share of the overview height, open the coast under the camera. */
@@ -154,7 +155,7 @@ export class GeographicRenderer implements SceneAdapter {
     }, C.ScreenSpaceEventType.MOUSE_MOVE)
   }
   async initialize() {
-    const fallback = await C.SingleTileImageryProvider.fromUrl('/assets/earth.jpg')
+    const fallback = await C.SingleTileImageryProvider.fromUrl(url('/assets/earth.jpg'))
     if (this.disposed) return
     this.viewer.imageryLayers.addImageryProvider(fallback)
     const imagery = new C.UrlTemplateImageryProvider({
@@ -378,7 +379,7 @@ export class GeographicRenderer implements SceneAdapter {
   loadLayer(view: ViewId) {
     let pending = this.pendingLayers.get(view)
     if (!pending) {
-      pending = fetch(`/data/${view}.geojson`)
+      pending = fetch(url(`/data/${view}.geojson`))
         .then((r) => {
           if (!r.ok) throw new Error(`Boundaries: HTTP ${r.status}`)
           return r.json()

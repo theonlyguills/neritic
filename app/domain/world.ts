@@ -10,6 +10,7 @@ import {
   type HailEvent,
   type LiveVessel,
 } from './simulation'
+import { url } from './base'
 export type { Coast } from './fleet'
 export type ViewId = 'canada' | Coast | 'vessel'
 export interface Position {
@@ -87,12 +88,12 @@ export const scenes: Record<ViewId, SceneDefinition> = {
     anchor: { longitude: -50, latitude: 46 },
     height: 60,
     local: {
-      modelUrl: '/assets/stern-trawler-40m.glb',
-      farModelUrl: '/assets/stern-trawler-40m-far.glb',
-      crewUrl: '/assets/deck-crew.glb',
+      modelUrl: url('/assets/stern-trawler-40m.glb'),
+      farModelUrl: url('/assets/stern-trawler-40m-far.glb'),
+      crewUrl: url('/assets/deck-crew.glb'),
       sky: {
         // Poly Haven "Table Mountain 2"; sun measured in the image (see manifest).
-        url: '/assets/table-mountain-sky.hdr',
+        url: url('/assets/table-mountain-sky.hdr'),
         sun: { u: 0.6383, elevation: 7.26 },
         sunAzimuth: -109,
       },
@@ -230,8 +231,8 @@ export async function loadDemoProvider(
     }),
 ): Promise<DataProvider & { simulation: FleetSimulation }> {
   const [fleet, harbours] = await Promise.all([
-    load('/data/fleet.json') as Promise<FleetFile>,
-    load('/data/harbours.json') as Promise<HarbourFile>,
+    load(url('/data/fleet.json')) as Promise<FleetFile>,
+    load(url('/data/harbours.json')) as Promise<HarbourFile>,
   ])
   const simulation = new FleetSimulation(fleet, harbours)
   return {
