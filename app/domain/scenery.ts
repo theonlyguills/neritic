@@ -351,7 +351,7 @@ export interface SceneryChoice {
  * - alongside or arriving: its real home harbour when built, else the nearest built
  *   harbour within 15 km, else a representative harbour on its coast;
  * - fishing inshore: the nearest built inshore scene within 25 km, or the nearest built
- *   harbour within 20 km (fishing off its mouth), else a representative inshore scene;
+ *   harbour within 40 km (fishing off its mouth), else a representative inshore scene;
  * - offshore: open ocean.
  */
 export function chooseScenery(
@@ -374,7 +374,7 @@ export function chooseScenery(
     const spot = nearest('inshore', v.longitude, v.latitude)
     if (spot && spot.km < 25) return { config: config(spot.place), representative: false }
     const port = nearest('harbour', v.longitude, v.latitude)
-    if (port && port.km < 20) return { config: offHarbourConfig(port.place), representative: false }
+    if (port && port.km < 40) return { config: offHarbourConfig(port.place), representative: false }
     const stand = nearest('inshore', v.longitude, v.latitude, v.coast)
     if (stand) return { config: config(stand.place), representative: true }
   }

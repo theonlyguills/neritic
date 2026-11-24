@@ -20,11 +20,13 @@ streets and buildings are real public data.
 - **Board any vessel.** The globe dives into a 3D close-up chosen from where the vessel is and
   what it is doing:
   - open ocean offshore;
-  - one of **35 real places** (33 major fishing harbours plus The Narrows and Johnstone
+  - one of **60 real places** (58 fishing harbours plus The Narrows and Johnstone
     Strait) built from real elevation data and OpenStreetMap, with real streets, buildings,
     wharves and gas stations;
-  - fishing just off a harbour's mouth;
-  - a labelled representative scene where nothing has been built yet.
+  - fishing just off a harbour's mouth.
+
+  Every synthetic boat's home port is one of the built harbours, so in-port, arriving and
+  inshore boats always open the scene for where they are.
 - **Cinematic entrances.** Town scenes open with a slow letterboxed flyover over the real
   streets to the boat. Arriving vessels motor in along the real approach to their berth.
 - **Day or dusk.** A single toggle switches the map and the scenes. The globe shows the real
@@ -58,7 +60,7 @@ Online services:
   network.
 - Without a network the globe falls back to the bundled Natural Earth raster, and dusk has no
   city lights.
-- Everything else, including all 35 scenes, is bundled.
+- Everything else, including all 60 scenes, is bundled.
 
 ## Demo walkthrough (about 5 minutes)
 
@@ -75,11 +77,18 @@ Online services:
    | Northern Light | Offshore trawler, Grand Banks |
    | Signal Hill | Inshore Cape Islander at The Narrows, St. John's (town flyover) |
    | Lunenburg Star | Alongside at Lunenburg, about to sail (town flyover) |
+   | Harbour Breton Pride | Alongside at Harbour Breton, NL |
+   | Cassidy Kay | Alongside at Channel-Port aux Basques, NL |
+   | Miss Brittany | Alongside at Bay de Verde, NL |
+   | Le Madelinot | Alongside at Cap-aux-Meules, Magdalen Islands |
    | Haida Dawn | Seiner in Johnstone Strait |
    | Skeena Spirit | Arriving at the Prince Rupert floats |
+   | Milbanke Harvester | Alongside at Daajing Giids, Haida Gwaii |
+   | Comox Pride | Seiner alongside at Comox |
 
-   Any boat in port opens its own harbour if it is one of the 33 built, e.g. Placentia Hunter
-   at Bay de Verde.
+   These are pinned in `HERO_PINS` (simulation.ts) and listed in `FEATURED` (world.ts), so they
+   are always in the state shown. A coast's panel lists its own scenes. Any other boat in port
+   opens its own harbour too, e.g. Lady Kirsten at Bay de Verde.
 4. **In the scene.** Orbit with the mouse; the presets (Elevated, Water level, Working deck)
    are on the bottom bar. Sound is on by default: sea, wind, gulls, deck clanks and an engine
    that sits in the engine room. The panel shows the licences and recent hails.
@@ -102,7 +111,10 @@ into cuts. Browser back/forward and links such as `?view=atlantic` or
 - `public/data/fleet.json`: **2,799 synthetic vessels**, generated deterministically by
   `scripts/generate-fleet.mjs`. Each has a name, CFV number, length, gear, species, home
   harbour, fishing ground (on water, labelled with its NAFO division or Pacific area) and a
-  route that stays on water. Licence totals: 17,535 across the six DFO regions.
+  route that stays on water. Licence totals: 17,363 across the six DFO regions.
+  - Home ports are limited to harbours with a built scene (or within 14 km of one). Each
+    fishery's real port list hands the weight of unbuilt harbours to the nearest built one in
+    the same region, so the fleet sits in 107 home ports.
 - `app/domain/simulation.ts`: a deterministic trip cycle per vessel: alongside → hail out →
   transit → fishing → hail in (with an estimated landing) → transit → landing.
   - Positions, statuses and every hail are pure functions of the demo clock.
@@ -151,7 +163,7 @@ into cuts. Browser back/forward and links such as `?view=atlantic` or
 | Vessel | Scene |
 |---|---|
 | In port or arriving | Its own home harbour if built; else the nearest built harbour within 15 km; else the nearest built harbour on its coast, labelled "(representative)" |
-| Fishing inshore | The nearest built inshore scene within 25 km; else the nearest built harbour within 20 km, with the boat just outside the harbour mouth; else a representative inshore scene |
+| Fishing inshore | The nearest built inshore scene within 25 km; else the nearest built harbour within 40 km, with the boat just outside the harbour mouth; else a representative inshore scene |
 | Offshore | Open ocean |
 
 The scene name shows above the vessel's name and in the panel.
@@ -168,6 +180,7 @@ the background.
 ```bash
 node scripts/fetch-scenery.mjs <id>               # one place defined in the script
 node scripts/fetch-scenery.mjs --harbours --skip-existing   # every major harbour in harbours.json
+node scripts/fetch-scenery.mjs --harbours --ids comox,tofino   # specific harbours, major or not
 node scripts/fetch-streets.mjs <id> ...           # streets, fuel stations, parking
 node scripts/index-sceneries.mjs                  # refresh app/domain/places.generated.json
 ```
@@ -239,8 +252,13 @@ NERITIC_URL=http://127.0.0.1:3072 node scripts/browser-check.mjs   # also mobile
   areas are the DFO PFMA layer, generalised. Neither is a navigational or closure authority.
 - The engine sound is a deep procedural drone. A harmonic exciter carries it on laptop
   speakers; it is fuller on headphones.
-- No generic procedural coast exists yet. Inshore boats far from any built place get a labelled
-  representative scene.
+- No generic procedural coast exists yet. An inshore boat more than 40 km from any built
+  harbour would get a labelled representative scene. Because home ports are limited to built
+  harbours, no boat in the demo fleet does. Real CFIS data would bring back every harbour, so
+  more places would need building, or a generic coast.
+- Eight harbours could not be built because OpenStreetMap has no usable wharf mapped there
+  (St. Anthony, Grand Bank, Tignish, Greenspond, Englee, Flower's Cove, North Lake,
+  Grande-Entrée).
 
 ## Credits
 

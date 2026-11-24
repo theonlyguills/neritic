@@ -1,5 +1,38 @@
 [
   {
+    "id": "arnolds-cove",
+    "type": "harbour",
+    "place": "Arnold's Cove",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -53.990132,
+    "lat": 47.758396,
+    "arrival": true,
+    "buildings": 878
+  },
+  {
+    "id": "back-bay",
+    "type": "harbour",
+    "place": "Back Bay",
+    "province": "NB",
+    "coast": "atlantic",
+    "lon": -66.863913,
+    "lat": 45.055913,
+    "arrival": false,
+    "buildings": 383
+  },
+  {
+    "id": "bay-bulls",
+    "type": "harbour",
+    "place": "Bay Bulls",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -52.812616,
+    "lat": 47.315399,
+    "arrival": false,
+    "buildings": 317
+  },
+  {
     "id": "bay-de-verde",
     "type": "harbour",
     "place": "Bay de Verde",
@@ -20,6 +53,17 @@
     "lat": 48.653235,
     "arrival": true,
     "buildings": 89
+  },
+  {
+    "id": "burin",
+    "type": "harbour",
+    "place": "Burin",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -55.161579,
+    "lat": 47.038995,
+    "arrival": true,
+    "buildings": 739
   },
   {
     "id": "campbell-river",
@@ -53,6 +97,17 @@
     "lat": 47.796582,
     "arrival": true,
     "buildings": 214
+  },
+  {
+    "id": "caribou",
+    "type": "harbour",
+    "place": "Caribou",
+    "province": "NS",
+    "coast": "atlantic",
+    "lon": -62.687701,
+    "lat": 45.73912,
+    "arrival": false,
+    "buildings": 162
   },
   {
     "id": "catalina",
@@ -99,6 +154,61 @@
     "buildings": 87
   },
   {
+    "id": "comox",
+    "type": "harbour",
+    "place": "Comox",
+    "province": "BC",
+    "coast": "pacific",
+    "lon": -124.927345,
+    "lat": 49.669549,
+    "arrival": true,
+    "buildings": 1333
+  },
+  {
+    "id": "daajing-giids",
+    "type": "harbour",
+    "place": "Daajing Giids",
+    "province": "BC",
+    "coast": "pacific",
+    "lon": -132.073074,
+    "lat": 53.253008,
+    "arrival": true,
+    "buildings": 625
+  },
+  {
+    "id": "fogo",
+    "type": "harbour",
+    "place": "Fogo",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -54.275292,
+    "lat": 49.715785,
+    "arrival": true,
+    "buildings": 699
+  },
+  {
+    "id": "forteau",
+    "type": "harbour",
+    "place": "Forteau",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -56.953601,
+    "lat": 51.469707,
+    "arrival": true,
+    "buildings": 277
+  },
+  {
+    "id": "fortune",
+    "type": "harbour",
+    "place": "Fortune",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -55.831004,
+    "lat": 47.072194,
+    "arrival": true,
+    "buildings": 1155
+  },
+  {
     "id": "grande-riviere",
     "type": "harbour",
     "place": "Grande-Rivière",
@@ -108,6 +218,28 @@
     "lat": 48.394373,
     "arrival": true,
     "buildings": 152
+  },
+  {
+    "id": "grosse-ile",
+    "type": "harbour",
+    "place": "Grosse-Île",
+    "province": "QC",
+    "coast": "atlantic",
+    "lon": -61.514921,
+    "lat": 47.627337,
+    "arrival": true,
+    "buildings": 390
+  },
+  {
+    "id": "gunning-cove",
+    "type": "harbour",
+    "place": "Gunning Cove",
+    "province": "NS",
+    "coast": "atlantic",
+    "lon": -65.340492,
+    "lat": 43.68045,
+    "arrival": true,
+    "buildings": 14
   },
   {
     "id": "harbour-breton",
@@ -132,6 +264,17 @@
     "buildings": 892
   },
   {
+    "id": "inverness",
+    "type": "harbour",
+    "place": "Inverness",
+    "province": "NS",
+    "coast": "atlantic",
+    "lon": -61.317674,
+    "lat": 46.230174,
+    "arrival": true,
+    "buildings": 810
+  },
+  {
     "id": "johnstone",
     "type": "inshore",
     "place": "Telegraph Cove",
@@ -141,6 +284,28 @@
     "lat": 50.560035,
     "arrival": false,
     "buildings": 68
+  },
+  {
+    "id": "ladysmith",
+    "type": "harbour",
+    "place": "Ladysmith",
+    "province": "BC",
+    "coast": "pacific",
+    "lon": -123.815047,
+    "lat": 48.998896,
+    "arrival": true,
+    "buildings": 2176
+  },
+  {
+    "id": "lamaline",
+    "type": "harbour",
+    "place": "Lamaline",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -55.795115,
+    "lat": 46.866242,
+    "arrival": true,
+    "buildings": 354
   },
   {
     "id": "louisbourg",
@@ -174,6 +339,28 @@
     "lat": 44.374894,
     "arrival": true,
     "buildings": 1313
+  },
+  {
+    "id": "madeira-park",
+    "type": "harbour",
+    "place": "Madeira Park",
+    "province": "BC",
+    "coast": "pacific",
+    "lon": -124.025382,
+    "lat": 49.622709,
+    "arrival": false,
+    "buildings": 45
+  },
+  {
+    "id": "marys-harbour",
+    "type": "harbour",
+    "place": "Mary's Harbour",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -55.83382,
+    "lat": 52.308204,
+    "arrival": true,
+    "buildings": 345
   },
   {
     "id": "matane",
@@ -242,6 +429,17 @@
     "buildings": 446
   },
   {
+    "id": "pointe-sapin",
+    "type": "harbour",
+    "place": "Pointe-Sapin",
+    "province": "NB",
+    "coast": "atlantic",
+    "lon": -64.831399,
+    "lat": 46.961599,
+    "arrival": true,
+    "buildings": 58
+  },
+  {
     "id": "port-au-choix",
     "type": "harbour",
     "place": "Port au Choix",
@@ -251,6 +449,17 @@
     "lat": 50.700945,
     "arrival": false,
     "buildings": 864
+  },
+  {
+    "id": "port-bickerton",
+    "type": "harbour",
+    "place": "Port Bickerton",
+    "province": "NS",
+    "coast": "atlantic",
+    "lon": -61.72277,
+    "lat": 45.105707,
+    "arrival": true,
+    "buildings": 230
   },
   {
     "id": "port-hardy",
@@ -264,6 +473,17 @@
     "buildings": 800
   },
   {
+    "id": "portugal-cove-south",
+    "type": "harbour",
+    "place": "Portugal Cove South",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -53.26024,
+    "lat": 46.704442,
+    "arrival": true,
+    "buildings": 157
+  },
+  {
     "id": "prince-rupert",
     "type": "harbour",
     "place": "Prince Rupert",
@@ -273,6 +493,17 @@
     "lat": 54.292847,
     "arrival": true,
     "buildings": 2074
+  },
+  {
+    "id": "renews",
+    "type": "harbour",
+    "place": "Renews",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -52.9333,
+    "lat": 46.923128,
+    "arrival": true,
+    "buildings": 217
   },
   {
     "id": "riviere-au-renard",
@@ -297,6 +528,17 @@
     "buildings": 681
   },
   {
+    "id": "sandy-cove",
+    "type": "harbour",
+    "place": "Sandy Cove",
+    "province": "NS",
+    "coast": "atlantic",
+    "lon": -66.085992,
+    "lat": 44.487575,
+    "arrival": false,
+    "buildings": 17
+  },
+  {
     "id": "sept-iles",
     "type": "harbour",
     "place": "Sept-Îles",
@@ -317,6 +559,17 @@
     "lat": 47.747665,
     "arrival": true,
     "buildings": 1583
+  },
+  {
+    "id": "skinners-pond",
+    "type": "harbour",
+    "place": "Skinners Pond",
+    "province": "PE",
+    "coast": "atlantic",
+    "lon": -64.12552,
+    "lat": 46.965415,
+    "arrival": true,
+    "buildings": 142
   },
   {
     "id": "sointula",
@@ -352,6 +605,17 @@
     "buildings": 4734
   },
   {
+    "id": "tofino",
+    "type": "harbour",
+    "place": "Tofino",
+    "province": "BC",
+    "coast": "pacific",
+    "lon": -125.900274,
+    "lat": 49.153285,
+    "arrival": true,
+    "buildings": 599
+  },
+  {
     "id": "twillingate",
     "type": "harbour",
     "place": "Twillingate",
@@ -372,6 +636,17 @@
     "lat": 48.945364,
     "arrival": false,
     "buildings": 328
+  },
+  {
+    "id": "winterton",
+    "type": "harbour",
+    "place": "Winterton",
+    "province": "NL",
+    "coast": "atlantic",
+    "lon": -53.330969,
+    "lat": 47.956826,
+    "arrival": true,
+    "buildings": 9
   },
   {
     "id": "yarmouth",

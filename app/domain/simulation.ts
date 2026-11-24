@@ -175,6 +175,13 @@ export const HERO_PINS: Record<string, { status: VesselStatus; progress: number 
   'ns-01': { status: 'in-port', progress: 0.85 },
   'bc-01': { status: 'fishing', progress: 0.3 },
   'bc-02': { status: 'inbound', progress: 0.97 },
+  // Featured harbour scenes (see FEATURED in world.ts).
+  'nl-0039': { status: 'in-port', progress: 0.85 },
+  'nl-0001': { status: 'in-port', progress: 0.85 },
+  'nl-0080': { status: 'in-port', progress: 0.85 },
+  'qc-0018': { status: 'in-port', progress: 0.85 },
+  'pac-0259': { status: 'in-port', progress: 0.85 },
+  'pac-0272': { status: 'in-port', progress: 0.85 },
 }
 
 export class FleetSimulation {

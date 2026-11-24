@@ -1479,6 +1479,31 @@ const HEROES = [
 // ---------------------------------------------------------------------------------------------
 
 const harbourWeight = new Map(harbours.map((h) => [h.id, 0.5 + rngFor(`hw:${h.id}`)()]))
+
+// Home ports are limited to harbours that have a real close-up scene (public/scenery, indexed
+// in app/domain/places.generated.json), so a boat in port, leaving, arriving or fishing
+// inshore always opens the scene for where it is. A harbour within COVER_KM of a built
+// harbour counts as covered (the app picks the nearest built harbour within 15 km). Every
+// other harbour hands its weight to the nearest covered harbour in the same DFO region.
+const COVER_KM = 14
+const builtHarbours = JSON.parse(
+  readFileSync(join(ROOT, 'app/domain/places.generated.json'), 'utf8'),
+).filter((p) => p.type === 'harbour')
+const covered = harbours.filter((h) =>
+  builtHarbours.some((p) => distanceKm([h.lon, h.lat], [p.lon, p.lat]) < COVER_KM),
+)
+const coveredSet = new Set(covered.map((h) => h.id))
+function coveredHome(h) {
+  if (coveredSet.has(h.id)) return h
+  const near = (pool) =>
+    pool.reduce((best, c) =>
+      distanceKm([h.lon, h.lat], [c.lon, c.lat]) < distanceKm([h.lon, h.lat], [best.lon, best.lat])
+        ? c
+        : best,
+    )
+  const inRegion = covered.filter((c) => c.region === h.region)
+  return near(inRegion.length ? inRegion : covered.filter((c) => c.coast === h.coast))
+}
 const usedCfv = new Set(HEROES.map((h) => h.cfv))
 for (const h of HEROES) usedNames.add(h.name.toLowerCase())
 
@@ -1542,12 +1567,15 @@ for (const fishery of FISHERIES) {
     for (const id of fishery.ports)
       if (!harbourById.has(id)) throw new Error(`${fishery.key}: unknown harbour ${id}`)
   if (!ports.length) throw new Error(`${fishery.key}: no ports`)
+  const homes = new Map()
+  for (const h of ports) {
+    const home = coveredHome(h)
+    const w = (h.major ? 3 : 1) * harbourWeight.get(h.id) * (fishery.weight?.(h) ?? 1)
+    homes.set(home, (homes.get(home) ?? 0) + w)
+  }
+  const homeList = [...homes.keys()]
   for (let k = 0; k < fishery.n; k++) {
-    const harbour = pickWeighted(
-      rng,
-      ports,
-      (h) => (h.major ? 3 : 1) * harbourWeight.get(h.id) * (fishery.weight?.(h) ?? 1),
-    )
+    const harbour = pickWeighted(rng, homeList, (h) => homes.get(h))
     const { ground, route } =
       fishery.zone === 'offshore'
         ? offshoreGround(rng, fishery, harbour)

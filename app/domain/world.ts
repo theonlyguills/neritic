@@ -151,13 +151,38 @@ function emptyStats(): FleetStats {
     bySpecies: [],
   }
 }
-/** Vessels with a close-up scene built for their setting: the demo walkthrough. */
-export const FEATURED: { id: string; setting: string; place: string }[] = [
-  { id: 'nl-01', setting: 'Offshore', place: 'Grand Banks, NAFO 3L' },
-  { id: 'nl-02', setting: 'Inshore', place: 'The Narrows, St. John’s' },
-  { id: 'ns-01', setting: 'Alongside', place: 'Lunenburg harbour' },
-  { id: 'bc-01', setting: 'Inshore', place: 'Johnstone Strait' },
-  { id: 'bc-02', setting: 'Arriving', place: 'Prince Rupert' },
+/**
+ * The demo walkthrough: pinned vessels (HERO_PINS) whose close-up shows a chosen scene.
+ * `scene` is the scenery the vessel must open (checked in tests/world.test.ts). Ids of the
+ * non-hero vessels come from scripts/generate-fleet.mjs; re-check them after regenerating.
+ */
+export const FEATURED: { id: string; setting: string; place: string; scene: string }[] = [
+  { id: 'nl-01', setting: 'Offshore', place: 'Grand Banks, NAFO 3L', scene: 'grand-banks' },
+  { id: 'nl-02', setting: 'Inshore', place: 'The Narrows, St. John’s', scene: 'narrows' },
+  { id: 'ns-01', setting: 'Alongside', place: 'Lunenburg harbour', scene: 'lunenburg' },
+  { id: 'nl-0039', setting: 'Alongside', place: 'Harbour Breton', scene: 'harbour-breton' },
+  {
+    id: 'nl-0001',
+    setting: 'Alongside',
+    place: 'Channel-Port aux Basques',
+    scene: 'channel-port-aux-basques',
+  },
+  { id: 'nl-0080', setting: 'Alongside', place: 'Bay de Verde', scene: 'bay-de-verde' },
+  {
+    id: 'qc-0018',
+    setting: 'Alongside',
+    place: 'Cap-aux-Meules, Magdalen Islands',
+    scene: 'cap-aux-meules',
+  },
+  { id: 'bc-01', setting: 'Inshore', place: 'Johnstone Strait', scene: 'johnstone' },
+  { id: 'bc-02', setting: 'Arriving', place: 'Prince Rupert', scene: 'prince-rupert' },
+  {
+    id: 'pac-0259',
+    setting: 'Alongside',
+    place: 'Daajing Giids, Haida Gwaii',
+    scene: 'daajing-giids',
+  },
+  { id: 'pac-0272', setting: 'Alongside', place: 'Comox', scene: 'comox' },
 ]
 /** Wall-clock style time of day for the demo clock (24 h per DAY demo seconds). */
 export function demoClock(time: number) {

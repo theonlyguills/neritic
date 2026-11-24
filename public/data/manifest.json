@@ -1140,218 +1140,918 @@
       "file": "scenery/bay-de-verde/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "6e4223913e03110ce3a96572581a57c4b9af8b66289ff0532358b361e0d84994"
     },
     {
       "file": "scenery/bonavista/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "fa95568c4d629be6345e4b1f1858929f42a6bf337ece0c04c0a53e4db8c2fd62"
     },
     {
       "file": "scenery/campbell-river/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "24063dc209913554875abdb38aa79f9a22bf58315cd3567b14a1f95bcc36f592"
     },
     {
       "file": "scenery/cap-aux-meules/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "0121e92d76a5ac6f8900e7c15a1efda0f57d9285267ec0fdd71abfe962f3417a"
     },
     {
       "file": "scenery/caraquet/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "140ffdffe22cb0ad80af36ad3cff505fdf9adffeb05ba43c838429a9d9e697cf"
     },
     {
       "file": "scenery/catalina/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "c66b0db2c61b23668c50c7f5342fd5155e25488006ccdf06426927324c9a3d44"
     },
     {
       "file": "scenery/channel-port-aux-basques/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "fa5727638a4b7b19e21ec994a016b200890553e7d34b1c0aa766c28514630e66"
     },
     {
       "file": "scenery/cheticamp/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "f54526f48d0ae2bb6c9b6c03a85aebde38693a5cfb4401dd0c682fc31bcca5ee"
     },
     {
       "file": "scenery/clarks-harbour/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "7645b10c5c0ae030552fa2f075137a0f3dd56572ab171136ef92f20f21e3be07"
     },
     {
       "file": "scenery/grande-riviere/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "6fa3d42c164a6247901a8b4049947796cf80a225882183d8cf51b39dfc06aff9"
     },
     {
       "file": "scenery/harbour-breton/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "aa2d26d55f2c867cc55733a5bde3cb75589753a7ea36bd51dd1b123b59b36339"
     },
     {
       "file": "scenery/harbour-grace/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "b63731b176423e7b88e2a91bd9b003502980baa2eb9670e0397074a766b52996"
     },
     {
       "file": "scenery/louisbourg/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "b451195f6e4bd7608d3171e054a24328212d25da28f82b02c08c55be609e3f71"
     },
     {
       "file": "scenery/lower-east-pubnico/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "9c15b80a733b5f88d02b72b7ef2f4467661ca3e1bce4ecb0d9bc5c3616776d94"
     },
     {
       "file": "scenery/matane/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "2ac70edc8ad2fbc107e9961a6078459569e591fb3d4f86623727c87eb58486d5"
     },
     {
       "file": "scenery/meteghan/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "9215f3f0bb4ddfc0aad5deeee82fe3fc7b715df755bee26a0880c229a1ae348a"
     },
     {
       "file": "scenery/north-head/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "1209f7e72518915722b9dd9c032d6c40fd04b37892aa2600cbaefd58ec8a5620"
     },
     {
       "file": "scenery/north-rustico/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "f28dc16cb1dd66156b78b424fa854642ef6ca52bf1468e4b186914b0f404742d"
     },
     {
       "file": "scenery/pangnirtung/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "a6c2e1f7da0ef16567d26a8d7c7916bee71e3ab4efdd3d2c19f4e030c754d277"
     },
     {
       "file": "scenery/port-au-choix/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "ac0ea42c17e9e7901cc0dd80b7f3046407b0615e0e6895bc4746148e169e2224"
     },
     {
       "file": "scenery/port-hardy/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "4a25ede54515b876d6529302c6ebb1f285cfbd4c8ead9750a697f892c8dc251c"
     },
     {
       "file": "scenery/riviere-au-renard/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "5b3441f194ea6ae90e9677e7072a4ec025573073ee2ed7fe5e6f49ec2537aa3c"
     },
     {
       "file": "scenery/sambro/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "dbf114b90a75a11c10bb569d83f784a8d42db60964ff8ac07999915d98e2995e"
     },
     {
       "file": "scenery/sept-iles/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "ba1cfb8d1b37700852ab5d01053e13e5bcf2ccc8512d8619325de93f87829e67"
     },
     {
       "file": "scenery/shippagan/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "2280e8080c84f2e3f407f829d7e77610cfec6ecd23b6b00fb67bbd355dcccb61"
     },
     {
       "file": "scenery/sointula/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "7a59cc811916945d361991fbe5850107664199691cce4e00f8dfd77138a56dbc"
     },
     {
       "file": "scenery/st-johns/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "ce9d1877eeee1aff5b0589071cedf84019d0417b07fc4177daa4190969e5d620"
     },
     {
       "file": "scenery/steveston/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "b414420e81ee85bef7f28ce5178bc5f76cb18583f05dc939776774aab5ee50b8"
     },
     {
       "file": "scenery/twillingate/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "ca0583da6097f672538a5235930937d0082131e3258f7699eb48177dbebf81ed"
     },
     {
       "file": "scenery/ucluelet/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "d8552d61432c848900288e28cd466efa488e206a34f9509afdc342104b83f7ef"
     },
     {
       "file": "scenery/yarmouth/streets.json",
       "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
       "license": "ODbL 1.0, © OpenStreetMap contributors",
-      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres, clipped, default widths by highway class",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
       "sha256": "28b979058fad541f8df43a0cd5ba81bbc4985e9ea48eaf75bc4da60f0fa20259"
+    },
+    {
+      "file": "scenery/arnolds-cove/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "536711ee6a89388a6f0faf0956241a35389fa89cddcc8deaa43976962036d488"
+    },
+    {
+      "file": "scenery/arnolds-cove/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.758396, -53.990132; retrieved 2026-11-22",
+      "sha256": "29cb6e4d5d93b059587ce9d1efcccbfcd696503c3214f6fc9a021bb87368b3e4"
+    },
+    {
+      "file": "scenery/arnolds-cove/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.758396, -53.990132); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "5b5214092f7174697c76abdde7fa82501fc232359d946c5161de9e3ec4a0a04c"
+    },
+    {
+      "file": "scenery/back-bay/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "5ed0980dd42b1702ddfe25f1f85d3d3fe7109b7068f6f60ce071362c8c96898b"
+    },
+    {
+      "file": "scenery/back-bay/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 45.055913, -66.863913; retrieved 2026-11-22",
+      "sha256": "fd043ad34f244c6f799f2d87ba9bf852f5cc7e024ecd8e7ff5b1a2e2ee12815f"
+    },
+    {
+      "file": "scenery/back-bay/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 45.055913, -66.863913); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "51dba7cfef39dd8af6eb2e1154c4ab6cbdfc910717a805bafe10a854ab817ea5"
+    },
+    {
+      "file": "scenery/bay-bulls/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "d0b0e1088ab73d8421458d1c312a203c9998fdf0ebd4b68f60511db979039636"
+    },
+    {
+      "file": "scenery/bay-bulls/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.315399, -52.812616; retrieved 2026-11-22",
+      "sha256": "d820d6fa23a7332f7d28869c1483d99a7402eb86c5ae49e11110ae8d30fafeee"
+    },
+    {
+      "file": "scenery/bay-bulls/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.315399, -52.812616); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "298e3c9454612a401457d25a33c1d38c551d701527c9f8ee3c782a97c3841b87"
+    },
+    {
+      "file": "scenery/burin/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "26eba130a821fcb1d4d9faa6e02f1720ada5a8c53439f58a95be86003e305f77"
+    },
+    {
+      "file": "scenery/burin/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.038995, -55.161579; retrieved 2026-11-22",
+      "sha256": "b6ecd164864d693808bbd96c433da66c819c44fad12dd6b9cf7b86c37f8b5e2e"
+    },
+    {
+      "file": "scenery/burin/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.038995, -55.161579); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "650efa10e7a4624b45072a84271e9a3456f204da1107f4c3ead992de4d4150a1"
+    },
+    {
+      "file": "scenery/caribou/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "15b0a9143b0cb2af921d05962293fa5f4d1407f4dd9fb982c517364474ef4949"
+    },
+    {
+      "file": "scenery/caribou/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 45.73912, -62.687701; retrieved 2026-11-22",
+      "sha256": "ea895c6ec0f850b15e9e064ebdc1cce417f0dd7ce543fec659439c0bb5b865a0"
+    },
+    {
+      "file": "scenery/caribou/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 45.73912, -62.687701); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "e69d0d8e9eb85f77254573f76b07a15747b930cdd092476c64aafed9a6a18cc1"
+    },
+    {
+      "file": "scenery/comox/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "a0db1aa772e1d9163c3ce163c2785ea6528f8a1e4ca84589ed3f07ebf9a83f90"
+    },
+    {
+      "file": "scenery/comox/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 49.669549, -124.927345; retrieved 2026-11-22",
+      "sha256": "0895130a9900e4c5d84e06c146d0afe58fb2939460f98710f064ab347b0a666f"
+    },
+    {
+      "file": "scenery/comox/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 49.669549, -124.927345); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "45168cece06b3191283ca36d542238e1d693aed1350baf9361efb55f8c7636e6"
+    },
+    {
+      "file": "scenery/daajing-giids/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "e93d1f62d27cc5fb8d38990fd360099233deb8cefb9fa9ee49a7096a1908e2d2"
+    },
+    {
+      "file": "scenery/daajing-giids/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 53.253008, -132.073074; retrieved 2026-11-22",
+      "sha256": "cb55a8b7c3a50a2f997b59278258e92f71090a24d2e0c514ec8972ffbd4a8dc4"
+    },
+    {
+      "file": "scenery/daajing-giids/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 53.253008, -132.073074); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "25b3e2b8f7b5744e056fc4f8b680207f3ee95bcab35ecff64e3f1a124e635349"
+    },
+    {
+      "file": "scenery/fogo/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "e3b90d490ceeab3bc9ea4d39d3ee4676dcca754f852676e42612e9b770971fd5"
+    },
+    {
+      "file": "scenery/fogo/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 49.715785, -54.275292; retrieved 2026-11-22",
+      "sha256": "2e3d513d797b99d599abd1746547d23187884e3741375af70744f6daac30789c"
+    },
+    {
+      "file": "scenery/fogo/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 49.715785, -54.275292); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "4c92422f008a38da508ff2ce6960082e90f786298fd7299d53f42d3eb09d36cc"
+    },
+    {
+      "file": "scenery/forteau/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "d45bf84db5757eb47ed9808bef966d24569ab041d63c61c6eff8d0e9a12948ba"
+    },
+    {
+      "file": "scenery/forteau/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 51.469707, -56.953601; retrieved 2026-11-22",
+      "sha256": "d02fa90da296fb49477e20eac8f5902c309c1d67aea4c107834b01364b03fbc5"
+    },
+    {
+      "file": "scenery/forteau/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 51.469707, -56.953601); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "cf9365225223c5158c733bf0f7e5fd5362f57c7dd2b4929f8257248fbeaa3e3e"
+    },
+    {
+      "file": "scenery/fortune/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "f59029f237810d0b3e97711d69cfadf68db46f2cc906bf5405b06eead80b86e1"
+    },
+    {
+      "file": "scenery/fortune/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.072194, -55.831004; retrieved 2026-11-22",
+      "sha256": "eaa535b27179c958762f7d08432758aab4318138aaebcbeb22633f404f3cdbca"
+    },
+    {
+      "file": "scenery/fortune/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.072194, -55.831004); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "52e073ffc7ff77d3d5444e00429938657d1419b59593b86062cb3b1b448f661f"
+    },
+    {
+      "file": "scenery/grosse-ile/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "9a51c57e3266d8f89af3b667241b3d5241577a51d0a7226f90330411afd62f8e"
+    },
+    {
+      "file": "scenery/grosse-ile/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.627337, -61.514921; retrieved 2026-11-22",
+      "sha256": "8873d18900ae39dc657af8c7720939151a5128813f678a766cc64dd21218ef2e"
+    },
+    {
+      "file": "scenery/grosse-ile/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.627337, -61.514921); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "822b3d38157a5a23b2eb749b9304ad3381e81e64e58b55e10d9b49d4c63cf2f5"
+    },
+    {
+      "file": "scenery/gunning-cove/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "39d3cba8cce8238451694423a7879e35e908d43d503512ec23e91e101f529729"
+    },
+    {
+      "file": "scenery/gunning-cove/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 43.68045, -65.340492; retrieved 2026-11-22",
+      "sha256": "f51c50bfe8310f8e8c7227ae408bd2feba56d7f50689d42ef4b04252b4bce46b"
+    },
+    {
+      "file": "scenery/gunning-cove/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 43.68045, -65.340492); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "622a6611a0adfc46778e5071d7e69acca451a358b763ccea0823775efe085268"
+    },
+    {
+      "file": "scenery/inverness/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "7785bffc87f28e4199969e82bffbc1a15f24639c29a0be01ccb7e7cd14e3af7e"
+    },
+    {
+      "file": "scenery/inverness/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.230174, -61.317674; retrieved 2026-11-22",
+      "sha256": "98287dc85d537616e8a22800608d766733f9b918af35cfc2ccb7f549ad39474c"
+    },
+    {
+      "file": "scenery/inverness/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.230174, -61.317674); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "82d67ca0cababed5151ba8325559a31b601546c610c25d757954f8c3c42a1e34"
+    },
+    {
+      "file": "scenery/ladysmith/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "b1314c5900747c0884a538a821a72a7b3554818f64567cbe52cfe7123ea4b09c"
+    },
+    {
+      "file": "scenery/ladysmith/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 48.998896, -123.815047; retrieved 2026-11-22",
+      "sha256": "d0c64cba869ee0bb69cf746fb102606ccd619971dfe2676bd062129e98b6e620"
+    },
+    {
+      "file": "scenery/ladysmith/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 48.998896, -123.815047); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "0cdbc0a3b8041f1f67db424242ab8697cea8b8b15c3c2dc5fde9eba25600b8ba"
+    },
+    {
+      "file": "scenery/lamaline/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "5bf66dba21456f37a7e41c63cea439b037270e3433b48373b9731d47a2af5af7"
+    },
+    {
+      "file": "scenery/lamaline/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.866242, -55.795115; retrieved 2026-11-22",
+      "sha256": "0e3581c9a03c05380c9386c9a01a963a15cc070f787fbaf1f903e91951b512fc"
+    },
+    {
+      "file": "scenery/lamaline/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.866242, -55.795115); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "101de97594c965674f769373ed9fd1ebcbda2c2d47188806c5e2b603cee8c9c7"
+    },
+    {
+      "file": "scenery/madeira-park/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "a86fbbf2ce319def2a6d710dece62c27673b7d5b51e790795b93701a42cbf6aa"
+    },
+    {
+      "file": "scenery/madeira-park/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 49.622709, -124.025382; retrieved 2026-11-22",
+      "sha256": "baf61f861271c7c2b0c5b66df3e705f48b452d85d1c5e29e7e14d6c0a37338c0"
+    },
+    {
+      "file": "scenery/madeira-park/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 49.622709, -124.025382); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "4048a3534757293b583db15011c16d90cfee088ef55d59223191042267e65b76"
+    },
+    {
+      "file": "scenery/marys-harbour/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "9851cd219953a0346274263bf5028d3de52937768c62cb131258959a81641b48"
+    },
+    {
+      "file": "scenery/marys-harbour/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 52.308204, -55.83382; retrieved 2026-11-22",
+      "sha256": "348bd75be40dd2f41ac5c266713f450efc87a679daf82670ce3d556926422b87"
+    },
+    {
+      "file": "scenery/marys-harbour/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 52.308204, -55.83382); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "98d715b7583f5865c174b6e5d792f6ea781f76ae9550ee148fee3e0f3528d034"
+    },
+    {
+      "file": "scenery/pointe-sapin/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "1271a0d4328746c3be5315d08346cf5eadebbb996b2fd4f2d71b75dc375a95c5"
+    },
+    {
+      "file": "scenery/pointe-sapin/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.961599, -64.831399; retrieved 2026-11-22",
+      "sha256": "d55e0edbb528dca7e78e1e5dfd5a4aa923f2610fe9355a25d95d935d8149f051"
+    },
+    {
+      "file": "scenery/pointe-sapin/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.961599, -64.831399); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "6c310f5964fb695fcfa26ed5187bed8352abd03f488e6a87823385d64449100e"
+    },
+    {
+      "file": "scenery/port-bickerton/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "bb73f4f44b2c1ae31fd20f1cb3638c00e91a9cb68d8c2d7a0adc96bfb9764b8c"
+    },
+    {
+      "file": "scenery/port-bickerton/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 45.105707, -61.72277; retrieved 2026-11-22",
+      "sha256": "df328de51b0bc88b5d1b4a7557a6842ec54719666a56c2f58725d2d9835fa642"
+    },
+    {
+      "file": "scenery/port-bickerton/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 45.105707, -61.72277); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "dbac231a16f478c954f22506c59e0c455b4efc151d903040aeaff705f69184e0"
+    },
+    {
+      "file": "scenery/portugal-cove-south/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "125f4f5cc64046fc1ece53cdb9589b3f22ac3bfe6b566a3d343b2ef72131ea23"
+    },
+    {
+      "file": "scenery/portugal-cove-south/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.704442, -53.26024; retrieved 2026-11-22",
+      "sha256": "b633972577c6226b75307667a05734d2c585a113dd6dc6299976abb1ff110a1c"
+    },
+    {
+      "file": "scenery/portugal-cove-south/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.704442, -53.26024); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "3893e6012adfcdb3fc0132b6121bc3316f636e41bad0d67051a14ce46b007173"
+    },
+    {
+      "file": "scenery/renews/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "38b81e4f7d4415e5c9818407332ff21fc1e272f2a0fa4f6800f6f0355dc4af4b"
+    },
+    {
+      "file": "scenery/renews/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.923128, -52.9333; retrieved 2026-11-22",
+      "sha256": "636326075972e25bfd52ffcc9ac6fea9f8b2f0f6a6472a266daa82926bf5111d"
+    },
+    {
+      "file": "scenery/renews/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.923128, -52.9333); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "5b0666ad38aee99c393cab758a3986c7d375f10d93f240c8224426766673b1a9"
+    },
+    {
+      "file": "scenery/sandy-cove/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "6f7d6a14733aef6fface9256ad40970b036115bd98d3684d47772ac4510e43ff"
+    },
+    {
+      "file": "scenery/sandy-cove/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 44.487575, -66.085992; retrieved 2026-11-22",
+      "sha256": "f5606f8262fce7646af0457478736588aa2a116d4c004a5de4fdbbfad9a9f780"
+    },
+    {
+      "file": "scenery/sandy-cove/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 9 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 44.487575, -66.085992); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "eceab40ccacd05b787fa3409aff7b06c72a0bf1ff6edb42ed8bf1a5477323fb6"
+    },
+    {
+      "file": "scenery/skinners-pond/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "13677fb6ae590d20310996a45c60912e6ab5695c4dc87e7289697e8464ea4fca"
+    },
+    {
+      "file": "scenery/skinners-pond/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 46.965415, -64.12552; retrieved 2026-11-22",
+      "sha256": "a0e8b37abd5643a14fa71f9eb75cd4566654de316b8b4fc4c2f0b5e97f011f75"
+    },
+    {
+      "file": "scenery/skinners-pond/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 46.965415, -64.12552); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "46c70fd03a981ef453cd1e920e341e14743cbc7715c4be56cf411f4f9c8e2620"
+    },
+    {
+      "file": "scenery/tofino/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "00d6772a8d0080019e8d939a2688a07fb1576d82691214238bcfbe3586bc9366"
+    },
+    {
+      "file": "scenery/tofino/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 49.153285, -125.900274; retrieved 2026-11-22",
+      "sha256": "d679de0e8d21cf330b9c6bdad82125ad1b93a050a65d1c96b7ca991f3a12ab25"
+    },
+    {
+      "file": "scenery/tofino/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 16 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 49.153285, -125.900274); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "9d43bb9c55c96a3ff629d01b63c29cf313d46b97fe4a4992e35d0bc0fcea98f7"
+    },
+    {
+      "file": "scenery/winterton/landcover.bin",
+      "source": "OpenStreetMap via Overpass API (landuse/natural areas) + OSM coastline",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Rasterised 256x256 uint8 land-cover classes",
+      "sha256": "d01d4f3e25571a9723c5f994c24dc8c2111f00ead65868d4134d00bae1ffa983"
+    },
+    {
+      "file": "scenery/winterton/scenery.json",
+      "source": "OpenStreetMap via Overpass API (buildings, piers, breakwaters, lighthouses, landmarks, lakes)",
+      "license": "© OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Features converted to local metres (x east, z south) around 47.956826, -53.330969; retrieved 2026-11-22",
+      "sha256": "95eec4b442f07125c7963ee5826ed4033c724570bdfd795f5a7847289da18d78"
+    },
+    {
+      "file": "scenery/winterton/terrain.bin",
+      "source": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png (z14, 12 tiles) + OpenStreetMap natural=coastline",
+      "license": "Terrain Tiles: Canada terrain data contains information licensed under the Open Government Licence – Canada (CDEM, NRCan); ETOPO1 (NOAA), GMTED2010/SRTM (USGS). Coastline © OpenStreetMap contributors, ODbL 1.0",
+      "processing": "Terrarium tiles mosaicked and resampled to a 513x513 grid (4000 m square, centred on 47.956826, -53.330969); water/land reclassified from OSM coastline (water <= -2 m, land >= +0.6 m, feathered); int16 LE decimetres",
+      "sha256": "eb9f6deca48de1a0f01cf5a936c0b3a7b0b14a61eecf54cace54593114fa3bae"
+    },
+    {
+      "file": "scenery/arnolds-cove/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "57ebf318f0c8c78da4b183aa9cc86e5322d788d854093995b208c101f248d050"
+    },
+    {
+      "file": "scenery/back-bay/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "c2829530bf5596c24ced06962ea0cc75084f2fb777f8ad777f43098bc5775b8e"
+    },
+    {
+      "file": "scenery/bay-bulls/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "ebfcc41c2ff727f7ad9673098e301f5638ac6fe6ac32edc827affbb452f50f73"
+    },
+    {
+      "file": "scenery/burin/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "faf47db48f171416bfb6e1936b08e881f5d63e9cb6dc2317a7729192a18421d1"
+    },
+    {
+      "file": "scenery/caribou/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "ea0c53bb57b18706a7360c123caca0f4e5d5074bab0a6d156247262944dc051b"
+    },
+    {
+      "file": "scenery/comox/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "2ca3925d8031dd5791ab25d9ca5583e521a6a979f0e3a93a5c197eb2b2b2b353"
+    },
+    {
+      "file": "scenery/daajing-giids/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "7ddbb85b6fff7a9702d17a7499696864629bc54733c62f540ac3f9e9b413aaae"
+    },
+    {
+      "file": "scenery/fogo/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "34c6593a901385f516e906ebcf199a86482c0b425c4728659a5812a711d6abd9"
+    },
+    {
+      "file": "scenery/forteau/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "515847f24e07de4b5a22abe9000ffccfdf32881ede43fd81b7700c6bc82ddd38"
+    },
+    {
+      "file": "scenery/fortune/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "136396f30127cf37a157788bb8d2e890236dc9094d790a7f4a93f8085d8f93d0"
+    },
+    {
+      "file": "scenery/grosse-ile/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "ea0d69bb6af228dba8d1b0eaef26f953fd03c82340678b229ab5578050401e8e"
+    },
+    {
+      "file": "scenery/gunning-cove/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "65729de4cbe2158569a37d6eeac76cf5373ab800cdbde6b7721c58a10c0b70fb"
+    },
+    {
+      "file": "scenery/inverness/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "ebabdd7d237eded27d859dde7f44f45f33c40054b2369662fb72ff9d82b817c5"
+    },
+    {
+      "file": "scenery/ladysmith/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "4cc02dd4055c1708bcf9b05b3a971a8d71674192406f4241c728cad63287a34a"
+    },
+    {
+      "file": "scenery/lamaline/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "47bdf911cb2fe0fdf8f93da650bea6ff23d3d5d61bfd08f577d3b21bebb4fb37"
+    },
+    {
+      "file": "scenery/madeira-park/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "1e6e1c2e600a4c3a4ea8f24162fd34ca03a6520a49004bd6e6b73cb9d066d86d"
+    },
+    {
+      "file": "scenery/marys-harbour/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "ac9e676ab5f75de797f5cef214a1033e5365233cdcba45a6fbda2786b81cf8ca"
+    },
+    {
+      "file": "scenery/pointe-sapin/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "c8c4761f12fee966c16370f749d48051f7aac548fa9e42927f501c5cde3d3d33"
+    },
+    {
+      "file": "scenery/port-bickerton/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "e9121a76e4b381969163016f0e950102d01a347f1a9c4f13070a11b9798563d9"
+    },
+    {
+      "file": "scenery/portugal-cove-south/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "0d0cc3c5a5bf6677e9f9972edd6e7ff1ca80c7a50b2e4dc24df6bc36d8cdea2a"
+    },
+    {
+      "file": "scenery/renews/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "949ced11e47f9a3e7c2aa96c259a42b33a939916fbd9df7c48c5f74e87232536"
+    },
+    {
+      "file": "scenery/sandy-cove/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "6d96ec1e86d04d8a5a38be4fc93bad34ccd9420e9b7367f16d08704c4fadcbdc"
+    },
+    {
+      "file": "scenery/skinners-pond/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "3e6db3eeb78dc83e9ed86e26e5d6893e58d3a25c7614af83746be30ea091c129"
+    },
+    {
+      "file": "scenery/tofino/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "a59671e654c9ba39a2672223c33dc4dfb575002ee23c40c7a292df87aec264e8"
+    },
+    {
+      "file": "scenery/winterton/streets.json",
+      "source": "OpenStreetMap via Overpass API (highways, amenity=fuel, amenity=parking, building=roof) for the scenery's square",
+      "license": "ODbL 1.0, © OpenStreetMap contributors",
+      "processing": "scripts/fetch-streets.mjs: projected to the scenery's local metres (same frame as scenery.json), clipped to the square, default widths by highway class; rendered by app/renderers/streets.ts with procedural cars, utility poles and gas-station canopies (illustrative)",
+      "sha256": "2ae5ac7cda1a46c2539de5791b839ec81493292673f2edfc0927012259249d8f"
     }
   ]
 }

@@ -9,6 +9,7 @@ import {
   type HailEvent,
 } from '../app/domain/simulation'
 import {
+  FEATURED,
   loadDemoProvider,
   snapshotAt,
   START_TIME,
@@ -48,6 +49,11 @@ test('hero vessels hold their scripted status and open the intended scenes', () 
   assert.equal(scene('nl-02'), 'narrows')
   assert.equal(scene('ns-01'), 'lunenburg')
   assert.equal(scene('bc-01'), 'johnstone')
+  // Every featured entry is pinned and opens its intended scene.
+  for (const f of FEATURED) {
+    assert.ok(f.id in HERO_PINS, `${f.id} is not pinned`)
+    assert.equal(scene(f.id), f.scene, `${f.id} (${f.place})`)
+  }
   assert.equal(scene('bc-02'), 'prince-rupert')
   assert.equal(boatFor(now.find((v) => v.id === 'nl-01')!).id, 'trawler')
   assert.equal(sceneryFor({ status: 'in-port', zone: 'offshore', progress: 0.5 }), 'harbour')
@@ -179,6 +185,22 @@ test('vessels open the scene for where they are', async () => {
   })
   assert.equal(off.config.terrainUrl, '/scenery/lunenburg/')
   assert.equal(off.config.kind, 'inshore')
+})
+
+test('the generated fleet stays near built scenes', async () => {
+  const { chooseScenery } = await import('../app/domain/scenery')
+  let total = 0
+  let stand = 0
+  for (const t of [START_TIME, START_TIME + 600, START_TIME + 1500]) {
+    for (const v of sim.snapshot(t)) {
+      total++
+      const { representative } = chooseScenery(v)
+      if (representative) stand++
+      // Boats in port, leaving or arriving always open a real harbour scene.
+      if (v.status === 'in-port') assert.equal(representative, false, `${v.id} at ${v.homePort}`)
+    }
+  }
+  assert.ok(stand / total < 0.01, `${stand} of ${total} vessel views use a stand-in scene`)
 })
 
 test('vessel profile: licences are stable and the hail history matches the feed', () => {

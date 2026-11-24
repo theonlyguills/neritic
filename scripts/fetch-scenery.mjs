@@ -108,10 +108,13 @@ const args = process.argv.slice(2)
 const flag = (name) => args.includes(name)
 // `--harbours`: also build every major harbour in public/data/harbours.json (berth at the
 // harbour point, entrance at its approach), skipping ones already defined above.
+// `--harbours --ids a,b,c`: build exactly those harbours instead, major or not.
 if (args.includes('--harbours')) {
   const { harbours } = JSON.parse(fs.readFileSync('public/data/harbours.json', 'utf8'))
+  const i = args.indexOf('--ids')
+  const wanted = i >= 0 ? new Set(args[i + 1].split(',')) : null
   for (const h of harbours) {
-    if (!h.major || SCENES[h.id]) continue
+    if (SCENES[h.id] || (wanted ? !wanted.has(h.id) : !h.major)) continue
     const pacific = h.coast === 'pacific'
     SCENES[h.id] = {
       name: `${h.name} Harbour`,
@@ -133,7 +136,9 @@ const option = (name) => {
   return i >= 0 ? args[i + 1] : undefined
 }
 const manifestPath = option('--manifest') ?? path.join(CACHE, 'manifest-scenery.json')
-const only = args.find((a, i) => !a.startsWith('--') && args[i - 1] !== '--manifest')
+const only = args.find(
+  (a, i) => !a.startsWith('--') && !['--manifest', '--ids'].includes(args[i - 1]),
+)
 if (only && !SCENES[only]) {
   console.error(`Unknown scene "${only}". Known: ${Object.keys(SCENES).join(', ')}`)
   process.exit(1)
@@ -1027,11 +1032,15 @@ function obstacleGrid(a, clearance) {
   return blocked
 }
 
-function findBerth(a, cfg, center) {
+// `relaxed`: a fallback for small outports whose mapped wharves are short or sit in shallow
+// grid cells: a 10 m face, 0.4 m of water and 12 m of room instead of 14 m / 0.8 m / 18 m.
+function findBerth(a, cfg, center, relaxed = false) {
   const near = projector(center).toLocal(cfg.berth.near.lon, cfg.berth.near.lat)
-  const boatLength = 14,
+  const boatLength = relaxed ? 10 : 14,
     halfBeam = 2.6,
-    offset = 4
+    offset = 4,
+    depth = relaxed ? -0.4 : -0.8,
+    minRoom = relaxed ? 12 : 18
   const obstacles = [...a.piers.map((p) => p.polygon), ...a.breakwaters.map((b) => b.polygon)]
   const hits = (x, z) => obstacles.some((poly) => pointInRing(x, z, poly))
   const candidates = []
@@ -1059,7 +1068,7 @@ function findBerth(a, cfg, center) {
           for (const v of [-halfBeam, 0, halfBeam]) {
             const x = bx + ux * u + nx * v,
               z = bz + uz * u + nz * v
-            if (a.classes.signedAt(x, z) > -0.8 || hits(x, z)) ok = false
+            if (a.classes.signedAt(x, z) > depth || hits(x, z)) ok = false
           }
         if (!ok) continue
         // Room to manoeuvre off the berth: open water further out along the normal.
@@ -1070,7 +1079,7 @@ function findBerth(a, cfg, center) {
           if (a.classes.signedAt(x, z) > -1 || hits(x, z)) break
           room = d
         }
-        if (room < 18) continue
+        if (room < minRoom) continue
         const distance = Math.hypot(bx - near[0], bz - near[1])
         candidates.push({
           x: bx,
@@ -1243,7 +1252,7 @@ async function build(id) {
   let a = analyse(id, cfg, osm, center)
   // Pass 1: put the hero position at the origin.
   if (cfg.type === 'harbour') {
-    const berth = findBerth(a, cfg, center)
+    const berth = findBerth(a, cfg, center) ?? findBerth(a, cfg, center, true)
     if (!berth) throw new Error(`${id}: no berth found`)
     center = projector(center).toGeo(berth.x, berth.z)
   } else if (cfg.recentre) {
@@ -1427,7 +1436,7 @@ async function build(id) {
   let arrival
   let berthFace
   if (cfg.type === 'harbour') {
-    const berth = findBerth(a, cfg, center)
+    const berth = findBerth(a, cfg, center) ?? findBerth(a, cfg, center, true)
     if (!berth) throw new Error(`${id}: berth lost after recentring`)
     boat.x = round1(berth.x)
     boat.z = round1(berth.z)
